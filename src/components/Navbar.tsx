@@ -75,7 +75,12 @@ export function Navbar() {
                         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform pointer-events-none">
                             <Link
                                 href="/"
-                                className="pointer-events-auto text-lg font-bold tracking-widest text-white uppercase"
+                                aria-label="Phantom Track home"
+                                className="pointer-events-auto whitespace-nowrap text-sm sm:text-base md:text-lg font-extrabold tracking-[0.08em] sm:tracking-[0.1em] text-white uppercase leading-none"
+                                style={{
+                                    fontFamily:
+                                        "'Syne', var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif",
+                                }}
                             >
                                 Phantom Track
                             </Link>

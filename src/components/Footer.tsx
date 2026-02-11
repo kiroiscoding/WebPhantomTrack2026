@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function Footer() {
   return (
@@ -7,8 +8,15 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="text-xl font-bold tracking-widest text-white uppercase block mb-4">
-              Phantom Track
+            <Link href="/" className="block mb-4" aria-label="Phantom Track home">
+              <Image
+                src="/logo_light.png"
+                alt="Phantom Track"
+                width={320}
+                height={36}
+                unoptimized
+                className="h-7 sm:h-8 w-auto object-contain"
+              />
             </Link>
             <p className="text-sm text-muted-foreground">
               The invisible edge for athletes who demand perfection.
