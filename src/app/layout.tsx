@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Phantom Track | The Invisible Edge",
   description: "Elevate your listening experience with Phantom Track.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
