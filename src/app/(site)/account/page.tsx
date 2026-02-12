@@ -2,7 +2,6 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { ArrowRight, LogOut, Mail, ShieldCheck, User } from "lucide-react";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
@@ -39,17 +38,21 @@ function itemsPreview(lineItems?: OrderLineItem[] | null) {
 
 export default function AccountPage() {
   const supabase = useMemo(() => createSupabaseBrowserClient(), []);
-  const searchParams = useSearchParams();
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(
-    searchParams.get("auth_error") || null
-  );
+  const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [emailLoading, setEmailLoading] = useState(false);
   const [orders, setOrders] = useState<OrderRow[]>([]);
   const [ordersLoading, setOrdersLoading] = useState(false);
+
+  // Surface any auth_error passed back from the callback route
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const authErr = params.get("auth_error");
+    if (authErr) setError(authErr);
+  }, []);
 
   useEffect(() => {
     let mounted = true;
