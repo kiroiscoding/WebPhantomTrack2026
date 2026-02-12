@@ -23,9 +23,9 @@ export function AdminLoginClient() {
       setLoading(true);
       setError(null);
       try {
-        const { data } = await supabase.auth.getUser();
+        const { data } = await supabase.auth.getSession();
         if (!mounted) return;
-        if (data.user) {
+        if (data.session?.user) {
           const status = await fetch("/api/admin/status", { cache: "no-store" }).then((r) => r.json());
           if (status?.isAdmin) {
             router.replace(next);
@@ -48,13 +48,17 @@ export function AdminLoginClient() {
   async function signInWithGoogle() {
     setError(null);
     setNotice(null);
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    });
-    if (error) setError(error.message);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+        },
+      });
+      if (error) setError(error.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to start Google sign-in");
+    }
   }
 
   async function signInWithEmailMagicLink(e: React.FormEvent) {
@@ -66,7 +70,7 @@ export function AdminLoginClient() {
     setEmailLoading(true);
     const { error } = await supabase.auth.signInWithOtp({
       email: clean,
-      options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
+      options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },
     });
     setEmailLoading(false);
     if (error) {

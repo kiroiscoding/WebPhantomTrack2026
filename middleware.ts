@@ -8,27 +8,32 @@ export async function middleware(request: NextRequest) {
   const isAdminHost = hostname === "admin" || hostname.startsWith("admin.");
 
   const nextUrl = request.nextUrl.clone();
+  const isAuthPath = nextUrl.pathname.startsWith("/auth");
 
   // If admin subdomain, rewrite to /admin/* routes.
-  if (isAdminHost) {
+  if (isAdminHost && !isAuthPath) {
     if (nextUrl.pathname === "/") {
       nextUrl.pathname = "/admin";
       nextUrl.searchParams.delete("next");
     } else if (
       !nextUrl.pathname.startsWith("/admin") &&
       !nextUrl.pathname.startsWith("/_next") &&
-      !nextUrl.pathname.startsWith("/api") &&
-      !nextUrl.pathname.startsWith("/auth")
+      !nextUrl.pathname.startsWith("/api")
     ) {
       nextUrl.pathname = `/admin${nextUrl.pathname}`;
     }
   }
 
-  const response = isAdminHost ? NextResponse.rewrite(nextUrl) : NextResponse.next({ request });
+  const response =
+    isAdminHost && !isAuthPath ? NextResponse.rewrite(nextUrl) : NextResponse.next({ request });
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!supabaseUrl || !anon) return response;
+
+  // Let the auth callback route handle exchanging the code for a session.
+  // Avoid any middleware auth calls on `/auth/*` that could surface "Auth session missing!".
+  if (isAuthPath) return response;
 
   const supabase = createServerClient(supabaseUrl, anon, {
     cookies: {
@@ -44,8 +49,13 @@ export async function middleware(request: NextRequest) {
   });
 
   // Refresh session if present (keeps cookies in sync).
-  const { data } = await supabase.auth.getUser();
-  const user = data.user;
+  let user: Awaited<ReturnType<typeof supabase.auth.getUser>>["data"]["user"] | null = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data.user ?? null;
+  } catch {
+    user = null;
+  }
 
   const path = (isAdminHost ? nextUrl.pathname : request.nextUrl.pathname) || "/";
   const isAdminPage = path === "/admin" || path.startsWith("/admin/");

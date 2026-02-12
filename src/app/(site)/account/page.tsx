@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { ArrowRight, LogOut, Mail, ShieldCheck, User } from "lucide-react";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
@@ -38,9 +39,12 @@ function itemsPreview(lineItems?: OrderLineItem[] | null) {
 
 export default function AccountPage() {
   const supabase = useMemo(() => createSupabaseBrowserClient(), []);
+  const searchParams = useSearchParams();
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(
+    searchParams.get("auth_error") || null
+  );
   const [notice, setNotice] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [emailLoading, setEmailLoading] = useState(false);
@@ -49,10 +53,11 @@ export default function AccountPage() {
 
   useEffect(() => {
     let mounted = true;
-    supabase.auth.getUser().then(({ data, error }) => {
+    supabase.auth.getSession().then(({ data, error }) => {
       if (!mounted) return;
-      if (error) setError(error.message);
-      setUser(data.user ?? null);
+      // "No session" is normal; don't surface as an error.
+      if (error && !/auth session missing/i.test(error.message)) setError(error.message);
+      setUser(data.session?.user ?? null);
       setLoading(false);
     });
 
@@ -99,13 +104,17 @@ export default function AccountPage() {
   async function signInWithGoogle() {
     setError(null);
     setNotice(null);
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    });
-    if (error) setError(error.message);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+      if (error) setError(error.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to start Google sign-in");
+    }
   }
 
   async function signInWithEmailMagicLink(e: React.FormEvent) {
