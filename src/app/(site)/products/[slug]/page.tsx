@@ -29,7 +29,7 @@ export default function ProductDetailPage() {
   const comingSoon = !product.purchasable;
 
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-10">
+    <div className="min-h-screen bg-[#b5b5b5] pt-24 md:pt-10">
       {/* Breadcrumb / Back */}
       <div className="px-6 lg:px-8 max-w-[1400px] mx-auto mb-8">
         <Link
@@ -85,14 +85,14 @@ export default function ProductDetailPage() {
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-[#050505] text-white rounded-[40px] p-8 md:p-12 shadow-2xl flex-1"
+                className="bg-[#050505] text-white rounded-[28px] md:rounded-[40px] p-6 md:p-12 shadow-2xl flex-1"
               >
                 {/* Header */}
                 <div className="mb-2">
                   <div className="text-primary font-mono text-sm tracking-wider uppercase mb-2">
                     {product.subtitle}
                   </div>
-                  <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+                  <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
                     {product.name}
                   </h1>
                 </div>
@@ -181,8 +181,8 @@ export default function ProductDetailPage() {
         <div className="mx-auto max-w-[1400px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Features List */}
-            <div className="bg-white p-12 rounded-[40px]">
-              <h3 className="text-3xl font-bold text-black mb-8">WHATS INSIDE.</h3>
+            <div className="bg-white p-6 md:p-12 rounded-[28px] md:rounded-[40px]">
+              <h3 className="text-2xl md:text-3xl font-bold text-black mb-6 md:mb-8">WHATS INSIDE.</h3>
               <div className="space-y-6">
                 {product.features.map((feature: string, i: number) => (
                   <div key={i} className="flex items-start gap-4">
@@ -196,8 +196,8 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Tech Specs */}
-            <div className="bg-[#1a1a1a] p-12 rounded-[40px] text-white">
-              <h3 className="text-3xl font-bold mb-8">TECH SPECS.</h3>
+            <div className="bg-[#1a1a1a] p-6 md:p-12 rounded-[28px] md:rounded-[40px] text-white">
+              <h3 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">TECH SPECS.</h3>
               <div className="space-y-0">
                 {product.specs.map((spec, i: number) => (
                   <div

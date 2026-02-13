@@ -51,7 +51,7 @@ export function Navbar() {
                     className="relative z-50 flex-none w-[550px] max-w-[calc(100%-2rem)] overflow-hidden rounded-[28px] bg-black/50 backdrop-blur-xl border border-white/10 shadow-2xl pointer-events-auto"
                     initial={false}
                     animate={{
-                        height: isOpen ? 520 : 56,
+                        height: isOpen ? "auto" : 56,
                     }}
                     transition={{
                         type: "spring",
@@ -118,7 +118,7 @@ export function Navbar() {
                                         hidden: {},
                                         show: { transition: { staggerChildren: 0.06, delayChildren: 0.04 } },
                                     }}
-                                    className="grid grid-cols-3 gap-3 border-t border-white/10 pt-6"
+                                    className="grid grid-cols-1 min-[400px]:grid-cols-3 gap-3 border-t border-white/10 pt-6"
                                 >
                                     {featuredProducts.map((p) => (
                                         <Link key={p.name} href={p.href} onClick={() => setIsOpen(false)}>

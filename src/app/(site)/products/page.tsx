@@ -25,7 +25,7 @@ export default function ProductsPage() {
             </p>
           </motion.div>
 
-          <div className="space-y-32 mb-32">
+          <div className="space-y-16 md:space-y-32 mb-16 md:mb-32">
             {/* Product 1: Tracker Combo */}
             <ProductSection
               title="TRACKER COMBO"
@@ -41,11 +41,11 @@ export default function ProductsPage() {
               hideCart={true}
               imagePlaceholder={
                 <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="w-64 h-80 bg-[#1a1a1a] rounded-[32px] border border-white/10 shadow-2xl relative z-10 flex flex-col items-center justify-center p-6">
+                  <div className="w-48 md:w-64 h-64 md:h-80 bg-[#1a1a1a] rounded-[32px] border border-white/10 shadow-2xl relative z-10 flex flex-col items-center justify-center p-6">
                     <div className="w-20 h-20 bg-primary/20 rounded-full blur-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                    <div className="w-32 h-48 bg-black rounded-2xl border border-white/5 relative z-20" />
+                    <div className="w-24 md:w-32 h-36 md:h-48 bg-black rounded-2xl border border-white/5 relative z-20" />
                   </div>
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-primary/10 to-transparent rounded-full blur-[100px]" />
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-gradient-to-tr from-primary/10 to-transparent rounded-full blur-[100px]" />
                 </div>
               }
               theme="dark"
@@ -66,9 +66,9 @@ export default function ProductsPage() {
               hideCart={true}
               imagePlaceholder={
                 <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="w-[300px] h-[400px] bg-[#e5e5e5] rounded-[40px] shadow-xl flex items-center justify-center relative z-10">
+                  <div className="w-[220px] md:w-[300px] h-[300px] md:h-[400px] bg-[#e5e5e5] rounded-[40px] shadow-xl flex items-center justify-center relative z-10">
                     {/* Abstract Vest Shape */}
-                    <div className="w-48 h-64 bg-[#d4d4d4] rounded-[20px] relative overflow-hidden">
+                    <div className="w-36 md:w-48 h-48 md:h-64 bg-[#d4d4d4] rounded-[20px] relative overflow-hidden">
                       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-12 bg-[#e5e5e5] rounded-b-full" />
                       <div className="absolute top-12 left-1/2 -translate-x-1/2 w-8 h-8 bg-black/10 rounded-sm" />
                     </div>
@@ -95,8 +95,8 @@ export default function ProductsPage() {
               imagePlaceholder={
                 <div className="relative w-full h-full flex items-center justify-center">
                   <div className="relative z-10 flex gap-4">
-                    <div className="w-48 h-64 bg-[#1a1a1a] rounded-2xl shadow-2xl rotate-[-6deg] translate-y-4" />
-                    <div className="w-48 h-64 bg-[#262626] rounded-2xl shadow-2xl rotate-[6deg] -translate-y-4" />
+                    <div className="w-32 md:w-48 h-48 md:h-64 bg-[#1a1a1a] rounded-2xl shadow-2xl rotate-[-6deg] translate-y-4" />
+                    <div className="w-32 md:w-48 h-48 md:h-64 bg-[#262626] rounded-2xl shadow-2xl rotate-[6deg] -translate-y-4" />
                   </div>
                 </div>
               }
@@ -143,11 +143,11 @@ function ProductSection({
     >
       {/* Content Side */}
       <div
-        className={`flex-1 p-8 md:p-16 flex flex-col justify-center relative z-10 ${
+        className={`flex-1 p-6 md:p-16 flex flex-col justify-center relative z-10 ${
           reversed ? "lg:order-2" : "lg:order-1"
         }`}
       >
-        <h2 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">{title}</h2>
+        <h2 className="text-3xl md:text-6xl font-bold mb-4 tracking-tight">{title}</h2>
         {price && <div className="text-2xl font-mono text-primary mb-8">{price}</div>}
         <p className={`text-lg md:text-xl ${subTextColor} mb-12 max-w-md leading-relaxed`}>{desc}</p>
         <div className="space-y-4 mb-12">
@@ -164,10 +164,10 @@ function ProductSection({
             </div>
           ))}
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-col min-[400px]:flex-row gap-3 md:gap-4">
           {!hideCart && (
             <button
-              className={`px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center gap-2 ${
+              className={`px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg transition-all flex items-center justify-center gap-2 ${
                 isDark ? "bg-white text-black hover:bg-gray-200" : "bg-black text-white hover:bg-gray-800"
               }`}
             >
@@ -178,7 +178,7 @@ function ProductSection({
           {link && (
             <Link
               href={link}
-              className={`px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center gap-2 border ${
+              className={`px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg transition-all flex items-center justify-center gap-2 border ${
                 isDark
                   ? "border-white/20 hover:bg-white/10 text-white"
                   : "border-black/20 hover:bg-black/5 text-black"

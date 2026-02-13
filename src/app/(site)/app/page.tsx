@@ -31,14 +31,14 @@ export default function AppPage() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="bg-[#050505] rounded-[40px] p-8 md:p-20 shadow-2xl relative overflow-hidden min-h-[600px] flex items-center justify-center"
+            className="bg-[#050505] rounded-[28px] md:rounded-[40px] p-4 md:p-20 shadow-2xl relative overflow-hidden min-h-[400px] md:min-h-[600px] flex items-center justify-center"
           >
             {/* Background Effects */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.1),transparent_70%)]" />
             <div className="absolute top-0 left-0 w-full h-full opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
 
             {/* Phone Trio Mockup */}
-            <div className="relative z-10 flex items-center justify-center gap-4 md:gap-12 transform scale-75 md:scale-100">
+            <div className="relative z-10 flex items-center justify-center gap-3 md:gap-12 transform scale-[0.6] min-[400px]:scale-75 md:scale-100">
               {/* Left Phone (Behind) */}
               <div className="hidden md:block w-[280px] h-[580px] rounded-[40px] border-[6px] border-[#222] shadow-2xl transform -rotate-12 translate-y-12 opacity-60">
                 <div className="relative w-full h-full bg-[#050505] rounded-[32px] overflow-hidden">
@@ -121,7 +121,7 @@ export default function AppPage() {
 
       {/* Download CTA */}
       <section className="px-6 lg:px-8 mt-32 mb-32">
-        <div className="mx-auto max-w-[1400px] bg-[#050505] rounded-[40px] p-12 md:p-24 text-center relative overflow-hidden">
+        <div className="mx-auto max-w-[1400px] bg-[#050505] rounded-[28px] md:rounded-[40px] p-8 md:p-24 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.2),transparent_70%)]" />
           <div className="relative z-10 flex flex-col items-center">
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight">

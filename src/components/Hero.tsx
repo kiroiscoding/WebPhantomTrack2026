@@ -40,13 +40,13 @@ export function Hero() {
     }, []);
 
     return (
-        <section ref={containerRef} className="relative min-h-screen w-full flex flex-col font-sans overflow-visible z-20 bg-[#b5b5b5] pt-48 mb-[-100px]">
+        <section ref={containerRef} className="relative min-h-screen w-full flex flex-col font-sans overflow-visible z-20 bg-[#b5b5b5] pt-28 md:pt-48 mb-[-100px]">
 
             {/* Top Half Content */}
             <div className="flex-1 relative flex flex-col justify-end pb-27 w-full z-10">
 
                 {/* Defined Faint Purple Circle - Moved Down */}
-                <div className="absolute top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] rounded-full bg-[#af9db3]/20 pointer-events-none" />
+                <div className="absolute top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[650px] h-[350px] md:h-[650px] rounded-full bg-[#af9db3]/20 pointer-events-none" />
 
                 <div className="w-full relative z-10 px-4 flex flex-col items-center">
                     {/* Main Headline - Single Line */}
@@ -59,8 +59,8 @@ export function Hero() {
                         </h1>
 
                         {/* Subtext positioned relative to the headline */}
-                        <div className="absolute -bottom-12 right-0 hidden md:block text-right">
-                            <p className="text-lg xl:text-xl text-black/60 font-medium leading-tight">
+                        <div className="mt-4 md:mt-0 md:absolute md:-bottom-12 md:right-0 text-center md:text-right">
+                            <p className="text-base md:text-lg xl:text-xl text-black/60 font-medium leading-tight">
                                 Elevate your training experience,<br />
                                 bringing data to life.
                             </p>
@@ -72,7 +72,7 @@ export function Hero() {
             {/* Bottom Floating Box (Card Style) - Higher Z-Index to cover circle */}
             <div className="w-full px-4 md:px-8 pb-8 relative z-20">
                 <div className="mx-auto w-full max-w-[1400px] bg-[#050505] rounded-[40px] min-h-[60vh] relative flex items-center shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)] overflow-hidden">
-                    <div className="w-full px-8 py-12 md:py-0 grid grid-cols-1 md:grid-cols-12 gap-8 items-center h-full">
+                    <div className="w-full px-5 md:px-8 py-8 md:py-0 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center h-full">
 
                         {/* Left Review - Spans 4 cols */}
                         <div className="hidden md:flex flex-col gap-4 md:col-span-4 pl-0 pr-12 -mt-40 items-end text-right">
@@ -114,8 +114,8 @@ export function Hero() {
                         </div>
 
                         {/* Right Dashboard Bento Grid - Spans 8 cols */}
-                        <div className="col-span-1 md:col-span-8 h-full flex flex-col justify-center md:pl-125">
-                            <div className="grid grid-cols-2 gap-4 w-full max-w-2xl ml-auto">
+                        <div className="col-span-1 md:col-span-8 h-full flex flex-col justify-center md:pl-12 lg:pl-24 xl:pl-32">
+                            <div className="grid grid-cols-2 gap-3 md:gap-4 w-full max-w-2xl mx-auto md:ml-auto">
 
                                 {/* Pro-Grade Dynamics */}
                                 <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col justify-between group hover:border-primary/30 transition-colors">
@@ -178,8 +178,41 @@ export function Hero() {
 
                             </div>
 
+                            {/* Mobile Review */}
+                            <div className="flex md:hidden flex-col items-center gap-3 mt-6 px-2">
+                                <div className="flex gap-1">
+                                    {[1, 2, 3, 4, 5].map(i => (
+                                        <Star key={i} className="w-3.5 h-3.5 fill-primary text-primary" />
+                                    ))}
+                                </div>
+                                <div className="h-16 relative w-full flex justify-center">
+                                    <AnimatePresence mode="wait">
+                                        <motion.p
+                                            key={activeReview}
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="text-sm text-white/80 font-medium leading-relaxed text-center absolute"
+                                        >
+                                            &quot;{reviews[activeReview].text}&quot;
+                                        </motion.p>
+                                    </AnimatePresence>
+                                </div>
+                                <div className="flex gap-2">
+                                    {reviews.map((_, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => setActiveReview(index)}
+                                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeReview === index ? "bg-primary w-5" : "bg-white/20 hover:bg-white/40"}`}
+                                            aria-label={`Go to review ${index + 1}`}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+
                             {/* Live Data Ticker - Seamless Loop */}
-                            <div className="mt-6 w-full max-w-2xl ml-auto border-t border-white/10 pt-4 overflow-hidden relative mask-linear-gradient">
+                            <div className="mt-4 md:mt-6 w-full max-w-2xl mx-auto md:ml-auto border-t border-white/10 pt-4 overflow-hidden relative mask-linear-gradient">
                                 <div className="flex whitespace-nowrap text-[10px] font-mono text-primary/60 tracking-widest min-w-max">
                                     <motion.div
                                         animate={{ x: ["0%", "-25%"] }}
@@ -233,7 +266,7 @@ export function Hero() {
             {/* Center Image (Overlapping Both) - Highest Z to sit on top of everything */}
             <motion.div
                 style={{ scale }}
-                className="absolute left-1/2 top-[65%] -translate-x-1/2 -translate-y-1/2 w-[320px] md:w-[500px] aspect-square z-30"
+                className="absolute left-1/2 top-[62%] md:top-[65%] -translate-x-1/2 -translate-y-1/2 w-[200px] min-[400px]:w-[260px] md:w-[500px] aspect-square z-30"
             >
                 <div className="w-full h-full rounded-[60px] bg-[#111] border border-white/10 shadow-2xl shadow-black/80 flex items-center justify-center relative overflow-hidden group">
                     {/* Placeholder for the actual device */}

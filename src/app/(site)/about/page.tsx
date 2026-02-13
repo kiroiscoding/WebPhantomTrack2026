@@ -29,13 +29,13 @@ export default function AboutPage() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="bg-[#050505] rounded-[40px] p-8 md:p-24 shadow-2xl relative overflow-hidden"
+            className="bg-[#050505] rounded-[28px] md:rounded-[40px] p-6 md:p-24 shadow-2xl relative overflow-hidden"
           >
             {/* Background Effects */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,rgba(168,85,247,0.1),transparent_70%)]" />
 
             <div className="relative z-10 max-w-4xl">
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">
+              <h2 className="text-2xl md:text-5xl font-bold text-white mb-6 md:mb-8 leading-tight">
                 We believe the loudest statement is made without words.
               </h2>
               <div className="space-y-6 text-lg md:text-xl text-white/60 leading-relaxed">
@@ -89,10 +89,10 @@ export default function AboutPage() {
 
       {/* Team / Culture */}
       <section className="px-6 lg:px-8 mb-20">
-        <div className="mx-auto max-w-[1400px] bg-[#050505] rounded-[40px] p-12 md:p-24 relative overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="mx-auto max-w-[1400px] bg-[#050505] rounded-[28px] md:rounded-[40px] p-8 md:p-24 relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
             <div>
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight">
+              <h2 className="text-3xl md:text-6xl font-bold text-white mb-6 md:mb-8 tracking-tight">
                 BUILT ON THE PITCH.
               </h2>
               <p className="text-white/60 text-lg mb-8">
@@ -106,22 +106,22 @@ export default function AboutPage() {
             </div>
 
             {/* Abstract Team Visual */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="aspect-square bg-white/5 rounded-3xl border border-white/10 flex flex-col items-center justify-center p-6 text-center">
-                <span className="text-4xl font-bold text-white mb-2">ENG.</span>
-                <span className="text-white/30 text-sm">Hardware & Code</span>
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
+              <div className="aspect-square bg-white/5 rounded-2xl md:rounded-3xl border border-white/10 flex flex-col items-center justify-center p-4 md:p-6 text-center">
+                <span className="text-2xl md:text-4xl font-bold text-white mb-2">ENG.</span>
+                <span className="text-white/30 text-xs md:text-sm">Hardware & Code</span>
               </div>
-              <div className="aspect-square bg-white/10 rounded-3xl border border-white/10 flex flex-col items-center justify-center p-6 text-center translate-y-8">
-                <span className="text-4xl font-bold text-white mb-2">11</span>
-                <span className="text-white/30 text-sm">Jersey Number</span>
+              <div className="aspect-square bg-white/10 rounded-2xl md:rounded-3xl border border-white/10 flex flex-col items-center justify-center p-4 md:p-6 text-center lg:translate-y-8">
+                <span className="text-2xl md:text-4xl font-bold text-white mb-2">11</span>
+                <span className="text-white/30 text-xs md:text-sm">Jersey Number</span>
               </div>
-              <div className="aspect-square bg-white/10 rounded-3xl border border-white/10 flex flex-col items-center justify-center p-6 text-center -translate-y-8">
-                <span className="text-4xl font-bold text-white mb-2">07</span>
-                <span className="text-white/30 text-sm">Jersey Number</span>
+              <div className="aspect-square bg-white/10 rounded-2xl md:rounded-3xl border border-white/10 flex flex-col items-center justify-center p-4 md:p-6 text-center lg:-translate-y-8">
+                <span className="text-2xl md:text-4xl font-bold text-white mb-2">07</span>
+                <span className="text-white/30 text-xs md:text-sm">Jersey Number</span>
               </div>
-              <div className="aspect-square bg-white/5 rounded-3xl border border-white/10 flex flex-col items-center justify-center p-6 text-center">
-                <span className="text-4xl font-bold text-white mb-2">FWD.</span>
-                <span className="text-white/30 text-sm">Position</span>
+              <div className="aspect-square bg-white/5 rounded-2xl md:rounded-3xl border border-white/10 flex flex-col items-center justify-center p-4 md:p-6 text-center">
+                <span className="text-2xl md:text-4xl font-bold text-white mb-2">FWD.</span>
+                <span className="text-white/30 text-xs md:text-sm">Position</span>
               </div>
             </div>
           </div>

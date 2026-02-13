@@ -112,7 +112,7 @@ export default function SupportPage() {
           </div>
 
           {/* Contact CTA */}
-          <div className="bg-[#050505] rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden mb-32">
+          <div className="bg-[#050505] rounded-[28px] md:rounded-[40px] p-8 md:p-20 text-center relative overflow-hidden mb-16 md:mb-32">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.2),transparent_70%)]" />
             <div className="relative z-10 flex flex-col items-center">
               <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-8">
