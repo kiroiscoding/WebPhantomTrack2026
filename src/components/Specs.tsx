@@ -11,7 +11,7 @@ const APP_PREVIEW_MAX_WIDTH_PX = 400;
 
 export function Specs() {
     return (
-        <section id="technology" className="relative min-h-screen w-full bg-[#b5b5b5] flex items-center py-20 pt-32 overflow-visible z-10">
+        <section id="technology" className="relative min-h-screen w-full bg-[#b5b5b5] flex items-center py-20 pt-32 overflow-visible z-10 rounded-t-[40px] -mt-10">
 
             {/* Background Decorative Elements */}
             <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">

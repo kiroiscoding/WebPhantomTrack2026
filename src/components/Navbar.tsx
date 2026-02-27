@@ -20,7 +20,6 @@ export function Navbar() {
     const featuredProducts = [
         { name: "Tracker Combo", href: "/products/tracker-combo" },
         { name: "Phantom Vest", href: "/products/phantom-vest" },
-        { name: "Apparel (Coming soon)", href: "/products/apparel" },
     ];
 
     return (
@@ -118,7 +117,7 @@ export function Navbar() {
                                         hidden: {},
                                         show: { transition: { staggerChildren: 0.06, delayChildren: 0.04 } },
                                     }}
-                                    className="grid grid-cols-1 min-[400px]:grid-cols-3 gap-3 border-t border-white/10 pt-6"
+                                    className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-3 border-t border-white/10 pt-6"
                                 >
                                     {featuredProducts.map((p) => (
                                         <Link key={p.name} href={p.href} onClick={() => setIsOpen(false)}>

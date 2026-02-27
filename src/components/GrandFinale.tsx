@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+
+const FINALE_PRODUCT_IMAGE = "/websiteBottomNEWEST.png";
 
 export function GrandFinale() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -30,22 +33,18 @@ export function GrandFinale() {
 
             <div className="relative z-10 flex flex-col items-center text-center px-6">
 
-                {/* The Monolith - Product Reveal */}
+                {/* Product Image */}
                 <motion.div
                     style={{ scale, opacity }}
-                    className="mb-12 relative w-[300px] md:w-[500px] aspect-square"
+                    className="mb-6 mt-8 relative w-[280px] md:w-[420px] lg:w-[500px] aspect-[2/3]"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-20" />
-                    <div className="w-full h-full bg-[#111] rounded-[60px] border border-white/5 shadow-2xl flex items-center justify-center relative overflow-hidden group">
-                        {/* Device Texture */}
-                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-30" />
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-black/90" />
-
-                        {/* Center "Eye" */}
-                        <div className="relative w-32 h-32 rounded-full bg-black border border-white/10 flex items-center justify-center shadow-[0_0_50px_rgba(168,85,247,0.2)]">
-                            <div className="w-2 h-2 bg-primary rounded-full animate-pulse shadow-[0_0_20px_#a855f7]" />
-                        </div>
-                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-20 pointer-events-none" />
+                    <Image
+                        src={FINALE_PRODUCT_IMAGE}
+                        alt="Phantom Track device"
+                        fill
+                        className="object-contain"
+                    />
                 </motion.div>
 
                 {/* Typography */}

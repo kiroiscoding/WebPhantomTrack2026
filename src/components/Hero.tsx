@@ -1,22 +1,26 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Star, Activity, MapPin, Ghost, Infinity as InfinityIcon } from "lucide-react";
+import { Star, ChevronDown, ArrowRight } from "lucide-react";
+
+const HERO_BG_IMAGE = "/images/hero-bg.jpg";
 
 const reviews = [
     {
         id: 1,
-        text: "completely changed how I see the game. I stopped guessing and started seeing the pitch like a pro scout."
+        text: "completely changed how I see the game. I stopped guessing and started seeing the pitch like a pro scout.",
     },
     {
         id: 2,
-        text: "The accuracy is unreal. Every sprint, every turn is captured with precision I haven't seen before."
+        text: "The accuracy is unreal. Every sprint, every turn is captured with precision I haven't seen before.",
     },
     {
         id: 3,
-        text: "Battery life that actually lasts through double sessions. Finally, tech that keeps up with the schedule."
-    }
+        text: "Battery life that actually lasts through double sessions. Finally, tech that keeps up with the schedule.",
+    },
 ];
 
 export function Hero() {
@@ -28,10 +32,10 @@ export function Hero() {
         offset: ["start start", "end start"],
     });
 
-    const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-    const textY = useTransform(scrollYProgress, [0, 1], [0, 50]);
+    const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+    const contentY = useTransform(scrollYProgress, [0, 0.5], [0, 80]);
 
-    // Auto-rotate reviews
     useEffect(() => {
         const timer = setInterval(() => {
             setActiveReview((prev) => (prev + 1) % reviews.length);
@@ -40,251 +44,130 @@ export function Hero() {
     }, []);
 
     return (
-        <section ref={containerRef} className="relative min-h-screen w-full flex flex-col font-sans overflow-visible z-20 bg-[#b5b5b5] pt-28 md:pt-48 mb-[-100px]">
-
-            {/* Top Half Content */}
-            <div className="flex-1 relative flex flex-col justify-end pb-27 w-full z-10">
-
-                {/* Defined Faint Purple Circle - Moved Down */}
-                <div className="absolute top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[650px] h-[350px] md:h-[650px] rounded-full bg-[#af9db3]/20 pointer-events-none" />
-
-                <div className="w-full relative z-10 px-4 flex flex-col items-center">
-                    {/* Main Headline - Single Line */}
-                    <motion.div
-                        style={{ y: textY }}
-                        className="w-full max-w-[95vw] mx-auto text-center relative"
-                    >
-                        <h1 className="text-[13vw] xl:text-[16vw] leading-[0.8] font-bold tracking-tighter text-[#e5e5e5] whitespace-nowrap w-full mix-blend-difference">
-                            DATA DRIVEN<span className="text-[#a855f7]">.</span>
-                        </h1>
-
-                        {/* Subtext positioned relative to the headline */}
-                        <div className="mt-4 md:mt-0 md:absolute md:-bottom-12 md:right-0 text-center md:text-right">
-                            <p className="text-base md:text-lg xl:text-xl text-black/60 font-medium leading-tight">
-                                Elevate your training experience,<br />
-                                bringing data to life.
-                            </p>
-                        </div>
-                    </motion.div>
-                </div>
-            </div>
-
-            {/* Bottom Floating Box (Card Style) - Higher Z-Index to cover circle */}
-            <div className="w-full px-4 md:px-8 pb-8 relative z-20">
-                <div className="mx-auto w-full max-w-[1400px] bg-[#050505] rounded-[40px] min-h-[60vh] relative flex items-center shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)] overflow-hidden">
-                    <div className="w-full px-5 md:px-8 py-8 md:py-0 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center h-full">
-
-                        {/* Left Review - Spans 4 cols */}
-                        <div className="hidden md:flex flex-col gap-4 md:col-span-4 pl-0 pr-12 -mt-40 items-end text-right">
-                            <div className="flex gap-1">
-                                {[1, 2, 3, 4, 5].map(i => (
-                                    <Star key={i} className="w-4.5 h-4.5 fill-primary text-primary" />
-                                ))}
-                            </div>
-
-                            <div className="h-24 relative w-full flex justify-end">
-                                <AnimatePresence mode="wait">
-                                    <motion.p
-                                        key={activeReview}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="text-lg text-white/80 font-medium leading-relaxed max-w-sm absolute right-0"
-                                    >
-                                        &quot;{reviews[activeReview].text}&quot;
-                                    </motion.p>
-                                </AnimatePresence>
-                            </div>
-
-                            {/* Review Dots */}
-                            <div className="flex gap-2 mt-2">
-                                {reviews.map((_, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => setActiveReview(index)}
-                                        className={`w-2 h-2 rounded-full transition-all duration-300 ${activeReview === index
-                                            ? "bg-primary w-6"
-                                            : "bg-white/20 hover:bg-white/40"
-                                            }`}
-                                        aria-label={`Go to review ${index + 1}`}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Right Dashboard Bento Grid - Spans 8 cols */}
-                        <div className="col-span-1 md:col-span-8 h-full flex flex-col justify-center md:pl-12 lg:pl-24 xl:pl-32">
-                            <div className="grid grid-cols-2 gap-3 md:gap-4 w-full max-w-2xl mx-auto md:ml-auto">
-
-                                {/* Pro-Grade Dynamics */}
-                                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col justify-between group hover:border-primary/30 transition-colors">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <Activity className="w-6 h-6 text-primary" />
-                                        <div className="flex gap-1">
-                                            <div className="w-1 h-3 bg-white/20 rounded-full" />
-                                            <div className="w-1 h-4 bg-primary rounded-full" />
-                                            <div className="w-1 h-2 bg-white/20 rounded-full" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-white font-semibold mb-1">Pro-Grade Dynamics</h3>
-                                        <p className="text-xs text-white/50 font-mono">1000Hz SAMPLING</p>
-                                    </div>
-                                </div>
-
-                                {/* Positional Intelligence */}
-                                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col justify-between group hover:border-primary/30 transition-colors">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <MapPin className="w-6 h-6 text-primary" />
-                                        <div className="text-[10px] font-mono text-white/30 border border-white/10 px-2 py-1 rounded flex flex-col leading-tight">
-                                            <span>X: 42.1</span>
-                                            <span>Y: 18.9</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-white font-semibold mb-1">Positional Intel</h3>
-                                        <p className="text-xs text-white/50 font-mono">SUB-METER GNSS</p>
-                                    </div>
-                                </div>
-
-                                {/* Invisible Footprint */}
-                                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col justify-between group hover:border-primary/30 transition-colors">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <Ghost className="w-6 h-6 text-primary" />
-                                        <div className="w-8 h-8 rounded-full border border-dashed border-white/20 flex items-center justify-center">
-                                            <div className="w-2 h-2 bg-white/10 rounded-full" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-white font-semibold mb-1">Invisible Footprint</h3>
-                                        <p className="text-xs text-white/50 font-mono">12g • IP67 RATED</p>
-                                    </div>
-                                </div>
-
-                                {/* Unlimited Sessions */}
-                                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col justify-between group hover:border-primary/30 transition-colors">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <InfinityIcon className="w-6 h-6 text-primary" />
-                                        <div className="w-12 h-1 bg-white/10 rounded-full overflow-hidden">
-                                            <div className="w-3/4 h-full bg-primary" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-white font-semibold mb-1">Unlimited Sessions</h3>
-                                        <p className="text-xs text-white/50 font-mono">40HR BATTERY</p>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            {/* Mobile Review */}
-                            <div className="flex md:hidden flex-col items-center gap-3 mt-6 px-2">
-                                <div className="flex gap-1">
-                                    {[1, 2, 3, 4, 5].map(i => (
-                                        <Star key={i} className="w-3.5 h-3.5 fill-primary text-primary" />
-                                    ))}
-                                </div>
-                                <div className="h-16 relative w-full flex justify-center">
-                                    <AnimatePresence mode="wait">
-                                        <motion.p
-                                            key={activeReview}
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -10 }}
-                                            transition={{ duration: 0.3 }}
-                                            className="text-sm text-white/80 font-medium leading-relaxed text-center absolute"
-                                        >
-                                            &quot;{reviews[activeReview].text}&quot;
-                                        </motion.p>
-                                    </AnimatePresence>
-                                </div>
-                                <div className="flex gap-2">
-                                    {reviews.map((_, index) => (
-                                        <button
-                                            key={index}
-                                            onClick={() => setActiveReview(index)}
-                                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeReview === index ? "bg-primary w-5" : "bg-white/20 hover:bg-white/40"}`}
-                                            aria-label={`Go to review ${index + 1}`}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Live Data Ticker - Seamless Loop */}
-                            <div className="mt-4 md:mt-6 w-full max-w-2xl mx-auto md:ml-auto border-t border-white/10 pt-4 overflow-hidden relative mask-linear-gradient">
-                                <div className="flex whitespace-nowrap text-[10px] font-mono text-primary/60 tracking-widest min-w-max">
-                                    <motion.div
-                                        animate={{ x: ["0%", "-25%"] }}
-                                        transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
-                                        className="flex gap-8 pr-8"
-                                    >
-                                        {/* Set 1 */}
-                                        <span>GNSS_SYNC... OK</span>
-                                        <span>IMU_HZ: 1000... ACTIVE</span>
-                                        <span>CALIBRATING_HEATMAP... DONE</span>
-                                        <span>BATTERY_OPT... 98%</span>
-                                        <span>BLE_CONN... STABLE</span>
-                                        <span>SESSION_ID... #88291</span>
-
-                                        {/* Set 2 */}
-                                        <span>GNSS_SYNC... OK</span>
-                                        <span>IMU_HZ: 1000... ACTIVE</span>
-                                        <span>CALIBRATING_HEATMAP... DONE</span>
-                                        <span>BATTERY_OPT... 98%</span>
-                                        <span>BLE_CONN... STABLE</span>
-                                        <span>SESSION_ID... #88291</span>
-
-                                        {/* Set 3 */}
-                                        <span>GNSS_SYNC... OK</span>
-                                        <span>IMU_HZ: 1000... ACTIVE</span>
-                                        <span>CALIBRATING_HEATMAP... DONE</span>
-                                        <span>BATTERY_OPT... 98%</span>
-                                        <span>BLE_CONN... STABLE</span>
-                                        <span>SESSION_ID... #88291</span>
-
-                                        {/* Set 4 */}
-                                        <span>GNSS_SYNC... OK</span>
-                                        <span>IMU_HZ: 1000... ACTIVE</span>
-                                        <span>CALIBRATING_HEATMAP... DONE</span>
-                                        <span>BATTERY_OPT... 98%</span>
-                                        <span>BLE_CONN... STABLE</span>
-                                        <span>SESSION_ID... #88291</span>
-                                    </motion.div>
-                                </div>
-                                <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#050505] to-transparent z-10" />
-                                <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#050505] to-transparent z-10" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Gradient Bridge - Smooth Transition */}
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-transparent to-[#050505]/0 pointer-events-none z-10" />
-
-            {/* Center Image (Overlapping Both) - Highest Z to sit on top of everything */}
-            <motion.div
-                style={{ scale }}
-                className="absolute left-1/2 top-[62%] md:top-[65%] -translate-x-1/2 -translate-y-1/2 w-[200px] min-[400px]:w-[260px] md:w-[500px] aspect-square z-30"
-            >
-                <div className="w-full h-full rounded-[60px] bg-[#111] border border-white/10 shadow-2xl shadow-black/80 flex items-center justify-center relative overflow-hidden group">
-                    {/* Placeholder for the actual device */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-black/90" />
-
-                    {/* Product Texture / Detail */}
-                    <div className="relative z-10 flex flex-col items-center gap-4">
-                        <span className="text-white/30 font-mono text-xl tracking-[0.2em] group-hover:text-primary/70 transition-colors duration-500">
-                            PHANTOM
-                        </span>
-                        <div className="w-20 h-1 bg-primary/50 rounded-full blur-[2px]" />
-                    </div>
-
-                    {/* Glowing Ring Effect */}
-                    <div className="absolute w-[65%] h-[65%] rounded-full border border-white/5 bg-white/5 blur-md" />
-                    <div className="absolute w-[35%] h-[35%] rounded-full bg-[#050505] border border-white/10 shadow-inner" />
-                </div>
+        <section
+            ref={containerRef}
+            className="relative h-screen w-full overflow-hidden bg-black"
+        >
+            {/* Background Image with Parallax */}
+            <motion.div style={{ y: bgY }} className="absolute inset-0 -top-[10%] -bottom-[10%]">
+                <Image
+                    src={HERO_BG_IMAGE}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    priority
+                    quality={90}
+                />
             </motion.div>
+
+            {/* Buy Now CTA — top right */}
+            <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1 }}
+                className="absolute top-6 md:top-8 right-6 md:right-10 z-20"
+            >
+                <Link
+                    href="/products/tracker-combo"
+                    className="group flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-full text-sm font-bold tracking-wide hover:bg-primary hover:text-white transition-colors"
+                >
+                    Buy Now
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+            </motion.div>
+
+            {/* Dark Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/90 pointer-events-none" />
+
+            {/* Content */}
+            <motion.div
+                style={{ opacity: contentOpacity, y: contentY }}
+                className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center"
+            >
+                {/* Tagline */}
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="text-xs md:text-sm font-mono tracking-[0.3em] text-primary uppercase mb-6"
+                >
+                    Phantom Track
+                </motion.p>
+
+                {/* Headline */}
+                <motion.h1
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.4 }}
+                    className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white leading-[0.85]"
+                >
+                    DATA DRIVEN<span className="text-primary">.</span>
+                </motion.h1>
+
+                {/* Subtitle */}
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.7 }}
+                    className="mt-6 text-base md:text-lg text-white/50 font-medium max-w-md"
+                >
+                    Elevate your training experience, bringing data to life.
+                </motion.p>
+
+                {/* Scroll Indicator */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 1.2 }}
+                    className="mt-12"
+                >
+                    <motion.div
+                        animate={{ y: [0, 8, 0] }}
+                        transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                    >
+                        <ChevronDown className="w-5 h-5 text-white/30" />
+                    </motion.div>
+                </motion.div>
+            </motion.div>
+
+            {/* Review Strip — pinned to bottom */}
+            <div className="absolute bottom-8 md:bottom-12 left-0 right-0 z-20 flex flex-col items-center gap-3 px-6">
+                <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                        <Star key={i} className="w-3 h-3 md:w-3.5 md:h-3.5 fill-primary text-primary" />
+                    ))}
+                </div>
+
+                <div className="h-12 md:h-14 relative w-full max-w-md flex justify-center">
+                    <AnimatePresence mode="wait">
+                        <motion.p
+                            key={activeReview}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3 }}
+                            className="text-xs md:text-sm text-white/60 font-medium leading-relaxed text-center absolute"
+                        >
+                            &quot;{reviews[activeReview].text}&quot;
+                        </motion.p>
+                    </AnimatePresence>
+                </div>
+
+                <div className="flex gap-2">
+                    {reviews.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => setActiveReview(index)}
+                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                                activeReview === index
+                                    ? "bg-primary w-5"
+                                    : "bg-white/20 hover:bg-white/40"
+                            }`}
+                            aria-label={`Go to review ${index + 1}`}
+                        />
+                    ))}
+                </div>
+            </div>
 
         </section>
     );
