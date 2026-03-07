@@ -20,7 +20,7 @@ export default function SupportPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-32">
+    <div className="min-h-screen bg-[#050505] pt-32">
       {/* Hero Section */}
       <section className="px-6 lg:px-8 mb-20">
         <div className="mx-auto max-w-[1400px]">
@@ -29,24 +29,24 @@ export default function SupportPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-16"
           >
-            <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-[#050505] mb-8">
+            <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-white mb-8">
               SUPPORT<span className="text-primary">.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-[#050505]/70 max-w-2xl mx-auto font-medium mb-12">
+            <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-medium mb-12">
               Operational assistance. Manuals. Direct engineering contact.
             </p>
 
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto relative">
               <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                <Search className="w-6 h-6 text-black/40" />
+                <Search className="w-6 h-6 text-white/40" />
               </div>
               <input
                 type="text"
                 placeholder="Search for answers..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white/50 backdrop-blur-sm border border-black/5 rounded-full py-4 pl-14 pr-6 text-lg text-black placeholder:text-black/40 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all shadow-lg"
+                className="w-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-full py-4 pl-14 pr-6 text-lg text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all shadow-lg"
               />
             </div>
           </motion.div>
@@ -82,12 +82,12 @@ export default function SupportPage() {
           {/* FAQ Section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-32">
             <div className="lg:col-span-4">
-              <h2 className="text-4xl font-bold text-[#050505] mb-6">
+              <h2 className="text-4xl font-bold text-white mb-6">
                 FREQUENTLY
                 <br />
                 ASKED.
               </h2>
-              <p className="text-[#050505]/70 text-lg">
+              <p className="text-white/70 text-lg">
                 Common queries from the Phantom Track community.
               </p>
             </div>
@@ -152,13 +152,13 @@ function CategoryCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
-      className="group bg-[#e5e5e5] hover:bg-white p-8 rounded-[32px] transition-colors duration-300 cursor-pointer"
+      className="group bg-[#111111] hover:bg-[#161616] border border-white/10 p-8 rounded-[32px] transition-colors duration-300 cursor-pointer"
     >
-      <div className="w-12 h-12 bg-black/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+      <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
         <Icon className="w-6 h-6" />
       </div>
-      <h3 className="text-xl font-bold text-black mb-2">{title}</h3>
-      <p className="text-black/60 text-sm">{desc}</p>
+      <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+      <p className="text-white/60 text-sm">{desc}</p>
     </motion.div>
   );
 }
@@ -167,12 +167,12 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-[#e5e5e5] rounded-[24px] overflow-hidden">
+    <div className="bg-[#111111] rounded-[24px] border border-white/10 overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-6 md:p-8 text-left"
       >
-        <span className="text-lg font-bold text-black">{question}</span>
+        <span className="text-lg font-bold text-white">{question}</span>
         {isOpen ? (
           <ChevronUp className="w-5 h-5 opacity-50" />
         ) : (
@@ -187,7 +187,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <div className="px-6 md:px-8 pb-8 text-black/70 leading-relaxed">{answer}</div>
+            <div className="px-6 md:px-8 pb-8 text-white/70 leading-relaxed">{answer}</div>
           </motion.div>
         )}
       </AnimatePresence>

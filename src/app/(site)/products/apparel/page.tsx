@@ -4,21 +4,21 @@ import { Footer } from "@/components/Footer";
 
 export default function ApparelComingSoonPage() {
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-32">
+    <div className="min-h-screen bg-[#050505] pt-32">
       <section className="px-6 lg:px-8 mb-20">
         <div className="mx-auto max-w-[1100px]">
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 text-black/60 hover:text-black mb-8 transition-colors font-medium"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-white mb-8 transition-colors font-medium"
           >
             <ArrowLeft className="w-5 h-5" />
             Back to Armory
           </Link>
 
-          <h1 className="text-[10vw] lg:text-[7vw] leading-[0.8] font-bold tracking-tighter text-[#050505]">
+          <h1 className="text-[10vw] lg:text-[7vw] leading-[0.8] font-bold tracking-tighter text-white">
             APPAREL<span className="text-primary">.</span>
           </h1>
-          <p className="mt-4 text-xl md:text-2xl text-[#050505]/70 max-w-2xl font-medium">
+          <p className="mt-4 text-xl md:text-2xl text-white/70 max-w-2xl font-medium">
             Coming soon.
           </p>
 

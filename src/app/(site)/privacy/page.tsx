@@ -2,13 +2,13 @@ import { Footer } from "@/components/Footer";
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-32">
+    <div className="min-h-screen bg-[#050505] pt-32">
       <section className="px-6 lg:px-8">
         <div className="mx-auto max-w-[1100px]">
-          <h1 className="text-[9vw] md:text-[5vw] leading-[0.9] font-bold tracking-tighter text-[#050505]">
+          <h1 className="text-[9vw] md:text-[5vw] leading-[0.9] font-bold tracking-tighter text-white">
             PRIVACY POLICY<span className="text-primary">.</span>
           </h1>
-          <p className="mt-4 text-[#050505]/70 text-lg md:text-xl max-w-3xl font-medium">
+          <p className="mt-4 text-white/70 text-lg md:text-xl max-w-3xl font-medium">
             This policy explains how Phantom Track collects, uses, and protects your information in our website and app.
           </p>
 

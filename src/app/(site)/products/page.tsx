@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function ProductsPage() {
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-32">
+    <div className="min-h-screen bg-[#050505] pt-32">
       {/* Hero Section */}
       <section className="px-6 lg:px-8 mb-20">
         <div className="mx-auto max-w-[1400px]">
@@ -17,10 +17,10 @@ export default function ProductsPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-24"
           >
-            <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-[#050505] mb-8">
+            <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-white mb-8">
               THE ARMORY<span className="text-primary">.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-[#050505]/70 max-w-2xl mx-auto font-medium">
+            <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-medium">
               Professional grade hardware. Engineered for the elite.
             </p>
           </motion.div>
@@ -66,16 +66,16 @@ export default function ProductsPage() {
               hideCart={true}
               imagePlaceholder={
                 <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="w-[220px] md:w-[300px] h-[300px] md:h-[400px] bg-[#e5e5e5] rounded-[40px] shadow-xl flex items-center justify-center relative z-10">
+                  <div className="w-[220px] md:w-[300px] h-[300px] md:h-[400px] bg-[#111111] rounded-[40px] shadow-xl flex items-center justify-center relative z-10">
                     {/* Abstract Vest Shape */}
-                    <div className="w-36 md:w-48 h-48 md:h-64 bg-[#d4d4d4] rounded-[20px] relative overflow-hidden">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-12 bg-[#e5e5e5] rounded-b-full" />
+                    <div className="w-36 md:w-48 h-48 md:h-64 bg-[#1a1a1a] rounded-[20px] relative overflow-hidden">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-12 bg-[#111111] rounded-b-full" />
                       <div className="absolute top-12 left-1/2 -translate-x-1/2 w-8 h-8 bg-black/10 rounded-sm" />
                     </div>
                   </div>
                 </div>
               }
-              theme="light"
+              theme="dark"
               reversed
             />
 
@@ -133,9 +133,9 @@ function ProductSection({
   hideCart?: boolean;
 }) {
   const isDark = theme === "dark";
-  const bgColor = isDark ? "bg-[#050505]" : "bg-[#e5e5e5]";
-  const textColor = isDark ? "text-white" : "text-black";
-  const subTextColor = isDark ? "text-white/60" : "text-black/60";
+  const bgColor = isDark ? "bg-[#050505]" : "bg-[#111111]";
+  const textColor = isDark ? "text-white" : "text-white";
+  const subTextColor = isDark ? "text-white/60" : "text-white/60";
 
   return (
     <div

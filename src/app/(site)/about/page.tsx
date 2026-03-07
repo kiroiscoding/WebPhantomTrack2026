@@ -7,7 +7,7 @@ import { Footer } from "@/components/Footer";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-32">
+    <div className="min-h-screen bg-[#050505] pt-32">
       {/* Hero Section */}
       <section className="px-6 lg:px-8 mb-32">
         <div className="mx-auto max-w-[1400px]">
@@ -16,10 +16,10 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-20"
           >
-            <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-[#050505] mb-8">
+            <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-white mb-8">
               OUR ORIGIN<span className="text-primary">.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-[#050505]/70 max-w-2xl mx-auto font-medium">
+            <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-medium">
               Two engineers. One pitch. No compromises.
             </p>
           </motion.div>
@@ -63,7 +63,7 @@ export default function AboutPage() {
       {/* Values Grid */}
       <section className="px-6 lg:px-8 mb-32">
         <div className="mx-auto max-w-[1400px]">
-          <h3 className="text-4xl font-bold text-[#050505] mb-12 tracking-tight">OUR CODE</h3>
+          <h3 className="text-4xl font-bold text-white mb-12 tracking-tight">OUR CODE</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <ValueCard
               icon={Target}
@@ -75,13 +75,13 @@ export default function AboutPage() {
               icon={Shield}
               title="Privacy by Design"
               desc="Your data belongs to you. No social feeds, no public leaderboards unless you choose. We build for the athlete, not the ad network."
-              className="bg-[#e5e5e5] text-black"
+              className="bg-[#111111] text-white"
             />
             <ValueCard
               icon={Zap}
               title="Relentless Speed"
               desc="From hardware to software, latency is the enemy. We engineer for real-time feedback that moves as fast as you do."
-              className="bg-[#e5e5e5] text-black"
+              className="bg-[#111111] text-white"
             />
           </div>
         </div>

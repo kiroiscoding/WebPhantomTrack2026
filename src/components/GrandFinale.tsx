@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-const FINALE_PRODUCT_IMAGE = "/websiteBottomNEWEST.png";
+const FINALE_BACKGROUND_VIDEO = "/videos/join-the-1-percent.mp4";
+const FINALE_VIDEO_POSTER = "/websiteBottomNEWEST.png";
 
 export function GrandFinale() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -16,37 +16,28 @@ export function GrandFinale() {
     });
 
     const y = useTransform(scrollYProgress, [0, 1], [-100, 0]);
-    const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
-    const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-
     return (
-        <section ref={containerRef} className="relative min-h-screen w-full bg-[#050505] flex items-center justify-center overflow-hidden pt-32 pb-20 -mt-20 z-10 rounded-t-[60px]">
-
-            {/* Background Pulse */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <motion.div
-                    animate={{ opacity: [0.1, 0.3, 0.1], scale: [1, 1.2, 1] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px]"
-                />
+        <section ref={containerRef} className="relative min-h-screen w-full bg-[#050505] flex items-center justify-center overflow-hidden pt-32 pb-20 mt-16 z-10 rounded-t-[60px]">
+            {/* Full-bleed background video */}
+            <div className="absolute inset-0">
+                <video
+                    className="h-full w-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    poster={FINALE_VIDEO_POSTER}
+                >
+                    <source src={FINALE_BACKGROUND_VIDEO} type="video/mp4" />
+                </video>
             </div>
 
+            {/* Readability overlays */}
+            <div className="absolute inset-0 bg-black/45" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-black/18" />
+
             <div className="relative z-10 flex flex-col items-center text-center px-6">
-
-                {/* Product Image */}
-                <motion.div
-                    style={{ scale, opacity }}
-                    className="mb-6 mt-8 relative w-[280px] md:w-[420px] lg:w-[500px] aspect-[2/3]"
-                >
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-20 pointer-events-none" />
-                    <Image
-                        src={FINALE_PRODUCT_IMAGE}
-                        alt="Phantom Track device"
-                        fill
-                        className="object-contain"
-                    />
-                </motion.div>
-
                 {/* Typography */}
                 <motion.h2
                     style={{ y }}

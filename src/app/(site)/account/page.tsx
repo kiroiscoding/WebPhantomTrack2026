@@ -147,24 +147,24 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-32 px-6 lg:px-8">
+    <div className="min-h-screen bg-[#050505] pt-32 px-6 lg:px-8">
       <div className="mx-auto max-w-[1100px]">
         <div className="mb-10">
-          <h1 className="text-[9vw] md:text-[6vw] leading-[0.85] font-bold tracking-tighter text-[#050505]">
+          <h1 className="text-[9vw] md:text-[6vw] leading-[0.85] font-bold tracking-tighter text-white">
             ACCOUNT<span className="text-primary">.</span>
           </h1>
-          <p className="mt-4 text-[#050505]/70 text-lg md:text-xl max-w-2xl font-medium">
+          <p className="mt-4 text-white/70 text-lg md:text-xl max-w-2xl font-medium">
             Sign in to view order history and manage your Phantom Track profile.
           </p>
         </div>
 
         {error ? (
-          <div className="mb-6 rounded-2xl border border-red-500/20 bg-red-500/10 px-5 py-4 text-[#050505]">
+          <div className="mb-6 rounded-2xl border border-red-500/20 bg-red-500/10 px-5 py-4 text-white">
             {error}
           </div>
         ) : null}
         {notice ? (
-          <div className="mb-6 rounded-2xl border border-[#050505]/10 bg-white/60 px-5 py-4 text-[#050505]">
+          <div className="mb-6 rounded-2xl border border-[#050505]/10 bg-white/60 px-5 py-4 text-white">
             {notice}
           </div>
         ) : null}

@@ -19,7 +19,7 @@ export default function ProductDetailPage() {
   const product = slug ? getProduct(slug) : null;
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#b5b5b5] pt-32 flex items-center justify-center">
+      <div className="min-h-screen bg-[#050505] pt-32 flex items-center justify-center">
         Loading...
       </div>
     );
@@ -29,12 +29,12 @@ export default function ProductDetailPage() {
   const comingSoon = !product.purchasable;
 
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-24 md:pt-10">
+    <div className="min-h-screen bg-[#050505] pt-24 md:pt-10">
       {/* Breadcrumb / Back */}
       <div className="px-6 lg:px-8 max-w-[1400px] mx-auto mb-8">
         <Link
           href="/products"
-          className="inline-flex items-center gap-2 text-black/60 hover:text-black transition-colors font-medium"
+          className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors font-medium"
         >
           <ArrowLeft className="w-5 h-5" />
           Back to Armory
@@ -72,7 +72,7 @@ export default function ProductDetailPage() {
                     onClick={() => setActiveImage(idx)}
                     className={`w-20 h-20 rounded-[20px] ${img} transition-all ${
                       activeImage === idx
-                        ? "ring-2 ring-primary ring-offset-2 ring-offset-[#b5b5b5]"
+                        ? "ring-2 ring-primary ring-offset-2 ring-offset-[#050505]"
                         : "opacity-70 hover:opacity-100"
                     }`}
                   />
@@ -181,15 +181,15 @@ export default function ProductDetailPage() {
         <div className="mx-auto max-w-[1400px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Features List */}
-            <div className="bg-white p-6 md:p-12 rounded-[28px] md:rounded-[40px]">
-              <h3 className="text-2xl md:text-3xl font-bold text-black mb-6 md:mb-8">WHATS INSIDE.</h3>
+            <div className="bg-[#111111] border border-white/10 p-6 md:p-12 rounded-[28px] md:rounded-[40px]">
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8">WHATS INSIDE.</h3>
               <div className="space-y-6">
                 {product.features.map((feature: string, i: number) => (
                   <div key={i} className="flex items-start gap-4">
                     <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center mt-1">
                       <Check className="w-3 h-3 text-primary" />
                     </div>
-                    <span className="text-lg text-black/80 font-medium">{feature}</span>
+                    <span className="text-lg text-white/80 font-medium">{feature}</span>
                   </div>
                 ))}
               </div>

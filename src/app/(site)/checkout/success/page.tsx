@@ -6,7 +6,7 @@ import { SyncOrderOnSuccess } from "@/components/SyncOrderOnSuccess";
 
 export default function CheckoutSuccessPage() {
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-32 px-6 lg:px-8">
+    <div className="min-h-screen bg-[#050505] pt-32 px-6 lg:px-8">
       <ClearCartOnSuccess />
       <div className="mx-auto max-w-[900px]">
         <div className="rounded-[40px] bg-[#050505] text-white border border-white/10 shadow-2xl p-10 md:p-14">

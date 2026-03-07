@@ -63,8 +63,8 @@ export const PRODUCTS: Record<string, Product> = {
       { label: "Sizes", value: "XS - XXL" },
       { label: "Care", value: "Cold Wash / Hang Dry" },
     ],
-    images: ["bg-[#e5e5e5]", "bg-[#d4d4d4]", "bg-[#c4c4c4]"],
-    theme: "light",
+    images: ["bg-[#111111]", "bg-[#1a1a1a]", "bg-[#262626]"],
+    theme: "dark",
     purchasable: true,
   },
   apparel: {

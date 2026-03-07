@@ -103,7 +103,7 @@ export default function OrderDetailPage() {
   if (!userReady) return null;
   if (!signedIn) {
     return (
-      <div className="min-h-screen bg-[#b5b5b5] pt-32 px-6 lg:px-8">
+      <div className="min-h-screen bg-[#050505] pt-32 px-6 lg:px-8">
         <div className="mx-auto max-w-[900px]">
           <div className="rounded-[40px] bg-[#050505] text-white border border-white/10 shadow-2xl p-10 md:p-14">
             <div className="text-white/70">Please sign in to view this order.</div>
@@ -173,12 +173,12 @@ export default function OrderDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-32 px-6 lg:px-8">
+    <div className="min-h-screen bg-[#050505] pt-32 px-6 lg:px-8">
       <div className="mx-auto max-w-[1100px]">
         <div className="mb-6">
           <Link
             href="/account"
-            className="inline-flex items-center gap-2 text-[#050505]/70 hover:text-[#050505] transition-colors font-medium"
+            className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors font-medium"
           >
             <ArrowLeft className="h-5 w-5" />
             Back to Account

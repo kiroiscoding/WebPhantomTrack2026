@@ -2,13 +2,13 @@ import { Footer } from "@/components/Footer";
 
 export default function TermsOfServicePage() {
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-32">
+    <div className="min-h-screen bg-[#050505] pt-32">
       <section className="px-6 lg:px-8">
         <div className="mx-auto max-w-[1100px]">
-          <h1 className="text-[9vw] md:text-[5vw] leading-[0.9] font-bold tracking-tighter text-[#050505]">
+          <h1 className="text-[9vw] md:text-[5vw] leading-[0.9] font-bold tracking-tighter text-white">
             TERMS OF SERVICE<span className="text-primary">.</span>
           </h1>
-          <p className="mt-4 text-[#050505]/70 text-lg md:text-xl max-w-3xl font-medium">
+          <p className="mt-4 text-white/70 text-lg md:text-xl max-w-3xl font-medium">
             These terms govern use of Phantom Track’s website, app, and purchases.
           </p>
 

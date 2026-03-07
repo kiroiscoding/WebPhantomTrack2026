@@ -6,9 +6,11 @@ import { motion } from "framer-motion";
 import { Map, Zap, BarChart3, Share2, ArrowRight, type LucideIcon } from "lucide-react";
 import { Footer } from "@/components/Footer";
 
+const APP_STORE_URL = "https://apps.apple.com/us/app/phantom-track/id6758968140";
+
 export default function AppPage() {
   return (
-    <div className="min-h-screen bg-[#b5b5b5] pt-32">
+    <div className="min-h-screen bg-[#050505] pt-32">
       {/* Hero Section */}
       <section className="px-6 lg:px-8 mb-32">
         <div className="mx-auto max-w-[1400px]">
@@ -17,10 +19,10 @@ export default function AppPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-20"
           >
-            <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-[#050505] mb-8">
+            <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-white mb-8">
               COMMAND CENTER<span className="text-primary">.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-[#050505]/70 max-w-2xl mx-auto font-medium">
+            <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-medium">
               Your pocket analyst. Real-time metrics, heatmap visualization, and professional-grade
               insights at your fingertips.
             </p>
@@ -101,13 +103,13 @@ export default function AppPage() {
               icon={Zap}
               title="Sprint Analysis"
               desc="Break down every burst. Analyze acceleration, max speed, and sprint frequency."
-              className="bg-[#e5e5e5] text-black"
+              className="bg-[#111111] text-white"
             />
             <AppFeatureCard
               icon={BarChart3}
               title="Performance Trends"
               desc="Track your progress over time. Compare sessions and monitor workload."
-              className="bg-[#e5e5e5] text-black"
+              className="bg-[#111111] text-white"
             />
             <AppFeatureCard
               icon={Share2}
@@ -128,10 +130,15 @@ export default function AppPage() {
               READY TO LEVEL UP?
             </h2>
             <div className="flex flex-col md:flex-row gap-4">
-              <button className="px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors flex items-center gap-2"
+              >
                 <span>Download for iOS</span>
                 <ArrowRight className="w-5 h-5" />
-              </button>
+              </a>
               <button className="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-bold text-lg hover:bg-white/10 transition-colors">
                 Android Coming Soon
               </button>

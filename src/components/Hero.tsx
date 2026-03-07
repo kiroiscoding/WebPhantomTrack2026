@@ -1,25 +1,25 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Star, ChevronDown, ArrowRight } from "lucide-react";
+import { Star, ArrowRight } from "lucide-react";
 
-const HERO_BG_IMAGE = "/images/hero-bg.jpg";
+const HERO_BG_VIDEO = "/videos/hero-top.mp4";
+const HERO_BG_POSTER = "/images/hero-bg.jpg";
 
 const reviews = [
     {
         id: 1,
-        text: "completely changed how I see the game. I stopped guessing and started seeing the pitch like a pro scout.",
+        text: "I stopped guessing and started seeing the pitch like a pro scout.",
     },
     {
         id: 2,
-        text: "The accuracy is unreal. Every sprint, every turn is captured with precision I haven't seen before.",
+        text: "Every sprint, every turn captured with precision I haven't seen before.",
     },
     {
         id: 3,
-        text: "Battery life that actually lasts through double sessions. Finally, tech that keeps up with the schedule.",
+        text: "Battery life that lasts through double sessions. Finally.",
     },
 ];
 
@@ -34,7 +34,7 @@ export function Hero() {
 
     const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
     const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-    const contentY = useTransform(scrollYProgress, [0, 0.5], [0, 80]);
+    const contentY = useTransform(scrollYProgress, [0, 0.5], [0, 60]);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -46,26 +46,35 @@ export function Hero() {
     return (
         <section
             ref={containerRef}
-            className="relative h-screen w-full overflow-hidden bg-black"
+            className="relative h-[100svh] w-full overflow-hidden bg-black"
         >
             {/* Background Image with Parallax */}
             <motion.div style={{ y: bgY }} className="absolute inset-0 -top-[10%] -bottom-[10%]">
-                <Image
-                    src={HERO_BG_IMAGE}
-                    alt=""
-                    fill
-                    className="object-cover"
-                    priority
-                    quality={90}
-                />
+                <video
+                    className="h-full w-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    poster={HERO_BG_POSTER}
+                >
+                    <source src={HERO_BG_VIDEO} type="video/mp4" />
+                </video>
             </motion.div>
 
-            {/* Buy Now CTA — top right */}
+            {/* Ambient gradient background (shows when no image) */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-black/55 to-black/50" />
+
+            {/* Dark Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-black/18 pointer-events-none" />
+
+            {/* Buy Now CTA — top right, desktop only */}
             <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1 }}
-                className="absolute top-6 md:top-8 right-6 md:right-10 z-20"
+                className="absolute top-8 right-10 z-20 hidden md:block"
             >
                 <Link
                     href="/products/tracker-combo"
@@ -76,98 +85,78 @@ export function Hero() {
                 </Link>
             </motion.div>
 
-            {/* Dark Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/90 pointer-events-none" />
-
-            {/* Content */}
+            {/* Main content — bottom left editorial layout */}
             <motion.div
                 style={{ opacity: contentOpacity, y: contentY }}
-                className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center"
+                className="absolute bottom-0 left-0 right-0 z-10 px-5 md:px-10 pb-10 md:pb-14"
             >
-                {/* Tagline */}
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-xs md:text-sm font-mono tracking-[0.3em] text-primary uppercase mb-6"
-                >
-                    Phantom Track
-                </motion.p>
-
-                {/* Headline */}
+                {/* Headline — full width, large */}
                 <motion.h1
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.4 }}
-                    className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white leading-[0.85]"
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    className="text-[17vw] sm:text-[14vw] md:text-[12vw] lg:text-[11vw] font-black tracking-tighter text-white leading-[0.85] mb-6 md:mb-8"
                 >
-                    DATA DRIVEN<span className="text-primary">.</span>
+                    DATA<br />DRIVEN<span className="text-primary">.</span>
                 </motion.h1>
 
-                {/* Subtitle */}
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.7 }}
-                    className="mt-6 text-base md:text-lg text-white/50 font-medium max-w-md"
-                >
-                    Elevate your training experience, bringing data to life.
-                </motion.p>
-
-                {/* Scroll Indicator */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 1.2 }}
-                    className="mt-12"
-                >
-                    <motion.div
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                {/* Bottom row: subtitle left, review right */}
+                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+                    {/* Subtitle */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.6 }}
+                        className="text-sm md:text-base text-white/50 font-medium max-w-[260px] md:max-w-xs leading-snug"
                     >
-                        <ChevronDown className="w-5 h-5 text-white/30" />
+                        Elevate your training experience,<br />bringing data to life.
+                    </motion.p>
+
+                    {/* Review strip — bottom right */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.8 }}
+                        className="flex flex-col items-start sm:items-end gap-2"
+                    >
+                        <div className="flex gap-1">
+                            {[1, 2, 3, 4, 5].map((i) => (
+                                <Star key={i} className="w-3 h-3 fill-primary text-primary" />
+                            ))}
+                        </div>
+
+                        <div className="h-10 relative w-full sm:w-[280px] md:w-[320px] flex sm:justify-end">
+                            <AnimatePresence mode="wait">
+                                <motion.p
+                                    key={activeReview}
+                                    initial={{ opacity: 0, y: 6 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -6 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="text-[11px] md:text-xs text-white/50 font-medium leading-snug absolute sm:text-right"
+                                >
+                                    &quot;{reviews[activeReview].text}&quot;
+                                </motion.p>
+                            </AnimatePresence>
+                        </div>
+
+                        <div className="flex gap-2">
+                            {reviews.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setActiveReview(index)}
+                                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                                        activeReview === index
+                                            ? "bg-primary w-5"
+                                            : "bg-white/20 hover:bg-white/40 w-1.5"
+                                    }`}
+                                    aria-label={`Go to review ${index + 1}`}
+                                />
+                            ))}
+                        </div>
                     </motion.div>
-                </motion.div>
+                </div>
             </motion.div>
-
-            {/* Review Strip — pinned to bottom */}
-            <div className="absolute bottom-8 md:bottom-12 left-0 right-0 z-20 flex flex-col items-center gap-3 px-6">
-                <div className="flex gap-1">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                        <Star key={i} className="w-3 h-3 md:w-3.5 md:h-3.5 fill-primary text-primary" />
-                    ))}
-                </div>
-
-                <div className="h-12 md:h-14 relative w-full max-w-md flex justify-center">
-                    <AnimatePresence mode="wait">
-                        <motion.p
-                            key={activeReview}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.3 }}
-                            className="text-xs md:text-sm text-white/60 font-medium leading-relaxed text-center absolute"
-                        >
-                            &quot;{reviews[activeReview].text}&quot;
-                        </motion.p>
-                    </AnimatePresence>
-                </div>
-
-                <div className="flex gap-2">
-                    {reviews.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setActiveReview(index)}
-                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                                activeReview === index
-                                    ? "bg-primary w-5"
-                                    : "bg-white/20 hover:bg-white/40"
-                            }`}
-                            aria-label={`Go to review ${index + 1}`}
-                        />
-                    ))}
-                </div>
-            </div>
 
         </section>
     );

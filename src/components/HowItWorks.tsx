@@ -25,7 +25,7 @@ export function HowItWorks() {
   const containerRef = useRef<HTMLDivElement>(null);
   
   return (
-    <section id="features" className="py-20 bg-[#b5b5b5]">
+    <section id="features" className="py-20 bg-[#050505]">
       <div className="w-full px-4 md:px-8">
         <div className="mx-auto max-w-[1400px] bg-[#050505] rounded-[40px] p-8 md:p-16 shadow-2xl relative overflow-hidden">
             
