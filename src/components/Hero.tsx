@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Star, ArrowRight } from "lucide-react";
 
-const HERO_BG_VIDEO = "/videos/hero-top.mp4";
+const HERO_BG_VIDEO = "/videos/TestCanlanVid.mp4";
 const HERO_BG_POSTER = "/images/hero-bg.jpg";
 
 const reviews = [

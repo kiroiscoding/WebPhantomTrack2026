@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-const FINALE_BACKGROUND_VIDEO = "/videos/join-the-1-percent.mp4";
+const FINALE_BACKGROUND_VIDEO = "/videos/TestCanlanVid.mp4";
 const FINALE_VIDEO_POSTER = "/websiteBottomNEWEST.png";
 
 export function GrandFinale() {
