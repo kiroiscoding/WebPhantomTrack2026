@@ -48,10 +48,10 @@ export function Hero() {
             ref={containerRef}
             className="relative h-[100svh] w-full overflow-hidden bg-black"
         >
-            {/* Background Image with Parallax */}
-            <motion.div style={{ y: bgY }} className="absolute inset-0 -top-[10%] -bottom-[10%]">
+            {/* Background video — parallax only on md+ */}
+            <motion.div style={{ y: bgY }} className="absolute inset-0 md:-top-[10%] md:-bottom-[10%]">
                 <video
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover object-center"
                     autoPlay
                     muted
                     loop
@@ -63,11 +63,11 @@ export function Hero() {
                 </video>
             </motion.div>
 
-            {/* Ambient gradient background (shows when no image) */}
+            {/* Ambient gradient background */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-black/55 to-black/50" />
 
-            {/* Dark Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-black/18 pointer-events-none" />
+            {/* Dark Gradient Overlay — heavier at bottom on mobile for text legibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20 pointer-events-none" />
 
             {/* Buy Now CTA — top right, desktop only */}
             <motion.div
@@ -88,17 +88,33 @@ export function Hero() {
             {/* Main content — bottom left editorial layout */}
             <motion.div
                 style={{ opacity: contentOpacity, y: contentY }}
-                className="absolute bottom-0 left-0 right-0 z-10 px-5 md:px-10 pb-10 md:pb-14"
+                className="absolute bottom-0 left-0 right-0 z-10 px-5 md:px-10 pb-8 md:pb-14"
             >
                 {/* Headline — full width, large */}
                 <motion.h1
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="text-[17vw] sm:text-[14vw] md:text-[12vw] lg:text-[11vw] font-black tracking-tighter text-white leading-[0.85] mb-6 md:mb-8"
+                    className="text-[13vw] sm:text-[12vw] md:text-[11vw] lg:text-[10vw] font-black tracking-tighter text-white leading-[0.85] mb-4 md:mb-8"
                 >
                     DATA<br />DRIVEN<span className="text-primary">.</span>
                 </motion.h1>
+
+                {/* Mobile Buy Now CTA */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                    className="mb-5 md:hidden"
+                >
+                    <Link
+                        href="/products/tracker-combo"
+                        className="group inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-full text-sm font-bold tracking-wide hover:bg-primary hover:text-white transition-colors"
+                    >
+                        Buy Now
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                    </Link>
+                </motion.div>
 
                 {/* Bottom row: subtitle left, review right */}
                 <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
@@ -112,12 +128,12 @@ export function Hero() {
                         Elevate your training experience,<br />bringing data to life.
                     </motion.p>
 
-                    {/* Review strip — bottom right */}
+                    {/* Review strip — bottom right, hidden on mobile */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.8 }}
-                        className="flex flex-col items-start sm:items-end gap-2"
+                        className="hidden sm:flex flex-col items-start sm:items-end gap-2"
                     >
                         <div className="flex gap-1">
                             {[1, 2, 3, 4, 5].map((i) => (

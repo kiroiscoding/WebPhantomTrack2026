@@ -10,9 +10,9 @@ const APP_STORE_URL = "https://apps.apple.com/us/app/phantom-track/id6758968140"
 
 export default function AppPage() {
   return (
-    <div className="min-h-screen bg-[#050505] pt-32">
+    <div className="min-h-screen bg-[#050505] pt-24 md:pt-32">
       {/* Hero Section */}
-      <section className="px-6 lg:px-8 mb-32">
+      <section className="px-6 lg:px-8 mb-16 md:mb-32">
         <div className="mx-auto max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

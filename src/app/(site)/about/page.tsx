@@ -4,17 +4,18 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Mail, Shield, Target, Zap, type LucideIcon } from "lucide-react";
 import { Footer } from "@/components/Footer";
+import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#050505] pt-32">
+    <div className="min-h-screen bg-[#050505] pt-24 md:pt-32">
       {/* Hero Section */}
-      <section className="px-6 lg:px-8 mb-32">
+      <section className="px-6 lg:px-8 mb-16 md:mb-32">
         <div className="mx-auto max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-20"
+            className="text-center mb-12 md:mb-20"
           >
             <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-white mb-8">
               OUR ORIGIN<span className="text-primary">.</span>
@@ -61,7 +62,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values Grid */}
-      <section className="px-6 lg:px-8 mb-32">
+      <section className="px-6 lg:px-8 mb-16 md:mb-32">
         <div className="mx-auto max-w-[1400px]">
           <h3 className="text-4xl font-bold text-white mb-12 tracking-tight">OUR CODE</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -99,10 +100,10 @@ export default function AboutPage() {
                 We aren&apos;t a big corporation. We&apos;re two high school seniors building the tech we
                 wished we had. We code it, we test it, and we play with it every single day.
               </p>
-              <button className="px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
+              <Link href="/support" className="px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors inline-flex items-center gap-2">
                 <span>Reach Out</span>
                 <Mail className="w-5 h-5" />
-              </button>
+              </Link>
             </div>
 
             {/* Abstract Team Visual */}

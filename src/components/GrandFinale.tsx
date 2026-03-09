@@ -50,13 +50,13 @@ export function GrandFinale() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-white/50 text-xl md:text-2xl font-medium max-w-lg mb-12"
+                    className="text-white/50 text-base md:text-2xl font-medium max-w-lg mb-8 md:mb-12"
                 >
                     Precision is not for everyone.<br />It is for you.
                 </motion.p>
 
                 {/* Static Button (Removed Magnetic Effect) */}
-                <Link href="/products/tracker-combo" className="group relative px-12 py-6 bg-white text-black rounded-full font-bold text-lg tracking-widest overflow-hidden hover:bg-gray-200 transition-colors inline-block">
+                <Link href="/products/tracker-combo" className="group relative px-8 py-4 md:px-12 md:py-6 bg-white text-black rounded-full font-bold text-base md:text-lg tracking-widest overflow-hidden hover:bg-gray-200 transition-colors inline-block">
                     <span className="relative z-10 flex items-center gap-2">
                         SECURE YOURS <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
