@@ -2,29 +2,20 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Menu, X, ShoppingCart, ChevronRight, ArrowUpRight, Globe } from "lucide-react";
+import { Menu, X, ChevronRight, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCartStore } from "@/lib/cartStore";
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
-    const openCart = useCartStore((s) => s.openCart);
 
     const menuItems = [
-        { name: "Products", href: "/products" },
         { name: "App", href: "/app" },
         { name: "About us", href: "/about" },
         { name: "Support", href: "/support" },
     ];
 
-    const featuredProducts = [
-        { name: "Tracker Combo", href: "/products/tracker-combo" },
-        { name: "Phantom Vest", href: "/products/phantom-vest" },
-    ];
-
     return (
         <>
-            {/* Backdrop (click outside to close) */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.button
@@ -85,20 +76,10 @@ export function Navbar() {
                             </Link>
                         </div>
 
-                        {/* Right: Actions */}
-                        <div className="flex items-center space-x-2">
-                            <button
-                                type="button"
-                                aria-label="Open cart"
-                                onClick={openCart}
-                                className="text-white p-2 hover:bg-white/10 rounded-full transition-colors"
-                            >
-                                <ShoppingCart className="h-5 w-5" />
-                            </button>
-                        </div>
+                        <div className="w-9" />
                     </div>
 
-                    {/* Expanding content (fades/staggers in after the grow) */}
+                    {/* Expanding content */}
                     <AnimatePresence>
                         {isOpen && (
                             <motion.div
@@ -109,7 +90,7 @@ export function Navbar() {
                                 transition={{ duration: 0.2, ease: "easeOut", delay: 0.08 }}
                                 className="px-6 pb-6 pt-4"
                             >
-                                {/* Featured row */}
+                                {/* Menu list */}
                                 <motion.div
                                     initial="hidden"
                                     animate="show"
@@ -117,37 +98,7 @@ export function Navbar() {
                                         hidden: {},
                                         show: { transition: { staggerChildren: 0.06, delayChildren: 0.04 } },
                                     }}
-                                    className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-3 border-t border-white/10 pt-6"
-                                >
-                                    {featuredProducts.map((p) => (
-                                        <Link key={p.name} href={p.href} onClick={() => setIsOpen(false)}>
-                                            <motion.div
-                                                variants={{
-                                                    hidden: { opacity: 0, y: 10 },
-                                                    show: { opacity: 1, y: 0 },
-                                                }}
-                                                transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                                                className="rounded-2xl bg-white/5 border border-white/10 p-3 hover:bg-white/10 transition-colors cursor-pointer group h-full"
-                                            >
-                                                <div className="h-10 w-full rounded-xl bg-white/5 border border-white/5 mb-3" />
-                                                <div className="flex items-center justify-between">
-                                                    <span className="text-sm font-semibold text-white">{p.name}</span>
-                                                    <ArrowUpRight className="w-4 h-4 text-white/40 group-hover:text-primary transition-colors" />
-                                                </div>
-                                            </motion.div>
-                                        </Link>
-                                    ))}
-                                </motion.div>
-
-                                {/* Menu list */}
-                                <motion.div
-                                    initial="hidden"
-                                    animate="show"
-                                    variants={{
-                                        hidden: {},
-                                        show: { transition: { staggerChildren: 0.06, delayChildren: 0.12 } },
-                                    }}
-                                    className="mt-6 space-y-2"
+                                    className="space-y-2 border-t border-white/10 pt-6"
                                 >
                                     {menuItems.map((item) => (
                                         <motion.a

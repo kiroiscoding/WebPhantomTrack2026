@@ -25,18 +25,14 @@ export function Footer() {
           
           <div>
             <h3 className="text-sm font-semibold text-white mb-4">Product</h3>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li><Link href="/products/tracker-combo" className="hover:text-primary transition-colors">Tracker Combo</Link></li>
-              <li><Link href="/products/phantom-vest" className="hover:text-primary transition-colors">Phantom Vest</Link></li>
-              <li><Link href="/products" className="hover:text-primary transition-colors">All products</Link></li>
-            </ul>
+            <p className="text-sm text-muted-foreground">Coming soon</p>
           </div>
           
           <div>
              <h3 className="text-sm font-semibold text-white mb-4">Support</h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li><Link href="/support" className="hover:text-primary transition-colors">Help Center</Link></li>
-              <li><Link href="/support" className="hover:text-primary transition-colors">Contact Us</Link></li>
+              <li><a href="mailto:contact@phantom-track.com" className="hover:text-primary transition-colors">Contact Us</a></li>
               <li><Link href="/support" className="hover:text-primary transition-colors">Warranty</Link></li>
             </ul>
           </div>

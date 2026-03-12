@@ -122,10 +122,13 @@ export default function SupportPage() {
               <p className="text-white/60 max-w-xl mb-10 text-lg">
                 Our engineering team is on standby. No bots, just ballers who code.
               </p>
-              <button className="px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
+              <a
+                href="mailto:contact@phantom-track.com"
+                className="px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors inline-flex items-center gap-2"
+              >
                 <span>Open Ticket</span>
                 <ArrowRight className="w-5 h-5" />
-              </button>
+              </a>
             </div>
           </div>
         </div>

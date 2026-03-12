@@ -2,220 +2,212 @@
 
 import React, { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { Smartphone, Zap, Map, BarChart3, type LucideIcon } from "lucide-react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { Map, Download, ArrowRight, Brain, Users, Star } from "lucide-react";
 
-const APP_PREVIEW_MAX_WIDTH_PX = 360;
 const APP_STORE_URL = "https://apps.apple.com/us/app/phantom-track/id6758968140";
 
-const features = [
-    { icon: Map,        title: "Heatmap Visuals",  text: "See exactly where you dominate the pitch.", stat: "100%", statLabel: "pitch coverage" },
-    { icon: Zap,        title: "Sprint Analysis",  text: "Break down top speeds and acceleration bursts.", stat: "0.1s", statLabel: "precision" },
-    { icon: BarChart3,  title: "Pro Metrics",      text: "Compare your stats with professional benchmarks.", stat: "50+", statLabel: "metrics" },
-    { icon: Smartphone, title: "Live Sync",        text: "Instant data transfer from device to phone.", stat: "<1s", statLabel: "sync time" },
+const appHighlights = [
+    { title: "AI Coaching", description: "Personalized training insights", icon: Brain },
+    { title: "Friends & Team Stats", description: "Compare performance with teammates", icon: Users },
+    { title: "Session Heatmaps", description: "Visualize your movement on the pitch", icon: Map },
 ];
-
-function AnimatedCounter({ value, suffix = "" }: { value: string; suffix?: string }) {
-    return (
-        <span className="tabular-nums">
-            {value}{suffix}
-        </span>
-    );
-}
 
 export function Specs() {
     const sectionRef = useRef<HTMLDivElement>(null);
-    const phoneRef = useRef<HTMLDivElement>(null);
-    const isPhoneInView = useInView(phoneRef, { once: true, margin: "-100px" });
+    const phonesRef = useRef<HTMLDivElement>(null);
 
     const { scrollYProgress } = useScroll({
         target: sectionRef,
         offset: ["start end", "end start"],
     });
 
-    const phoneY = useTransform(scrollYProgress, [0, 1], [120, -60]);
-    const glowScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1.2, 0.8]);
+    const springY = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+    const phonesY = useTransform(springY, [0, 1], [40, -40]);
 
     return (
         <section
             ref={sectionRef}
             id="technology"
-            className="relative w-full bg-[#060606] overflow-hidden z-10 rounded-t-[40px]"
+            className="relative w-full bg-[#030303] overflow-hidden z-10 rounded-t-[40px] md:rounded-t-[60px] border-t border-white/[0.05]"
         >
-            {/* Animated grid background */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-                <div className="h-full w-full" style={{
-                    backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-                    backgroundSize: "60px 60px",
-                }} />
-            </div>
+            {/* --- Cohesive Background Elements --- */}
+            {/* Top-down subtle gradient */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#050505] to-[#030303] pointer-events-none" />
+            
+            {/* Animated Dot Matrix Pattern */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{
+                backgroundImage: `radial-gradient(circle at center, white 1px, transparent 1px)`,
+                backgroundSize: '32px 32px'
+            }} />
 
-            {/* Primary glow — follows scroll */}
-            <motion.div
-                style={{ scale: glowScale }}
-                className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/6 rounded-full blur-[160px] pointer-events-none"
-            />
+            {/* Glowing Orbs */}
+            <div className="absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-primary/[0.06] rounded-full blur-[160px] pointer-events-none" />
+            <div className="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-purple-600/[0.04] rounded-full blur-[150px] pointer-events-none" />
 
-            {/* Secondary accent glow */}
-            <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="mx-auto max-w-[1400px] px-5 md:px-10 w-full relative z-10">
 
-            <div className="mx-auto max-w-7xl px-5 md:px-10 w-full relative">
-
-                {/* Header area */}
-                <div className="pt-20 md:pt-32">
-                    <motion.p
-                        initial={{ opacity: 0, x: -20 }}
+                {/* === SHOWCASE STAGE === */}
+                <div className="relative pt-24 md:pt-32 lg:pt-36 pb-16 lg:pb-24 flex flex-col lg:block min-h-[auto] lg:min-h-[880px] xl:min-h-[960px]">
+                    
+                    {/* Desktop Left Text - Anchored Left */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
-                        viewport={{ once: true }}
-                        className="text-[10px] md:text-xs font-mono tracking-[0.3em] text-primary uppercase flex items-center gap-3"
+                        transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="lg:absolute left-0 lg:-left-4 xl:-left-12 top-[12%] xl:top-[16%] z-20 max-w-[480px] mb-12 lg:mb-0"
                     >
-                        <span className="w-8 h-px bg-primary" />
-                        The App
-                    </motion.p>
-
-                    <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.1 }}
-                        viewport={{ once: true }}
-                        className="mt-5 text-[13vw] sm:text-7xl md:text-[5.5rem] lg:text-[7rem] font-black tracking-tighter text-white leading-[0.85]"
-                    >
-                        YOUR DATA,<br />
-                        <span className="text-primary">UNLEASHED.</span>
-                    </motion.h2>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 16 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.25 }}
-                        viewport={{ once: true }}
-                        className="mt-6 text-sm md:text-base text-white/40 max-w-md leading-relaxed"
-                    >
-                        Transform raw metrics into actionable insights. Heatmaps, sprint zones, and tactical positioning — all in real-time.
-                    </motion.p>
-                </div>
-
-                {/* Stats row */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    viewport={{ once: true }}
-                    className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden"
-                >
-                    {features.map((f, i) => (
-                        <motion.div
-                            key={f.title}
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
+                        <motion.div 
+                            initial={{ width: 0 }}
+                            whileInView={{ width: "32px" }}
+                            transition={{ duration: 0.6, delay: 0.5 }}
                             viewport={{ once: true }}
-                            className="bg-[#0a0a0a] p-5 md:p-6 group hover:bg-white/[0.03] transition-colors"
+                            className="flex items-center gap-3 mb-6"
                         >
-                            <div className="text-2xl md:text-3xl font-black text-white tracking-tight">
-                                <AnimatedCounter value={f.stat} />
-                            </div>
-                            <p className="text-[10px] md:text-xs text-white/30 uppercase tracking-wider mt-1 font-medium">{f.statLabel}</p>
+                            <span className="h-px bg-primary w-8" />
+                            <p className="text-[10px] md:text-xs font-mono tracking-[0.3em] text-primary uppercase whitespace-nowrap">
+                                The App
+                            </p>
                         </motion.div>
-                    ))}
-                </motion.div>
 
-                {/* Main content grid */}
-                <div className="mt-14 md:mt-20 pb-20 md:pb-28 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+                        <h2 className="text-[12vw] sm:text-6xl lg:text-[4.2rem] xl:text-[5.5rem] font-black tracking-tighter text-white leading-[0.9]">
+                            YOUR DATA,<br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary to-purple-400 pr-2 -mr-2">UNLEASHED</span><span className="text-white">.</span>
+                        </h2>
 
-                    {/* Left: Feature cards */}
-                    <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {features.map((f, i) => (
-                            <FeatureCard key={f.title} icon={f.icon} title={f.title} text={f.text} index={i} />
-                        ))}
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.4 }}
-                            viewport={{ once: true }}
-                            className="sm:col-span-2 mt-2"
-                        >
+                        <div className="mt-8 flex flex-wrap gap-4">
                             <a
                                 href={APP_STORE_URL}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex w-full sm:w-auto group relative px-8 py-4 bg-white text-black rounded-full font-bold text-base overflow-hidden transition-all hover:shadow-[0_0_40px_rgba(168,85,247,0.3)]"
+                                className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 bg-white text-black rounded-full font-bold text-sm tracking-wide overflow-hidden transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(168,85,247,0.3)]"
                             >
-                                <span className="relative z-10">Download the App</span>
-                                <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                                <span className="absolute inset-0 z-10 flex items-center justify-center font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">Download the App</span>
+                                <Download className="w-4 h-4" />
+                                <span className="relative z-10">Download App</span>
+                                <div className="absolute inset-0 bg-gradient-to-r from-primary to-purple-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                                <span className="absolute inset-0 z-10 flex items-center justify-center gap-2.5 font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <Download className="w-4 h-4" />
+                                    Download App
+                                </span>
                             </a>
-                        </motion.div>
-                    </div>
-
-                    {/* Right: Phone mockup with float animation */}
-                    <div ref={phoneRef} className="lg:col-span-5 relative flex justify-center lg:justify-end lg:sticky lg:top-28">
-                        {/* Animated ring */}
-                        <motion.div
-                            animate={isPhoneInView ? {
-                                scale: [1, 1.1, 1],
-                                opacity: [0.1, 0.25, 0.1],
-                            } : {}}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] md:w-[400px] md:h-[400px] rounded-full border border-primary/20 pointer-events-none"
-                        />
-
-                        {/* Glow behind phone */}
-                        <motion.div
-                            animate={isPhoneInView ? {
-                                opacity: [0.08, 0.2, 0.08],
-                            } : {}}
-                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary rounded-full blur-[100px] pointer-events-none"
-                        />
-
-                        {/* Phone with parallax float */}
-                        <motion.div
-                            style={{ maxWidth: APP_PREVIEW_MAX_WIDTH_PX, y: phoneY }}
-                            className="relative w-full"
-                        >
-                            <motion.div
-                                animate={isPhoneInView ? { y: [0, -12, 0] } : {}}
-                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                            <a
+                                href="#features"
+                                className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm tracking-wide text-white/70 border border-white/10 hover:border-primary/50 hover:bg-primary/5 hover:text-white transition-all duration-300"
                             >
-                                <Image
-                                    src="/app/screenshots/Newmockup.png"
-                                    alt="Phantom Track app preview"
-                                    width={718}
-                                    height={1440}
-                                    className="w-full h-auto select-none"
-                                    style={{ filter: "drop-shadow(0 20px 60px rgba(168,85,247,0.15))" }}
-                                />
-                            </motion.div>
+                                See How It Works
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                            </a>
+                        </div>
+                    </motion.div>
+
+                    {/* Desktop Right Text - Anchored Right */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="lg:absolute right-0 lg:-right-4 xl:-right-12 top-[55%] xl:top-[60%] lg:-translate-y-1/2 z-20 w-full lg:w-[340px] xl:w-[400px] mt-12 lg:mt-0 order-last lg:order-none"
+                    >
+                        <p className="text-sm xl:text-base text-white/50 leading-relaxed lg:text-right mb-8 max-w-md lg:ml-auto">
+                            AI coaching, match analytics, and team insights — all in one performance app designed for the modern baller.
+                        </p>
+
+                        <div className="flex flex-col gap-3 w-full">
+                            {appHighlights.map((item, i) => {
+                                const Icon = item.icon;
+                                return (
+                                    <motion.div
+                                        key={item.title}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
+                                        viewport={{ once: true }}
+                                        whileHover={{ x: -6, scale: 1.02 }}
+                                        className="group flex items-center gap-4 bg-gradient-to-r from-white/[0.03] to-transparent border border-white/[0.04] p-3 xl:p-4 rounded-2xl hover:border-primary/30 hover:from-primary/[0.05] hover:to-transparent transition-all duration-300 w-full backdrop-blur-md shadow-xl cursor-default"
+                                    >
+                                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] flex items-center justify-center text-white/70 group-hover:text-primary transition-all duration-300 flex-shrink-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] group-hover:shadow-[inset_0_1px_5px_rgba(168,85,247,0.3)]">
+                                            <Icon className="w-5 h-5 xl:w-6 xl:h-6" />
+                                        </div>
+                                        <div className="text-left">
+                                            <div className="font-bold text-white text-sm xl:text-base tracking-wide group-hover:text-primary transition-colors">{item.title}</div>
+                                            <p className="text-xs xl:text-sm text-white/40 mt-0.5 leading-snug">{item.description}</p>
+                                        </div>
+                                    </motion.div>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
+
+                    {/* Center Image - The Stage */}
+                    <div ref={phonesRef} className="relative z-10 flex justify-center w-full mx-auto my-8 lg:my-0 lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 pointer-events-none">
+                        {/* A soft pedestal glow directly under the phone to anchor it */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-primary/10 rounded-full blur-[100px] -z-10 mix-blend-screen" />
+                        
+                        <motion.div
+                            style={{ y: phonesY }}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            className="relative w-full max-w-[360px] md:max-w-[440px] lg:max-w-[500px]"
+                        >
+                            <Image
+                                src="/app/screenshots/newPhotosAPP.png"
+                                alt="Phantom Track app — performance dashboard and match analysis"
+                                width={1400}
+                                height={1800}
+                                className="w-full h-auto select-none drop-shadow-2xl"
+                                priority
+                            />
                         </motion.div>
                     </div>
                 </div>
+
+                {/* === BOTTOM: App Store trust strip === */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    className="pb-20 md:pb-28 pt-8 lg:pt-0 relative z-20"
+                >
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 md:gap-14">
+                        {/* Rating */}
+                        <div className="flex items-center gap-3">
+                            <div className="flex gap-0.5">
+                                {[1, 2, 3, 4, 5].map((i) => (
+                                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                                ))}
+                            </div>
+                            <span className="text-sm text-white/50 font-medium">5.0 on the App Store</span>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="hidden sm:block w-px h-5 bg-white/10" />
+
+                        {/* Downloads */}
+                        <div className="flex items-center gap-2.5">
+                            <Download className="w-4 h-4 text-primary" />
+                            <span className="text-sm text-white/50 font-medium">Free on iOS</span>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="hidden sm:block w-px h-5 bg-white/10" />
+
+                        {/* CTA */}
+                        <a
+                            href={APP_STORE_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-white transition-colors"
+                        >
+                            Get the App
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                        </a>
+                    </div>
+                </motion.div>
             </div>
         </section>
-    );
-}
-
-function FeatureCard({ icon: Icon, title, text, index }: { icon: LucideIcon; title: string; text: string; index: number }) {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            viewport={{ once: true }}
-            className="group relative p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-primary/30 transition-all duration-500 overflow-hidden"
-        >
-            {/* Hover glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-            <div className="relative z-10">
-                <div className="mb-4 p-2.5 w-fit rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors duration-300">
-                    <Icon className="w-5 h-5" />
-                </div>
-                <h4 className="font-bold text-white text-sm mb-1">{title}</h4>
-                <p className="text-xs text-white/35 leading-relaxed">{text}</p>
-            </div>
-        </motion.div>
     );
 }

@@ -57,29 +57,36 @@ const IMAGE_CARD_SOURCES = [
 
 const REVIEW_ITEMS: ReviewItem[] = [
     { type: "review", name: "Alex M.", role: "Pro Athlete", content: "A total shift in perspective.", rating: 5, width: "w-[300px]" },
-    { type: "review", name: "Luca T.", role: "Coach", content: "Metrics that actually matter.", rating: 5, width: "w-[300px]" },
-    { type: "review", name: "Sam T.", role: "Data Analyst", content: "Unmatched precision.", rating: 5, width: "w-[350px]" },
-    { type: "review", name: "Sarah K.", role: "Runner", content: "Battery life is phenomenal.", rating: 5, width: "w-[300px]" },
+    { type: "review", name: "Timi A.", role: "Midfielder", content: "Game-changing data right at your fingertips.", rating: 5, width: "w-[340px]" },
+    { type: "review", name: "Eashan C.", role: "Striker", content: "My top speed and sprint count keep climbing since I started tracking.", rating: 5, width: "w-[420px]" },
     { type: "review", name: "Noah R.", role: "Midfielder", content: "The sprint breakdown changed how I train every week.", rating: 5, width: "w-[380px]" },
+    { type: "review", name: "Will G.", role: "Defender", content: "Love how simple it is to review sessions.", rating: 5, width: "w-[340px]" },
     { type: "review", name: "Ethan J.", role: "Academy Coach", content: "Clear data, zero noise. Exactly what players need.", rating: 5, width: "w-[360px]" },
-    { type: "review", name: "Mia C.", role: "Winger", content: "I can finally see where my intensity drops late game.", rating: 5, width: "w-[370px]" },
-    { type: "review", name: "Daniel P.", role: "Performance Analyst", content: "The positional maps are absurdly useful for session planning.", rating: 5, width: "w-[420px]" },
-    { type: "review", name: "Riley B.", role: "Defender", content: "Fast sync and clean UI. No fluff, just useful insights.", rating: 5, width: "w-[360px]" },
+    { type: "review", name: "Finley W.", role: "Winger", content: "Every training session now has a purpose.", rating: 5, width: "w-[320px]" },
+    { type: "review", name: "Ranveer D.", role: "Central Mid", content: "The distance and intensity data helped me peak for trials.", rating: 5, width: "w-[400px]" },
     { type: "review", name: "Omar H.", role: "Strength Coach", content: "Workload trends make recovery decisions way smarter.", rating: 5, width: "w-[380px]" },
-    { type: "review", name: "Isabella G.", role: "Forward", content: "I trust the numbers now more than my guesswork.", rating: 5, width: "w-[340px]" },
+    { type: "review", name: "Ritwick D.", role: "Attacking Mid", content: "Comparing weekly loads keeps me injury-free.", rating: 5, width: "w-[360px]" },
+    { type: "review", name: "Mohmmad A.", role: "Box-to-Box Mid", content: "My coach uses my data for tactical adjustments.", rating: 5, width: "w-[370px]" },
     { type: "review", name: "Caleb N.", role: "Team Captain", content: "Our whole squad competes better with this feedback loop.", rating: 5, width: "w-[390px]" },
-    { type: "review", name: "Ava L.", role: "Box-to-Box Mid", content: "The heatmap view instantly highlights my off-ball movement.", rating: 5, width: "w-[410px]" },
-    { type: "review", name: "Julian S.", role: "Scout", content: "Objective metrics made video review far more efficient.", rating: 5, width: "w-[390px]" },
-    { type: "review", name: "Leah W.", role: "Club Athlete", content: "Comfortable vest, reliable tracking, and no distractions.", rating: 5, width: "w-[390px]" },
+    { type: "review", name: "Drake N.", role: "Forward", content: "The acceleration maps show exactly where I need work.", rating: 5, width: "w-[380px]" },
+    { type: "review", name: "Vincent D.", role: "Right Back", content: "Clean interface and insanely accurate tracking.", rating: 5, width: "w-[360px]" },
+    { type: "review", name: "Logan B.", role: "Centre Back", content: "Recovery insights alone are worth it.", rating: 5, width: "w-[300px]" },
     { type: "review", name: "Mason D.", role: "Assistant Coach", content: "It surfaces the exact moments players lose tempo.", rating: 5, width: "w-[360px]" },
-    { type: "review", name: "Nina F.", role: "Youth Coach", content: "My players actually understand their movement habits now.", rating: 5, width: "w-[400px]" },
+    { type: "review", name: "Tyler M.", role: "Goalkeeper", content: "Tracks everything without getting in the way.", rating: 5, width: "w-[340px]" },
     { type: "review", name: "Tyler V.", role: "Goalkeeper Coach", content: "Even keeper footwork sessions are easier to quantify.", rating: 5, width: "w-[390px]" },
-    { type: "review", name: "Harper E.", role: "Athletic Trainer", content: "Recovery planning improved because effort levels are visible.", rating: 5, width: "w-[410px]" },
-    { type: "review", name: "Victor A.", role: "Wingback", content: "Acceleration zones exposed where I needed extra power work.", rating: 5, width: "w-[410px]" },
-    { type: "review", name: "Grace Y.", role: "College Player", content: "I brought my stats to recruitment meetings with confidence.", rating: 5, width: "w-[400px]" },
-    { type: "review", name: "Jonah Q.", role: "Conditioning Coach", content: "Finally a reliable way to compare session intensity.", rating: 5, width: "w-[380px]" },
-    { type: "review", name: "Sofia I.", role: "Striker", content: "The app shows progress week to week without overcomplicating.", rating: 5, width: "w-[420px]" },
+    { type: "review", name: "Noah G.", role: "Winger", content: "Heat maps proved I was drifting out of position.", rating: 5, width: "w-[370px]" },
+    { type: "review", name: "Max C.", role: "Midfielder", content: "I've never had this level of detail on my game.", rating: 5, width: "w-[360px]" },
+    { type: "review", name: "Max B.", role: "Striker", content: "Sprint data pushed me past my personal records.", rating: 5, width: "w-[370px]" },
     { type: "review", name: "Marcus Z.", role: "Pro Academy", content: "Precision and consistency are leagues above other trackers.", rating: 5, width: "w-[400px]" },
+    { type: "review", name: "Mathew T.", role: "Defender", content: "Helped me identify weaknesses I didn't know I had.", rating: 5, width: "w-[390px]" },
+    { type: "review", name: "Liam N.", role: "Left Back", content: "The vest is comfortable and the data is elite.", rating: 5, width: "w-[360px]" },
+    { type: "review", name: "Oliver S.", role: "Holding Mid", content: "Session comparisons week-to-week are so valuable.", rating: 5, width: "w-[380px]" },
+    { type: "review", name: "Liam C.", role: "Forward", content: "The speed zones breakdown is ridiculously detailed.", rating: 5, width: "w-[390px]" },
+    { type: "review", name: "Lazar K.", role: "Playmaker", content: "Makes every session feel like a pro environment.", rating: 5, width: "w-[370px]" },
+    { type: "review", name: "Daiven T.", role: "Right Mid", content: "My performance has measurably improved since using this.", rating: 5, width: "w-[390px]" },
+    { type: "review", name: "Ryan A.", role: "Centre Mid", content: "Best investment I've made for my football development.", rating: 5, width: "w-[390px]" },
+    { type: "review", name: "Ethan K.", role: "Wing Back", content: "The real-time feedback keeps me honest during drills.", rating: 5, width: "w-[380px]" },
+    { type: "review", name: "Talon T.", role: "Striker", content: "Knowing my stats gives me confidence on match day.", rating: 5, width: "w-[370px]" },
 ];
 
 const IMAGE_WIDTHS = ["w-[430px]", "w-[440px]", "w-[450px]", "w-[460px]", "w-[420px]", "w-[470px]"] as const;
@@ -215,7 +222,7 @@ function MarqueeRow({
     return (
         <motion.div
             ref={rowRef}
-            className="flex gap-6 pl-6 w-max cursor-grab active:cursor-grabbing select-none touch-pan-y"
+            className="flex gap-4 sm:gap-6 pl-4 sm:pl-6 w-max cursor-grab active:cursor-grabbing select-none touch-pan-y"
             style={{ x }}
             drag="x"
             dragMomentum={false}
@@ -240,7 +247,7 @@ function Card({ item }: { item: MarqueeItem }) {
     if (item.type === "review") {
         return (
             <div className={cn(
-                "flex-shrink-0 bg-[#111111] border border-white/12 p-8 rounded-[32px] flex flex-col justify-between shadow-xl h-[280px]",
+                "flex-shrink-0 max-w-[72vw] sm:max-w-none bg-[#111111] border border-white/12 p-4 sm:p-8 rounded-[28px] sm:rounded-[32px] flex flex-col justify-between shadow-xl h-[190px] sm:h-[280px]",
                 item.width
             )}>
                 <div className="mb-4">
@@ -249,7 +256,7 @@ function Card({ item }: { item: MarqueeItem }) {
                             <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                         ))}
                     </div>
-                    <p className="text-xl font-bold text-white leading-tight">
+                    <p className="text-lg sm:text-xl font-bold text-white leading-tight">
                         &quot;{item.content}&quot;
                     </p>
                 </div>
@@ -258,7 +265,7 @@ function Card({ item }: { item: MarqueeItem }) {
                         {item.name[0]}
                     </div>
                     <div>
-                        <div className="font-bold text-white">{item.name}</div>
+                        <div className="text-sm sm:text-base font-bold text-white">{item.name}</div>
                         <div className="text-xs text-white/50 uppercase tracking-wider">{item.role}</div>
                     </div>
                 </div>
@@ -267,7 +274,7 @@ function Card({ item }: { item: MarqueeItem }) {
     } else {
         return (
             <div className={cn(
-                "flex-shrink-0 rounded-[32px] bg-[#111111] overflow-hidden relative group h-[280px] shadow-xl border border-white/10",
+                "flex-shrink-0 max-w-[72vw] sm:max-w-none rounded-[28px] sm:rounded-[32px] bg-[#111111] overflow-hidden relative group h-[190px] sm:h-[280px] shadow-xl border border-white/10",
                 item.width
             )}>
                 <Image

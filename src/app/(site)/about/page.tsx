@@ -99,10 +99,13 @@ export default function AboutPage() {
                 We aren&apos;t a big corporation. We&apos;re two high school seniors building the tech we
                 wished we had. We code it, we test it, and we play with it every single day.
               </p>
-              <button className="px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
+              <a
+                href="mailto:contact@phantom-track.com"
+                className="px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors inline-flex items-center gap-2"
+              >
                 <span>Reach Out</span>
                 <Mail className="w-5 h-5" />
-              </button>
+              </a>
             </div>
 
             {/* Abstract Team Visual */}

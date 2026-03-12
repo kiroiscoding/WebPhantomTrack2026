@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Star, ArrowRight } from "lucide-react";
+import { Star } from "lucide-react";
+import { WaitlistForm } from "@/components/WaitlistForm";
 
 const HERO_BG_VIDEO = "/videos/TestCanlanVid.mp4";
 const HERO_BG_POSTER = "/images/hero-bg.jpg";
@@ -26,6 +26,8 @@ const reviews = [
 export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [activeReview, setActiveReview] = useState(0);
+    const [isMobileViewport, setIsMobileViewport] = useState(false);
+    const [lockedMobileHeight, setLockedMobileHeight] = useState<number | null>(null);
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -33,8 +35,6 @@ export function Hero() {
     });
 
     const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-    const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-    const contentY = useTransform(scrollYProgress, [0, 0.5], [0, 60]);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -43,13 +43,45 @@ export function Hero() {
         return () => clearInterval(timer);
     }, []);
 
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 767px)");
+
+        const updateViewportMode = () => {
+            const mobile = mediaQuery.matches;
+            setIsMobileViewport(mobile);
+
+            // Lock height on mobile to avoid Chrome URL bar resize jank.
+            if (mobile) {
+                setLockedMobileHeight(window.innerHeight);
+                return;
+            }
+
+            setLockedMobileHeight(null);
+        };
+
+        updateViewportMode();
+        mediaQuery.addEventListener("change", updateViewportMode);
+        window.addEventListener("orientationchange", updateViewportMode);
+
+        return () => {
+            mediaQuery.removeEventListener("change", updateViewportMode);
+            window.removeEventListener("orientationchange", updateViewportMode);
+        };
+    }, []);
+
     return (
         <section
             ref={containerRef}
-            className="relative h-[100svh] w-full overflow-hidden bg-black"
+            className="relative w-full overflow-hidden bg-black"
+            style={{
+                height: lockedMobileHeight ? `${lockedMobileHeight}px` : "100svh",
+            }}
         >
             {/* Background Image with Parallax */}
-            <motion.div style={{ y: bgY }} className="absolute inset-0 -top-[10%] -bottom-[10%]">
+            <motion.div
+                style={isMobileViewport ? undefined : { y: bgY }}
+                className="absolute inset-0 md:-top-[10%] md:-bottom-[10%]"
+            >
                 <video
                     className="h-full w-full object-cover"
                     autoPlay
@@ -69,25 +101,18 @@ export function Hero() {
             {/* Dark Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-black/18 pointer-events-none" />
 
-            {/* Buy Now CTA — top right, desktop only */}
+            {/* Join Waitlist CTA — top right, desktop only */}
             <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1 }}
                 className="absolute top-8 right-10 z-20 hidden md:block"
             >
-                <Link
-                    href="/products/tracker-combo"
-                    className="group flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-full text-sm font-bold tracking-wide hover:bg-primary hover:text-white transition-colors"
-                >
-                    Buy Now
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
+                <WaitlistForm variant="inline" />
             </motion.div>
 
             {/* Main content — bottom left editorial layout */}
             <motion.div
-                style={{ opacity: contentOpacity, y: contentY }}
                 className="absolute bottom-0 left-0 right-0 z-10 px-5 md:px-10 pb-10 md:pb-14"
             >
                 {/* Headline — full width, large */}
