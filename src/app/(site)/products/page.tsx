@@ -8,19 +8,19 @@ import Link from "next/link";
 
 export default function ProductsPage() {
   return (
-    <div className="min-h-screen bg-[#050505] pt-32">
+    <div className="min-h-screen bg-[#050505] pt-24 md:pt-32">
       {/* Hero Section */}
       <section className="px-6 lg:px-8 mb-20">
         <div className="mx-auto max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-24"
+            className="text-center mb-10 md:mb-24"
           >
-            <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-white mb-8">
+            <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-white mb-4 md:mb-8">
               THE ARMORY<span className="text-primary">.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-medium">
+            <p className="text-base md:text-2xl text-white/70 max-w-2xl mx-auto font-medium">
               Professional grade hardware. Engineered for the elite.
             </p>
           </motion.div>
@@ -139,7 +139,7 @@ function ProductSection({
 
   return (
     <div
-      className={`group relative rounded-[40px] overflow-hidden ${bgColor} ${textColor} min-h-[600px] flex flex-col lg:flex-row`}
+      className={`group relative rounded-[40px] overflow-hidden ${bgColor} ${textColor} min-h-[420px] md:min-h-[600px] flex flex-col lg:flex-row`}
     >
       {/* Content Side */}
       <div
@@ -149,8 +149,8 @@ function ProductSection({
       >
         <h2 className="text-3xl md:text-6xl font-bold mb-4 tracking-tight">{title}</h2>
         {price && <div className="text-2xl font-mono text-primary mb-8">{price}</div>}
-        <p className={`text-lg md:text-xl ${subTextColor} mb-12 max-w-md leading-relaxed`}>{desc}</p>
-        <div className="space-y-4 mb-12">
+        <p className={`text-base md:text-xl ${subTextColor} mb-8 md:mb-12 max-w-md leading-relaxed`}>{desc}</p>
+        <div className="space-y-4 mb-8 md:mb-12">
           {features.map((feature, i) => (
             <div key={i} className="flex items-center gap-3">
               <div
@@ -193,7 +193,7 @@ function ProductSection({
 
       {/* Image Side */}
       <div
-        className={`flex-1 min-h-[400px] lg:min-h-auto relative overflow-hidden ${
+        className={`flex-1 min-h-[280px] md:min-h-[400px] lg:min-h-auto relative overflow-hidden ${
           reversed ? "lg:order-1" : "lg:order-2"
         }`}
       >

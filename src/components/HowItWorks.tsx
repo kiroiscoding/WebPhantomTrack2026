@@ -29,11 +29,11 @@ export function HowItWorks() {
       <div className="w-full px-4 md:px-8">
         <div className="mx-auto max-w-[1400px] bg-[#050505] rounded-[40px] p-8 md:p-16 shadow-2xl relative overflow-hidden">
             
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-24 text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-12 md:mb-24 text-center">
               Seamless Integration
             </h2>
 
-            <div ref={containerRef} className="relative space-y-32">
+            <div ref={containerRef} className="relative space-y-16 md:space-y-32">
               {/* Vertical Line */}
               <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent -translate-x-1/2 hidden md:block" />
 
@@ -71,7 +71,7 @@ function StepCard({ step, index }: { step: typeof steps[0], index: number }) {
          <div className={`flex flex-col ${isEven && "md:items-end md:text-right"}`}>
             <span className="text-6xl font-bold text-primary/20 mb-4">{step.id}</span>
             <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
-            <p className="text-muted-foreground text-lg max-w-md">
+            <p className="text-muted-foreground text-base md:text-lg max-w-md">
               {step.description}
             </p>
          </div>

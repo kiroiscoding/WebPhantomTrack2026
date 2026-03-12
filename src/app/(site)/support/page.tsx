@@ -20,7 +20,7 @@ export default function SupportPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <div className="min-h-screen bg-[#050505] pt-32">
+    <div className="min-h-screen bg-[#050505] pt-24 md:pt-32">
       {/* Hero Section */}
       <section className="px-6 lg:px-8 mb-20">
         <div className="mx-auto max-w-[1400px]">
@@ -52,7 +52,7 @@ export default function SupportPage() {
           </motion.div>
 
           {/* Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-32">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 md:mb-32">
             <CategoryCard
               icon={Book}
               title="Getting Started"
@@ -80,7 +80,7 @@ export default function SupportPage() {
           </div>
 
           {/* FAQ Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16 md:mb-32">
             <div className="lg:col-span-4">
               <h2 className="text-4xl font-bold text-white mb-6">
                 FREQUENTLY
