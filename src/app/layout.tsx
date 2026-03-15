@@ -4,7 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Phantom Track | The Invisible Edge",
+  title: "Phantom Track",
   description: "Elevate your listening experience with Phantom Track.",
   icons: {
     icon: ["/favicon.ico", "/favicon.png"],
