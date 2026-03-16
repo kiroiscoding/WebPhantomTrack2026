@@ -23,12 +23,14 @@ export function ExplodingView3D({ embedded = false }: { embedded?: boolean }) {
     let cancelled = false;
 
     async function init() {
+      if (!container) return;
+      const el = container;
       const THREE = await import("three");
       const { OrbitControls } = await import("three/addons/controls/OrbitControls.js");
       const { GLTFLoader } = await import("three/addons/loaders/GLTFLoader.js");
 
-      const width = container.offsetWidth;
-      const height = Math.max(container.offsetHeight, 400);
+      const width = el.offsetWidth;
+      const height = Math.max(el.offsetHeight, 400);
 
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(embedded ? 0x141414 : 0xb8bcc4);
@@ -48,7 +50,7 @@ export function ExplodingView3D({ embedded = false }: { embedded?: boolean }) {
         gl.toneMapping = THREE.ACESFilmicToneMapping;
         gl.toneMappingExposure = 1.15;
       }
-      container.appendChild(gl.domElement);
+      el.appendChild(gl.domElement);
 
       // Very low ambient so engraving has strong light/shadow and reads detailed
       const ambient = new THREE.AmbientLight(0xffffff, 0.14);
@@ -102,9 +104,10 @@ export function ExplodingView3D({ embedded = false }: { embedded?: boolean }) {
           const dist = Math.max(maxDim * 0.25, 0.2);
           camera.position.set(0, 0, dist);
           controls?.target.set(0, 0, 0);
-          // Fixed radius: no zoom, only rotate (camera distance locked)
-          controls.minDistance = dist;
-          controls.maxDistance = dist;
+          if (controls) {
+            controls.minDistance = dist;
+            controls.maxDistance = dist;
+          }
           setError(null);
           setLoading(false);
         },
@@ -112,8 +115,9 @@ export function ExplodingView3D({ embedded = false }: { embedded?: boolean }) {
         (err) => {
           if (cancelled) return;
           console.error("GLB load error:", err);
+          const errMsg = err instanceof Error ? err.message : "";
           const message =
-            err?.message?.includes("404") || err?.message?.includes("Not Found")
+            errMsg.includes("404") || errMsg.includes("Not Found")
               ? "Model file not found. Add exploding-view.glb to public/models/."
               : "Could not load 3D model. Check the file is a valid GLB.";
           setError(message);
@@ -122,8 +126,8 @@ export function ExplodingView3D({ embedded = false }: { embedded?: boolean }) {
       );
 
       function resize() {
-        const w = container.offsetWidth;
-        const h = Math.max(container.offsetHeight, 400);
+        const w = el.offsetWidth;
+        const h = Math.max(el.offsetHeight, 400);
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
         gl.setSize(w, h);
@@ -142,7 +146,7 @@ export function ExplodingView3D({ embedded = false }: { embedded?: boolean }) {
         cancelAnimationFrame(animationId);
         controls?.dispose();
         gl.dispose();
-        if (container.contains(gl.domElement)) container.removeChild(gl.domElement);
+        if (el.contains(gl.domElement)) el.removeChild(gl.domElement);
       };
     }
 
