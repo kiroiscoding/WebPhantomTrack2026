@@ -11,10 +11,10 @@ import {
   Mail,
   ChevronDown,
   ChevronUp,
-  ArrowRight,
   type LucideIcon,
 } from "lucide-react";
 import { Footer } from "@/components/Footer";
+import { ContactButton } from "@/components/ContactButton";
 
 export default function SupportPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -122,13 +122,7 @@ export default function SupportPage() {
               <p className="text-white/60 max-w-xl mb-10 text-lg">
                 Our engineering team is on standby. No bots, just ballers who code.
               </p>
-              <a
-                href="mailto:contact@phantom-track.com"
-                className="px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors inline-flex items-center gap-2"
-              >
-                <span>Open Ticket</span>
-                <ArrowRight className="w-5 h-5" />
-              </a>
+              <ContactButton label="Open Ticket" />
             </div>
           </div>
         </div>
