@@ -52,7 +52,7 @@ function PhoneFrame({
                 <div className="absolute inset-0 rounded-[44px] blur-[60px] bg-primary/30 scale-110 pointer-events-none" />
             )}
             <div className="relative w-full h-full rounded-[44px] border-[2px] border-white/10 bg-[#0a0a0a] shadow-[0_30px_80px_rgba(0,0,0,0.7)] overflow-hidden">
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-[90px] h-[30px] bg-black rounded-full z-20" />
+
                 <div className="relative w-full h-full">
                     <Image src={src} alt={alt} fill className="object-cover object-top" sizes={`${width}px`} />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent" />
