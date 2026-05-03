@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["NWX6ZCX32V.com.phantomtrack.app"],
+        "components": [
+          { "/": "/invite*", "comment": "Friend invite links" },
+          { "/": "/add*",    "comment": "QR add-me links" }
+        ]
+      }
+    ]
+  }
+}
