@@ -4,97 +4,279 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Globe } from "lucide-react";
+import { ChevronRight, Check, Copy, Globe, ClipboardPaste, Zap } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 const fadeUp = {
-    hidden: { opacity: 0, y: 24 },
+    hidden: { opacity: 0, y: 20 },
     show: (i: number) => ({
         opacity: 1,
         y: 0,
-        transition: { duration: 0.6, ease: EASE, delay: i * 0.12 },
+        transition: { duration: 0.55, ease: EASE, delay: i * 0.1 },
     }),
 };
 
 interface WebContext {
     isWebView: boolean;
     appName: string;
-    instruction: string;
 }
 
 function detectWebContext(): WebContext {
-    if (typeof navigator === "undefined") return { isWebView: false, appName: "", instruction: "" };
+    if (typeof navigator === "undefined") return { isWebView: false, appName: "" };
     const ua = navigator.userAgent;
-
-    if (/Snapchat/.test(ua))
-        return { isWebView: true, appName: "Snapchat", instruction: 'Tap ··· bottom right → "Open in Browser"' };
-    if (/Instagram/.test(ua))
-        return { isWebView: true, appName: "Instagram", instruction: 'Tap ··· top right → "Open in External Browser"' };
-    if (/FBAN|FBAV|FB_IAB/.test(ua))
-        return { isWebView: true, appName: "Facebook", instruction: 'Tap ··· top right → "Open in External Browser"' };
-    if (/TikTok|musical_ly/.test(ua))
-        return { isWebView: true, appName: "TikTok", instruction: 'Tap ··· → "Open in Safari"' };
-    if (/Twitter/.test(ua))
-        return { isWebView: true, appName: "X (Twitter)", instruction: 'Tap ··· → "Open in Browser"' };
-
-    // Generic iOS WebView: iPhone/iPad without Safari string in UA
+    if (/Snapchat/.test(ua))   return { isWebView: true, appName: "Snapchat" };
+    if (/Instagram/.test(ua))  return { isWebView: true, appName: "Instagram" };
+    if (/FBAN|FBAV|FB_IAB/.test(ua)) return { isWebView: true, appName: "Facebook" };
+    if (/TikTok|musical_ly/.test(ua)) return { isWebView: true, appName: "TikTok" };
+    if (/Twitter/.test(ua))    return { isWebView: true, appName: "X" };
     const isIOS = /iPhone|iPad|iPod/.test(ua);
     const hasSafari = /Safari/.test(ua) && !/CriOS|Chrome/.test(ua);
-    if (isIOS && !hasSafari)
-        return { isWebView: true, appName: "", instruction: 'Tap the menu (···) → "Open in Browser"' };
-
-    return { isWebView: false, appName: "", instruction: "" };
+    if (isIOS && !hasSafari)   return { isWebView: true, appName: "" };
+    return { isWebView: false, appName: "" };
 }
 
+async function copyToClipboard(text: string): Promise<boolean> {
+    if (navigator.clipboard?.writeText) {
+        try { await navigator.clipboard.writeText(text); return true; } catch {}
+    }
+    try {
+        const el = document.createElement("textarea");
+        el.value = text;
+        el.style.cssText = "position:fixed;top:0;left:0;opacity:0;pointer-events:none";
+        document.body.appendChild(el);
+        el.focus(); el.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(el);
+        return ok;
+    } catch { return false; }
+}
+
+// ── Clipboard success card ───────────────────────────────────────────────────
+function CopiedCard({ displayUrl, onCopyAgain }: { displayUrl: string; onCopyAgain: () => void }) {
+    const steps = [
+        { icon: Globe,            label: "Open Safari on your iPhone" },
+        { icon: ClipboardPaste,   label: "Paste in the address bar" },
+        { icon: Zap,              label: "Phantom Track opens automatically" },
+    ];
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: EASE }}
+            className="w-full rounded-2xl bg-primary/[0.08] border border-primary/20 backdrop-blur-sm overflow-hidden"
+        >
+            {/* Success header */}
+            <div className="flex flex-col items-center gap-3 px-5 pt-6 pb-5">
+                {/* Animated checkmark with pulsing ring */}
+                <div className="relative flex items-center justify-center">
+                    {/* One-shot pulse ring */}
+                    <motion.div
+                        className="absolute w-16 h-16 rounded-full border border-primary/40"
+                        initial={{ scale: 1, opacity: 0.6 }}
+                        animate={{ scale: 1.7, opacity: 0 }}
+                        transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+                    />
+                    {/* Checkmark circle */}
+                    <motion.div
+                        className="w-12 h-12 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: [0, 1.15, 1] }}
+                        transition={{ duration: 0.45, ease: EASE, delay: 0.05 }}
+                    >
+                        <motion.div
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.3, ease: EASE, delay: 0.25 }}
+                        >
+                            <Check className="w-5 h-5 text-primary" strokeWidth={2.5} />
+                        </motion.div>
+                    </motion.div>
+                </div>
+
+                <motion.div
+                    className="flex flex-col items-center gap-1"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, ease: EASE, delay: 0.2 }}
+                >
+                    <p className="text-white font-bold text-lg tracking-tight">Link copied!</p>
+                    <p className="text-white/45 text-sm text-center leading-snug">
+                        Now open Safari and paste
+                    </p>
+                </motion.div>
+
+                {/* URL pill */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, ease: EASE, delay: 0.3 }}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.07] border border-white/10"
+                >
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary/70 flex-shrink-0" />
+                    <p className="text-white/50 text-[11px] font-mono tracking-tight truncate max-w-[220px]">
+                        {displayUrl}
+                    </p>
+                </motion.div>
+            </div>
+
+            {/* Divider */}
+            <div className="mx-5 h-px bg-white/[0.07]" />
+
+            {/* Steps */}
+            <div className="px-5 py-4 flex flex-col gap-0">
+                {steps.map(({ icon: Icon, label }, i) => (
+                    <React.Fragment key={i}>
+                        <motion.div
+                            custom={i}
+                            variants={fadeUp}
+                            initial="hidden"
+                            animate="show"
+                            className="flex items-center gap-3 py-2.5"
+                        >
+                            <div className="w-7 h-7 rounded-full bg-primary/15 border border-primary/25 flex items-center justify-center flex-shrink-0">
+                                <Icon className="w-3.5 h-3.5 text-primary/80" />
+                            </div>
+                            <p className="text-white/70 text-sm font-medium leading-tight">{label}</p>
+                        </motion.div>
+                        {i < steps.length - 1 && (
+                            <div className="ml-3.5 w-px h-3 bg-primary/15" />
+                        )}
+                    </React.Fragment>
+                ))}
+            </div>
+
+            {/* Copy again */}
+            <div className="flex justify-center pb-4">
+                <button
+                    onClick={onCopyAgain}
+                    className="flex items-center gap-1.5 text-white/25 text-[11px] hover:text-white/50 transition-colors cursor-pointer"
+                >
+                    <Copy className="w-3 h-3" />
+                    Copy again
+                </button>
+            </div>
+        </motion.div>
+    );
+}
+
+// ── Clipboard failed card ────────────────────────────────────────────────────
+function CopyFailedCard({ displayUrl, onCopy, copying }: { displayUrl: string; onCopy: () => void; copying: boolean }) {
+    const steps = [
+        { icon: Globe,          label: "Open Safari on your iPhone" },
+        { icon: ClipboardPaste, label: "Paste in the address bar" },
+        { icon: Zap,            label: "Phantom Track opens automatically" },
+    ];
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: EASE }}
+            className="w-full rounded-2xl bg-white/[0.05] border border-white/10 backdrop-blur-sm overflow-hidden"
+        >
+            <div className="px-5 pt-5 pb-4 flex flex-col items-center gap-3">
+                <p className="text-white/60 text-sm text-center leading-snug">
+                    Copy this link, then open it in Safari
+                </p>
+
+                {/* URL pill */}
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.07] border border-white/10 w-full justify-center">
+                    <div className="w-1.5 h-1.5 rounded-full bg-white/30 flex-shrink-0" />
+                    <p className="text-white/45 text-[11px] font-mono tracking-tight truncate max-w-[220px]">
+                        {displayUrl}
+                    </p>
+                </div>
+
+                {/* Copy CTA */}
+                <button
+                    onClick={onCopy}
+                    disabled={copying}
+                    className="group relative w-full inline-flex items-center justify-center gap-2 font-bold tracking-wide overflow-hidden transition-all px-6 py-4 bg-primary text-white rounded-xl text-sm active:scale-[0.98] disabled:opacity-60 cursor-pointer"
+                >
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <Copy className="relative w-4 h-4" />
+                    <span className="relative">{copying ? "Copying…" : "Copy Link"}</span>
+                </button>
+            </div>
+
+            <div className="mx-5 h-px bg-white/[0.07]" />
+
+            {/* Steps (dimmed — user hasn't copied yet) */}
+            <div className="px-5 py-4 flex flex-col gap-0">
+                {steps.map(({ icon: Icon, label }, i) => (
+                    <React.Fragment key={i}>
+                        <div className="flex items-center gap-3 py-2.5 opacity-40">
+                            <div className="w-7 h-7 rounded-full bg-white/10 border border-white/10 flex items-center justify-center flex-shrink-0">
+                                <Icon className="w-3.5 h-3.5 text-white/60" />
+                            </div>
+                            <p className="text-white/60 text-sm font-medium leading-tight">{label}</p>
+                        </div>
+                        {i < steps.length - 1 && (
+                            <div className="ml-3.5 w-px h-3 bg-white/10" />
+                        )}
+                    </React.Fragment>
+                ))}
+            </div>
+        </motion.div>
+    );
+}
+
+// ── Main component ───────────────────────────────────────────────────────────
 export default function InviteClient() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const code = searchParams.get("code");
 
     const [phase, setPhase] = useState<"opening" | "fallback">("opening");
-    const [webCtx, setWebCtx] = useState<WebContext>({ isWebView: false, appName: "", instruction: "" });
+    const [webCtx, setWebCtx] = useState<WebContext>({ isWebView: false, appName: "" });
+    const [clipboardState, setClipboardState] = useState<"idle" | "copied" | "failed">("idle");
+    const [copying, setCopying] = useState(false);
+
+    const displayUrl = `phantom-track.com/invite?code=${code ?? ""}`;
 
     useEffect(() => {
-        if (!code) {
-            router.replace("/");
-            return;
-        }
+        if (!code) { router.replace("/"); return; }
 
-        // Add Smart App Banner so Safari shows native "Open" button
         const meta = document.createElement("meta");
         meta.name = "apple-itunes-app";
         meta.content = `app-id=6758968140, app-argument=phantomtrack://invite?code=${code}`;
         document.head.appendChild(meta);
 
-        // Fire deep link immediately (works in Safari; WebViews block it)
         window.location.href = `phantomtrack://invite?code=${code}`;
 
-        // After 2s, show fallback UI and check context
-        const timer = setTimeout(() => {
-            setWebCtx(detectWebContext());
+        const timer = setTimeout(async () => {
+            const ctx = detectWebContext();
+            setWebCtx(ctx);
+
+            if (ctx.isWebView) {
+                const ok = await copyToClipboard(window.location.href);
+                setClipboardState(ok ? "copied" : "failed");
+            }
+
             setPhase("fallback");
         }, 2000);
 
-        return () => {
-            clearTimeout(timer);
-            document.head.removeChild(meta);
-        };
+        return () => { clearTimeout(timer); document.head.removeChild(meta); };
     }, [code, router]);
+
+    const handleManualCopy = async () => {
+        if (!code) return;
+        setCopying(true);
+        const ok = await copyToClipboard(window.location.href);
+        setCopying(false);
+        setClipboardState(ok ? "copied" : "failed");
+    };
 
     if (!code) return null;
 
     return (
         <div className="relative min-h-[100dvh] w-full overflow-hidden bg-[#050505] flex flex-col">
-
-            {/* Layered overlays */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/90" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #050505 0%, transparent 45%)" }} />
-
-            {/* Purple glow */}
             <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-sm rounded-full bg-primary/10 blur-[80px] pointer-events-none" />
 
-            {/* Content */}
             <div className="relative z-10 flex flex-col min-h-[100dvh] px-5 pb-8">
 
                 {/* Logo */}
@@ -113,7 +295,7 @@ export default function InviteClient() {
                     />
                 </motion.div>
 
-                {/* Center content */}
+                {/* Hero text */}
                 <div className="flex-1 flex flex-col items-center justify-center text-center gap-6 py-8">
                     <AnimatePresence mode="wait">
                         {phase === "opening" ? (
@@ -125,9 +307,7 @@ export default function InviteClient() {
                                 transition={{ duration: 0.5, ease: EASE }}
                                 className="flex flex-col items-center gap-5"
                             >
-                                <p className="text-white/70 text-lg font-semibold tracking-tight">
-                                    Opening Phantom Track...
-                                </p>
+                                <p className="text-white/70 text-lg font-semibold tracking-tight">Opening Phantom Track...</p>
                                 <div className="flex items-center gap-2">
                                     {[0, 1, 2].map((i) => (
                                         <motion.span
@@ -140,15 +320,9 @@ export default function InviteClient() {
                                 </div>
                             </motion.div>
                         ) : (
-                            <motion.div
-                                key="fallback"
-                                className="flex flex-col items-center gap-4"
-                            >
+                            <motion.div key="fallback" className="flex flex-col items-center gap-4">
                                 <motion.div
-                                    custom={0}
-                                    variants={fadeUp}
-                                    initial="hidden"
-                                    animate="show"
+                                    custom={0} variants={fadeUp} initial="hidden" animate="show"
                                     className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm"
                                 >
                                     <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
@@ -156,10 +330,7 @@ export default function InviteClient() {
                                 </motion.div>
 
                                 <motion.h1
-                                    custom={1}
-                                    variants={fadeUp}
-                                    initial="hidden"
-                                    animate="show"
+                                    custom={1} variants={fadeUp} initial="hidden" animate="show"
                                     className="text-4xl sm:text-5xl font-extrabold text-white leading-[1.1] tracking-tight max-w-xs"
                                 >
                                     You&apos;ve been invited to{" "}
@@ -167,10 +338,7 @@ export default function InviteClient() {
                                 </motion.h1>
 
                                 <motion.p
-                                    custom={2}
-                                    variants={fadeUp}
-                                    initial="hidden"
-                                    animate="show"
+                                    custom={2} variants={fadeUp} initial="hidden" animate="show"
                                     className="text-white/50 text-base max-w-xs leading-relaxed"
                                 >
                                     Track your soccer performance. Compare yourself to the pros.
@@ -180,47 +348,35 @@ export default function InviteClient() {
                     </AnimatePresence>
                 </div>
 
-                {/* Action cards — only shown in fallback */}
+                {/* Action area */}
                 <AnimatePresence>
                     {phase === "fallback" && (
                         <motion.div
                             initial={{ opacity: 0, y: 24 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.3, ease: EASE }}
+                            transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
                             className="flex flex-col gap-3 w-full max-w-sm mx-auto"
                         >
                             {webCtx.isWebView ? (
-                                /* ── WebView detected: show "Open in Safari" helper ── */
-                                <div className="flex flex-col gap-3">
-                                    {/* Instruction card */}
-                                    <div className="w-full px-5 py-5 rounded-2xl bg-primary/10 border border-primary/25 backdrop-blur-sm flex flex-col gap-3">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center flex-shrink-0">
-                                                <Globe className="w-5 h-5 text-primary" />
-                                            </div>
-                                            <div className="flex-1 text-left">
-                                                <p className="text-white font-bold text-base leading-tight">Open in Safari</p>
-                                                {webCtx.appName && (
-                                                    <p className="text-white/40 text-xs mt-0.5">
-                                                        {webCtx.appName}&apos;s browser can&apos;t open apps
-                                                    </p>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className="w-full h-px bg-white/[0.08]" />
-                                        <div className="flex flex-col gap-2">
-                                            {["Tap  ···  in the corner of your screen", webCtx.instruction.split("→")[1]?.trim() ? `Select ${webCtx.instruction.split("→")[1].trim()}` : 'Select "Open in Browser"', "Then tap Open in App"].map((step, i) => (
-                                                <div key={i} className="flex items-start gap-3">
-                                                    <span className="w-5 h-5 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center flex-shrink-0 text-[11px] font-bold text-primary mt-0.5">
-                                                        {i + 1}
-                                                    </span>
-                                                    <p className="text-white/70 text-sm leading-snug">{step}</p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                <>
+                                    <AnimatePresence mode="wait">
+                                        {clipboardState === "copied" ? (
+                                            <CopiedCard
+                                                key="copied"
+                                                displayUrl={displayUrl}
+                                                onCopyAgain={handleManualCopy}
+                                            />
+                                        ) : (
+                                            <CopyFailedCard
+                                                key="failed"
+                                                displayUrl={displayUrl}
+                                                onCopy={handleManualCopy}
+                                                copying={copying}
+                                            />
+                                        )}
+                                    </AnimatePresence>
 
-                                    {/* App Store as secondary */}
+                                    {/* App Store — secondary */}
                                     <Link
                                         href="https://apps.apple.com/us/app/phantom-track/id6758968140"
                                         target="_blank"
@@ -238,9 +394,8 @@ export default function InviteClient() {
                                         </div>
                                         <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-white/50 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
                                     </Link>
-                                </div>
+                                </>
                             ) : (
-                                /* ── Normal browser: show "Open in App" button ── */
                                 <>
                                     <a
                                         href={`phantomtrack://invite?code=${code}`}
@@ -250,7 +405,6 @@ export default function InviteClient() {
                                         <span className="relative">Open in App</span>
                                         <ChevronRight className="relative w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                                     </a>
-
                                     <Link
                                         href="https://apps.apple.com/us/app/phantom-track/id6758968140"
                                         target="_blank"
@@ -274,12 +428,8 @@ export default function InviteClient() {
                     )}
                 </AnimatePresence>
 
-                {/* Footer */}
                 <motion.p
-                    custom={5}
-                    variants={fadeUp}
-                    initial="hidden"
-                    animate="show"
+                    custom={5} variants={fadeUp} initial="hidden" animate="show"
                     className="text-center text-white/20 text-[11px] mt-6 tracking-wide"
                 >
                     phantom-track.com
