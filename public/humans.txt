@@ -1,0 +1,10 @@
+/* TEAM */
+Phantom Track
+Site: https://phantom-track.com
+Contact: support@phantom-track.com
+
+/* SITE */
+Last update: 2026/05
+Standards: HTML5, CSS3, ES2022
+Components: Next.js, React, Tailwind CSS, Three.js
+Software: Vercel
