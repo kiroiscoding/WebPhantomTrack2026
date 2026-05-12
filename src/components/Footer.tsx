@@ -43,7 +43,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm text-muted-foreground">
-              The invisible edge for athletes who demand perfection.
+              Athlete-worn sports performance wearable. The invisible edge for athletes who demand perfection.
             </p>
           </div>
           
@@ -68,6 +68,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li><Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
               <li><Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link></li>
+              <li><Link href="/acceptable-use" className="hover:text-primary transition-colors">Acceptable Use</Link></li>
               <li><Link href="/returns" className="hover:text-primary transition-colors">Return Policy</Link></li>
             </ul>
           </div>

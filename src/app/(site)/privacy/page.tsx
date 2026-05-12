@@ -9,17 +9,25 @@ export default function PrivacyPolicyPage() {
             PRIVACY POLICY<span className="text-primary">.</span>
           </h1>
           <p className="mt-4 text-white/70 text-lg md:text-xl max-w-3xl font-medium">
-            This policy explains how Phantom Track collects, uses, and protects your information in our website and app.
+            This policy explains how Phantom Track collects, uses, and protects your information in our website and app. Phantom Track is a sports performance wearable that athletes wear on themselves — for an overview of how the product is intended to be used and what is prohibited, see our <a className="text-primary underline" href="/acceptable-use">Acceptable Use Policy</a>.
           </p>
 
           <div className="mt-10 rounded-[40px] bg-[#050505] text-white border border-white/10 shadow-2xl p-8 md:p-12 space-y-8">
             <Section title="Summary (high level)">
               <ul className="list-disc pl-5 space-y-2 text-white/70">
                 <li>We collect the minimum data needed to run the product (account, orders, and app telemetry you choose to sync).</li>
+                <li>Phantom Track is a self-tracking sports wearable — only the wearer&apos;s own authenticated account can view their data. Using the device to track another person without their explicit consent is strictly prohibited under our <a className="text-primary underline" href="/acceptable-use">Acceptable Use Policy</a>.</li>
                 <li>We don’t sell your personal data.</li>
                 <li>We use trusted vendors (e.g., payments, email) only to provide the service.</li>
                 <li>You can request deletion of your account data.</li>
               </ul>
+            </Section>
+
+            <Section title="Anti-surveillance">
+              <div className="text-white/70 space-y-3">
+                <p>Phantom Track is engineered for consensual self-tracking. The hardware is worn visibly in a fitted chest-strap vest and data is only delivered to the wearer&apos;s own authenticated account in our companion app. There is no covert mode, no silent-monitoring mode, and no way for a third party to view another user&apos;s data without that user explicitly sharing it.</p>
+                <p>We will terminate accounts and, where appropriate, cooperate with law enforcement if we have a reasonable basis to believe Phantom Track is being used to surveil another person without their consent. See our <a className="text-primary underline" href="/acceptable-use">Acceptable Use Policy</a> for details.</p>
+              </div>
             </Section>
 
             <Section title="Information we collect">

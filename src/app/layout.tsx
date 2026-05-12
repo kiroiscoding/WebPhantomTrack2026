@@ -5,8 +5,12 @@ import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://phantom-track.com";
 const SITE_NAME = "Phantom Track";
+// Description is intentionally explicit about the product being a
+// consensual, athlete-worn sports performance wearable. Automated
+// reputation classifiers can otherwise misread a GPS hardware brand
+// as a covert tracking / stalkerware product.
 const SITE_DESCRIPTION =
-  "Phantom Track builds elite GNSS performance trackers and apparel for athletes. Capture 1000Hz precision data with the Phantom Core and Phantom Vest ecosystem.";
+  "Phantom Track is a sports performance wearable for athletes. Athletes wear the Phantom Core sensor in a chest-strap vest to record their own GNSS data (sprint speed, distance, heart-rate zones) and review it in the companion app. It is a self-tracking training device for soccer, lacrosse, and field sports — not a covert tracking device.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -19,20 +23,23 @@ export const metadata: Metadata = {
   generator: "Next.js",
   keywords: [
     "Phantom Track",
-    "GPS tracker",
-    "GNSS",
-    "athlete performance",
-    "soccer tracker",
-    "sports wearable",
-    "performance vest",
+    "sports performance wearable",
+    "athlete performance tracker",
+    "GNSS sports wearable",
+    "soccer performance tracker",
+    "lacrosse tracker",
+    "field sport wearable",
+    "chest strap GPS",
+    "athlete-worn fitness wearable",
+    "training performance device",
     "Phantom Core",
     "Phantom Vest",
   ],
+  category: "Sports & Fitness Wearables",
+  classification: "Consumer Sports Performance Wearable (athlete-worn). Not a covert tracking device.",
   authors: [{ name: "Phantom Track", url: SITE_URL }],
   creator: "Phantom Track",
   publisher: "Phantom Track",
-  category: "shopping",
-  classification: "E-commerce / Sports Technology",
   referrer: "origin-when-cross-origin",
   formatDetection: {
     email: false,
@@ -104,11 +111,17 @@ const organizationSchema = {
   logo: `${SITE_URL}/logo_light.png`,
   description: SITE_DESCRIPTION,
   foundingDate: "2025",
+  knowsAbout: [
+    "Sports performance analytics",
+    "GNSS for athletes",
+    "Wearable training technology",
+    "Soccer performance tracking",
+    "Field sport analytics",
+  ],
   sameAs: [
-    // Add your real social profile URLs here as you create them
-    // "https://www.instagram.com/phantomtrack",
-    // "https://www.tiktok.com/@phantomtrack",
-    // "https://x.com/phantomtrack",
+    "https://www.instagram.com/phantomtrackofficial",
+    "https://www.tiktok.com/@phantomtrackofficial",
+    "https://www.x.com/phantomtrackco",
   ],
   contactPoint: [
     {

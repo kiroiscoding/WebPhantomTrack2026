@@ -61,6 +61,41 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ═══════════ WHAT THIS IS ═══════════ */}
+      <section className="px-6 md:px-12 lg:px-20 pt-20 md:pt-28">
+        <div className="mx-auto max-w-[1400px]">
+          <motion.div
+            {...fade(0)}
+            className="rounded-3xl border border-white/10 bg-[#0a0a0a] p-8 md:p-12"
+          >
+            <span className="inline-block text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-4">
+              What Phantom Track is
+            </span>
+            <h2 className="text-2xl md:text-4xl font-bold leading-tight tracking-tight max-w-3xl">
+              A sports performance wearable that athletes wear on themselves.
+            </h2>
+            <p className="mt-5 text-white/55 text-base md:text-lg max-w-3xl leading-relaxed">
+              Athletes secure the Phantom Core sensor in our fitted chest-strap
+              vest between their shoulder blades. The device records their own
+              GNSS performance data — sprint speed, distance covered,
+              accelerations, heart-rate zones — and delivers it to the
+              wearer&apos;s own authenticated account in our companion app.
+              It is a piece of personal training equipment, like a smartwatch
+              or chest-strap heart-rate monitor.
+            </p>
+            <p className="mt-4 text-white/40 text-sm md:text-base max-w-3xl leading-relaxed">
+              Phantom Track is not a covert tracking device. Using it to track
+              another person without their explicit, informed consent is
+              strictly prohibited — see our{" "}
+              <a href="/acceptable-use" className="text-primary underline">
+                Acceptable Use Policy
+              </a>
+              .
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ═══════════ STORY — photo + text split ═══════════ */}
       <section className="px-6 md:px-12 lg:px-20 py-24 md:py-36">
         <div className="mx-auto max-w-[1400px] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">

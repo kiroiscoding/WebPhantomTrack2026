@@ -57,13 +57,19 @@ export default async function ProductLayout({
         "@context": "https://schema.org",
         "@type": "Product",
         name: product.name,
-        description: product.description,
+        description: `${product.description} Worn by the athlete in a fitted chest-strap vest, this is a self-tracking sports performance wearable — not a covert tracking device.`,
         sku: product.slug,
         brand: {
           "@type": "Brand",
           name: "Phantom Track",
         },
-        category: "Sports Technology",
+        category: "Sports & Fitness > Wearable Performance Trackers",
+        additionalType: "https://schema.org/WearableMeasurementDevice",
+        audience: {
+          "@type": "PeopleAudience",
+          audienceType: "Athletes (soccer, lacrosse, rugby, American football, and other field sports)",
+          suggestedMinAge: 13,
+        },
         offers: {
           "@type": "Offer",
           url: `${SITE_URL}/products/${product.slug}`,
