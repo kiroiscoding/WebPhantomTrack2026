@@ -308,20 +308,20 @@ export default function AppPage() {
                     </motion.div>
 
                     {/* Title word-by-word */}
-                    <div className="text-6xl sm:text-7xl md:text-[9vw] lg:text-[8rem] font-extrabold tracking-tighter text-white leading-[0.9] mb-8 overflow-hidden">
+                    <h1 className="text-6xl sm:text-7xl md:text-[9vw] lg:text-[8rem] font-extrabold tracking-tighter text-white leading-[0.9] mb-8 overflow-hidden">
                         {["YOUR GAME.", "YOUR DATA."].map((line, li) => (
-                            <div key={li} className="overflow-hidden">
-                                <motion.div
+                            <span key={li} className="block overflow-hidden">
+                                <motion.span
                                     initial={{ y: "100%" }}
                                     animate={{ y: 0 }}
                                     transition={{ duration: 0.9, ease: EASE, delay: 0.08 + li * 0.14 }}
-                                    className={li === 1 ? "text-primary" : ""}
+                                    className={`block ${li === 1 ? "text-primary" : ""}`}
                                 >
                                     {line}
-                                </motion.div>
-                            </div>
+                                </motion.span>
+                            </span>
                         ))}
-                    </div>
+                    </h1>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
