@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { ClearCartOnSuccess } from "@/components/ClearCartOnSuccess";
 import { SyncOrderOnSuccess } from "@/components/SyncOrderOnSuccess";
+
+export const metadata: Metadata = {
+  title: "Order Confirmed",
+  robots: { index: false, follow: false },
+};
 
 export default function CheckoutSuccessPage() {
   return (

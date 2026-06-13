@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "How Phantom Track collects, uses, and protects your data across our website and iOS app. Read our full privacy commitment to athletes and customers.",
+  alternates: { canonical: "/privacy" },
+};
 
 export default function PrivacyPolicyPage() {
   return (

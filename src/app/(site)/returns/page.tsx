@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Returns & 30-Day Money-Back Guarantee",
+  description:
+    "Phantom Track offers a 30-day return policy with a full money-back guarantee. See how to start a return, what qualifies, and how refunds are processed.",
+  alternates: { canonical: "/returns" },
+};
 
 export default function ReturnPolicyPage() {
   return (

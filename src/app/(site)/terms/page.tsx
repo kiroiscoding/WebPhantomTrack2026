@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Terms of Service",
+  description:
+    "The terms governing your use of the Phantom Track website, iOS app, and hardware purchases. Read our full terms of service before you buy or download.",
+  alternates: { canonical: "/terms" },
+};
 
 export default function TermsOfServicePage() {
   return (

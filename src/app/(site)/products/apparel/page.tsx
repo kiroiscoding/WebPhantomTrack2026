@@ -1,6 +1,22 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Clock } from "lucide-react";
 import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Performance Apparel — Coming Soon",
+  description:
+    "Phantom Track performance apparel is coming soon: moisture-wicking drill tops and shorts engineered for high-intensity training. Join the waitlist for early access.",
+  alternates: { canonical: "/products/apparel" },
+  openGraph: {
+    type: "website",
+    url: "/products/apparel",
+    title: "Phantom Track Apparel — Coming Soon",
+    description:
+      "Moisture-wicking performance wear engineered for high-intensity training. Join the waitlist.",
+    images: [{ url: "/Device_Web.png", width: 1200, height: 630, alt: "Phantom Track performance gear" }],
+  },
+};
 
 export default function ApparelComingSoonPage() {
   return (

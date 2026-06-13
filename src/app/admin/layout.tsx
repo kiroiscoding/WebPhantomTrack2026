@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { AdminTopbar } from "@/components/admin/AdminTopbar";
+
+// Internal dashboard — never index, and already blocked in robots.ts.
+export const metadata: Metadata = {
+  title: "Admin",
+  robots: { index: false, follow: false, nocache: true },
+};
 
 export default function AdminLayout({
   children,

@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Serve modern formats for smaller transfers / faster LCP. Pages using
+  // <Image unoptimized> opt out of this on a per-image basis.
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   async headers() {
     return [
       {
