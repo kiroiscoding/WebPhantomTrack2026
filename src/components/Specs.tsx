@@ -78,17 +78,15 @@ export function Specs() {
 
                         <div className="mt-8 flex flex-wrap gap-4">
                             <a
-                                href={APP_STORE_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                href="#waitlist"
                                 className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 bg-white text-black rounded-full font-bold text-sm tracking-wide overflow-hidden transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(168,85,247,0.3)]"
                             >
-                                <Download className="w-4 h-4" />
-                                <span className="relative z-10">Download App</span>
+                                <span className="relative z-10">Join the Waitlist</span>
+                                <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-0.5 transition-transform" />
                                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-purple-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                                 <span className="absolute inset-0 z-10 flex items-center justify-center gap-2.5 font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <Download className="w-4 h-4" />
-                                    Download App
+                                    Join the Waitlist
+                                    <ArrowRight className="w-4 h-4" />
                                 </span>
                             </a>
                             <a

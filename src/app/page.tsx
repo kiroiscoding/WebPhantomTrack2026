@@ -5,7 +5,6 @@ import { Specs } from "@/components/Specs";
 import { HowItWorks } from "@/components/HowItWorks";
 import { SocialProof } from "@/components/SocialProof";
 import { GrandFinale } from "@/components/GrandFinale";
-import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -19,7 +18,6 @@ export default function Home() {
           <HowItWorks />
           <SocialProof />
           <GrandFinale />
-          <Footer />
         </div>
       </main>
     </>

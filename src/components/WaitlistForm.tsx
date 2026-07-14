@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check, Loader2, Users } from "lucide-react";
 
-type Variant = "hero" | "finale" | "inline";
+type Variant = "hero" | "finale" | "inline" | "footer";
 
 type WaitlistFormProps = {
     variant?: Variant;
@@ -62,6 +62,7 @@ export function WaitlistForm({ variant = "hero", reveal = true, interactive = tr
 
     const isFinale = variant === "finale";
     const isInline = variant === "inline";
+    const isFooter = variant === "footer";
     const useStagger = isFinale && !reveal;
     const finaleReveal = isFinale && reveal;
 
@@ -93,9 +94,41 @@ export function WaitlistForm({ variant = "hero", reveal = true, interactive = tr
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         onSubmit={handleSubmit}
-                        className={`flex gap-3 ${isFinale ? "flex-col sm:flex-row items-stretch sm:items-center justify-center w-full mx-auto" : isInline ? "flex-row" : "flex-row"}`}
+                        className={`flex gap-3 ${isFinale ? "flex-col sm:flex-row items-stretch sm:items-center justify-center w-full mx-auto" : isFooter ? "flex-col sm:flex-row items-stretch w-full" : isInline ? "flex-row" : "flex-row"}`}
                     >
-                        {isFinale ? (
+                        {isFooter ? (
+                            <>
+                                <div className="relative flex-1 min-w-0">
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => {
+                                            setEmail(e.target.value);
+                                            if (status === "error") setStatus("idle");
+                                        }}
+                                        placeholder="Enter your email"
+                                        required
+                                        className={`w-full bg-white/[0.06] border text-white placeholder:text-white/30 font-medium outline-none transition-all duration-200 focus:border-primary/50 focus:bg-white/[0.08] ${
+                                            status === "error" ? "border-red-500/50" : "border-white/10"
+                                        } px-5 py-3.5 rounded-full text-base`}
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    disabled={status === "loading"}
+                                    className="group inline-flex items-center justify-center gap-2 font-bold tracking-wide whitespace-nowrap flex-shrink-0 disabled:opacity-60 px-7 py-3.5 bg-primary text-white rounded-full text-base transition-all hover:bg-purple-500 hover:shadow-[0_0_40px_rgba(168,85,247,0.5)]"
+                                >
+                                    {status === "loading" ? (
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                    ) : (
+                                        <>
+                                            Join the Waitlist
+                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                                        </>
+                                    )}
+                                </button>
+                            </>
+                        ) : isFinale ? (
                             <>
                                 <motion.div
                                     className="relative flex-1 min-w-0"
@@ -200,7 +233,7 @@ export function WaitlistForm({ variant = "hero", reveal = true, interactive = tr
                 <p className={`text-red-400 text-xs mt-2 ${isFinale ? "text-center" : ""}`}>{message}</p>
             )}
 
-            {count != null && (
+            {count != null && !isInline && !isFooter && (
                 <motion.div
                     initial={isFinale ? { opacity: 0, y: 12 } : { opacity: 0 }}
                     animate={isFinale ? (reveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }) : { opacity: 1, y: 0 }}
