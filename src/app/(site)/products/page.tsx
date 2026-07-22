@@ -1,107 +1,112 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { Check, ShoppingCart, Eye } from "lucide-react";
-import { Footer } from "@/components/Footer";
+import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  Check,
+  Star,
+  ShoppingCart,
+  ArrowRight,
+  ShieldCheck,
+  Truck,
+  RotateCcw,
+  Lock,
+  Shirt,
+  Clock,
+} from "lucide-react";
+import { Footer } from "@/components/Footer";
+import { PRODUCTS, formatUsdFromCents, type Product } from "@/lib/products";
+import { useCartStore } from "@/lib/cartStore";
+
+type Display = {
+  slug: string;
+  badge?: { label: string; tone: "accent" | "neutral" };
+  image?: string;
+  featureCount: number;
+};
+
+// Presentation config, keyed to the single source of truth in lib/products.ts
+const DISPLAY_ORDER: Display[] = [
+  { slug: "tracker-combo", badge: { label: "Best value", tone: "accent" }, image: "/productImage.png", featureCount: 4 },
+  { slug: "phantom-vest", featureCount: 4 },
+  { slug: "apparel", badge: { label: "Coming soon", tone: "neutral" }, featureCount: 4 },
+];
+
+const trustItems = [
+  { icon: ShieldCheck, label: "1-year warranty" },
+  { icon: Truck, label: "Free shipping over $150" },
+  { icon: RotateCcw, label: "30-day returns" },
+  { icon: Lock, label: "Secure checkout" },
+];
 
 export default function ProductsPage() {
+  const reduce = useReducedMotion();
+
   return (
-    <div className="min-h-screen bg-[#050505] pt-24 md:pt-32">
-      {/* Hero Section */}
-      <section className="px-6 lg:px-8 mb-20">
-        <div className="mx-auto max-w-[1400px]">
+    <div className="min-h-screen bg-gradient-to-b from-white via-[#f6f7f9] to-[#eceef2] text-slate-900">
+      {/* Header */}
+      <section className="px-5 md:px-8 pt-28 md:pt-36">
+        <div className="mx-auto max-w-[1200px]">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-10 md:mb-24"
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-2xl"
           >
-            <h1 className="text-[10vw] lg:text-[12vw] leading-[0.8] font-bold tracking-tighter text-white mb-4 md:mb-8">
-              THE ARMORY<span className="text-primary">.</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                Shop the lineup
+              </span>
+            </div>
+
+            <h1 className="mt-5 text-4xl md:text-6xl font-black tracking-tight text-slate-900">
+              The Armory<span className="text-primary">.</span>
             </h1>
-            <p className="text-base md:text-2xl text-white/70 max-w-2xl mx-auto font-medium">
-              Professional grade hardware. Engineered for the elite.
+            <p className="mt-4 text-base md:text-lg text-slate-600 leading-relaxed">
+              Professional-grade tracking hardware, engineered for the elite. Pick your setup and
+              start capturing every sprint, turn, and touch.
             </p>
           </motion.div>
 
-          <div className="space-y-16 md:space-y-32 mb-16 md:mb-32">
-            {/* Product 1: Tracker Combo */}
-            <ProductSection
-              title="TRACKER COMBO"
-              price="$120.00"
-              desc="The complete ecosystem. Includes the Gen-2 Phantom Core, Elite Vest, and lifetime app access. Everything you need to start tracking immediately."
-              features={[
-                "1000Hz GNSS Module",
-                "Elite Compression Vest",
-                "Magnetic Charging Dock",
-                "Unlimited Cloud Storage",
-              ]}
-              link="/products/tracker-combo"
-              hideCart={true}
-              imagePlaceholder={
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="w-48 md:w-64 h-64 md:h-80 bg-[#1a1a1a] rounded-[32px] border border-white/10 shadow-2xl relative z-10 flex flex-col items-center justify-center p-6">
-                    <div className="w-20 h-20 bg-primary/20 rounded-full blur-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                    <div className="w-24 md:w-32 h-36 md:h-48 bg-black rounded-2xl border border-white/5 relative z-20" />
-                  </div>
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-gradient-to-tr from-primary/10 to-transparent rounded-full blur-[100px]" />
-                </div>
-              }
-              theme="dark"
-            />
+          {/* Trust strip */}
+          <motion.ul
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-8 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3"
+          >
+            {trustItems.map(({ icon: Icon, label }) => (
+              <li key={label} className="flex items-center gap-2 text-sm font-medium text-slate-600">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/[0.06]">
+                  <Icon className="h-4 w-4 text-primary" />
+                </span>
+                {label}
+              </li>
+            ))}
+          </motion.ul>
+        </div>
+      </section>
 
-            {/* Product 2: Phantom Vest */}
-            <ProductSection
-              title="PHANTOM VEST"
-              price="$35.00"
-              desc="A replacement vest for your growing team or personal rotation. Ultra-lightweight, sweat-wicking, and designed for maximum signal reception."
-              features={[
-                "Surgical-Grade Elastane",
-                "Anti-Slip Silicone Grip",
-                "Machine Washable",
-                "Unisex Ergonomic Fit",
-              ]}
-              link="/products/phantom-vest"
-              hideCart={true}
-              imagePlaceholder={
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="w-[220px] md:w-[300px] h-[300px] md:h-[400px] bg-[#111111] rounded-[40px] shadow-xl flex items-center justify-center relative z-10">
-                    {/* Abstract Vest Shape */}
-                    <div className="w-36 md:w-48 h-48 md:h-64 bg-[#1a1a1a] rounded-[20px] relative overflow-hidden">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-12 bg-[#111111] rounded-b-full" />
-                      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-8 h-8 bg-black/10 rounded-sm" />
-                    </div>
-                  </div>
-                </div>
-              }
-              theme="dark"
-              reversed
-            />
-
-            {/* Product 3: Apparel */}
-            <ProductSection
-              title="APPAREL"
-              price="Coming soon"
-              desc="Performance wear that keeps up. Moisture-wicking drill top and shorts designed for high-intensity sessions."
-              features={[
-                "4-Way Stretch Fabric",
-                "Thermal Regulation",
-                "Reflective Detailing",
-                "Quick-Dry Technology",
-              ]}
-              link="/products/apparel"
-              hideCart={true}
-              imagePlaceholder={
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="relative z-10 flex gap-4">
-                    <div className="w-32 md:w-48 h-48 md:h-64 bg-[#1a1a1a] rounded-2xl shadow-2xl rotate-[-6deg] translate-y-4" />
-                    <div className="w-32 md:w-48 h-48 md:h-64 bg-[#262626] rounded-2xl shadow-2xl rotate-[6deg] -translate-y-4" />
-                  </div>
-                </div>
-              }
-              theme="dark"
-            />
+      {/* Product grid */}
+      <section className="px-5 md:px-8 mt-12 md:mt-16 pb-24">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {DISPLAY_ORDER.map((d, i) => {
+              const product = PRODUCTS[d.slug];
+              if (!product) return null;
+              return (
+                <ProductCard
+                  key={d.slug}
+                  product={product}
+                  display={d}
+                  index={i}
+                  reduce={Boolean(reduce)}
+                />
+              );
+            })}
           </div>
         </div>
       </section>
@@ -111,100 +116,165 @@ export default function ProductsPage() {
   );
 }
 
-function ProductSection({
-  title,
-  price,
-  desc,
-  features,
-  imagePlaceholder,
-  theme = "dark",
-  reversed = false,
-  link,
-  hideCart = false,
+function ProductCard({
+  product,
+  display,
+  index,
+  reduce,
 }: {
-  title: string;
-  price: string;
-  desc: string;
-  features: string[];
-  imagePlaceholder: React.ReactNode;
-  theme?: "dark" | "light";
-  reversed?: boolean;
-  link?: string;
-  hideCart?: boolean;
+  product: Product;
+  display: Display;
+  index: number;
+  reduce: boolean;
 }) {
-  const isDark = theme === "dark";
-  const bgColor = isDark ? "bg-[#050505]" : "bg-[#111111]";
-  const textColor = isDark ? "text-white" : "text-white";
-  const subTextColor = isDark ? "text-white/60" : "text-white/60";
+  const addItem = useCartStore((s) => s.addItem);
+  const [added, setAdded] = useState(false);
+
+  const purchasable = product.purchasable;
+  const priceLabel = purchasable ? formatUsdFromCents(product.priceCents) : "Coming soon";
+  const features = product.features.slice(0, display.featureCount);
+
+  function handleAdd() {
+    addItem(product, { quantity: 1 });
+    setAdded(true);
+    window.setTimeout(() => setAdded(false), 1600);
+  }
 
   return (
-    <div
-      className={`group relative rounded-[40px] overflow-hidden ${bgColor} ${textColor} min-h-[420px] md:min-h-[600px] flex flex-col lg:flex-row`}
+    <motion.article
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      className="group flex flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-black/[0.06] shadow-[0_1px_3px_rgba(15,23,42,0.06)] transition-shadow duration-300 hover:shadow-[0_20px_50px_-20px_rgba(15,23,42,0.35)]"
     >
-      {/* Content Side */}
-      <div
-        className={`flex-1 p-6 md:p-16 flex flex-col justify-center relative z-10 ${
-          reversed ? "lg:order-2" : "lg:order-1"
-        }`}
+      {/* Media panel */}
+      <Link
+        href={`/products/${product.slug}`}
+        aria-label={`View ${product.name} details`}
+        className="relative block aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_50%_35%,#2b1c46_0%,#12101c_60%,#0b0a12_100%)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
       >
-        <h2 className="text-3xl md:text-6xl font-bold mb-4 tracking-tight">{title}</h2>
-        {price && <div className="text-2xl font-mono text-primary mb-8">{price}</div>}
-        <p className={`text-base md:text-xl ${subTextColor} mb-8 md:mb-12 max-w-md leading-relaxed`}>{desc}</p>
-        <div className="space-y-4 mb-8 md:mb-12">
-          {features.map((feature, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <div
-                className={`w-6 h-6 rounded-full ${
-                  isDark ? "bg-white/10" : "bg-black/10"
-                } flex items-center justify-center`}
-              >
-                <Check className="w-3 h-3" />
-              </div>
-              <span className="font-medium opacity-80">{feature}</span>
-            </div>
-          ))}
+        {display.badge && (
+          <span
+            className={`absolute left-4 top-4 z-10 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider ${
+              display.badge.tone === "accent"
+                ? "bg-primary text-white"
+                : "bg-white/15 text-white backdrop-blur-sm ring-1 ring-white/20"
+            }`}
+          >
+            {display.badge.label}
+          </span>
+        )}
+
+        {display.image ? (
+          <Image
+            src={display.image}
+            alt={`${product.name} — ${product.subtitle}`}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Shirt className="h-20 w-20 text-white/25 transition-transform duration-500 group-hover:scale-[1.06]" />
+          </div>
+        )}
+      </Link>
+
+      {/* Content */}
+      <div className="flex flex-1 flex-col p-6">
+        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+          {product.subtitle}
         </div>
-        <div className="flex flex-col min-[400px]:flex-row gap-3 md:gap-4">
-          {!hideCart && (
+        <h2 className="mt-1.5 text-xl font-bold tracking-tight text-slate-900">{product.name}</h2>
+
+        {/* Rating */}
+        {product.reviews > 0 && (
+          <div className="mt-2 flex items-center gap-1.5">
+            <div className="flex" aria-hidden="true">
+              {[...Array(5)].map((_, s) => (
+                <Star
+                  key={s}
+                  className={`h-3.5 w-3.5 ${
+                    s < Math.round(product.rating)
+                      ? "fill-amber-400 text-amber-400"
+                      : "fill-slate-200 text-slate-200"
+                  }`}
+                />
+              ))}
+            </div>
+            <span className="text-xs text-slate-500">
+              {product.rating.toFixed(1)} ({product.reviews})
+            </span>
+          </div>
+        )}
+
+        <p className="mt-3 text-sm leading-relaxed text-slate-600 line-clamp-3">
+          {product.description}
+        </p>
+
+        {/* Features */}
+        <ul className="mt-4 space-y-2">
+          {features.map((f) => (
+            <li key={f} className="flex items-start gap-2 text-sm text-slate-700">
+              <span className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                <Check className="h-2.5 w-2.5 text-primary" />
+              </span>
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        {/* Price + actions */}
+        <div className="mt-6 flex items-end justify-between border-t border-slate-100 pt-5">
+          <div>
+            <div className="text-[11px] font-medium uppercase tracking-wider text-slate-400">
+              {purchasable ? "Price" : "Availability"}
+            </div>
+            <div className="text-2xl font-bold text-slate-900">{priceLabel}</div>
+          </div>
+        </div>
+
+        <div className="mt-4 flex flex-col gap-2.5">
+          {purchasable ? (
             <button
-              className={`px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg transition-all flex items-center justify-center gap-2 ${
-                isDark ? "bg-white text-black hover:bg-gray-200" : "bg-black text-white hover:bg-gray-800"
-              }`}
+              type="button"
+              onClick={handleAdd}
+              aria-label={`Add ${product.name} to cart`}
+              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-purple-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              <ShoppingCart className="w-5 h-5" />
-              <span>Add to Cart</span>
+              {added ? (
+                <>
+                  <Check className="h-4 w-4" />
+                  Added to cart
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="h-4 w-4" />
+                  Add to Cart
+                </>
+              )}
+            </button>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="inline-flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-full bg-slate-100 px-6 py-3.5 text-sm font-bold text-slate-400"
+            >
+              <Clock className="h-4 w-4" />
+              Coming soon
             </button>
           )}
-          {link && (
-            <Link
-              href={link}
-              className={`px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg transition-all flex items-center justify-center gap-2 border ${
-                isDark
-                  ? "border-white/20 hover:bg-white/10 text-white"
-                  : "border-black/20 hover:bg-black/5 text-black"
-              }`}
-            >
-              <Eye className="w-5 h-5" />
-              <span>View</span>
-            </Link>
-          )}
+
+          <Link
+            href={`/products/${product.slug}`}
+            className="inline-flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-full border border-slate-200 px-6 py-3.5 text-sm font-bold text-slate-700 transition-colors duration-200 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            View details
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </Link>
         </div>
       </div>
-
-      {/* Image Side */}
-      <div
-        className={`flex-1 min-h-[280px] md:min-h-[400px] lg:min-h-auto relative overflow-hidden ${
-          reversed ? "lg:order-1" : "lg:order-2"
-        }`}
-      >
-        <div
-          className={`absolute inset-0 ${
-            isDark ? "bg-gradient-to-br from-white/5 to-transparent" : "bg-gradient-to-br from-black/5 to-transparent"
-          }`}
-        />
-        {imagePlaceholder}
-      </div>
-    </div>
+    </motion.article>
   );
 }
-

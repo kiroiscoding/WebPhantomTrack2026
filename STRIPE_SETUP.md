@@ -16,6 +16,22 @@ Optional (recommended if you want webhooks):
 STRIPE_WEBHOOK_SECRET=whsec_...
 ```
 
+Optional (enable automatic sales tax via Stripe Tax):
+
+```bash
+# Only set this to "true" after configuring Stripe Tax in the Dashboard
+# (origin address + default product tax code). If enabled without that setup,
+# Checkout session creation will fail.
+STRIPE_AUTOMATIC_TAX=true
+```
+
+## Notes on this integration
+
+- **API version is pinned** in `src/lib/stripe.ts` (`STRIPE_API_VERSION`) so Stripe-side default changes can't silently alter behavior. Bump it intentionally when you upgrade the `stripe` package.
+- **Restricted API key (recommended):** prefer a restricted key (`rk_...`) with least-privilege scopes over a full secret key (`sk_...`) for `STRIPE_SECRET_KEY`. Create one on the [API keys page](https://dashboard.stripe.com/apikeys).
+- **Dynamic payment methods:** we intentionally do not pass `payment_method_types`, so Stripe shows the best-converting methods (cards, wallets, Link). Manage which methods appear from the Dashboard.
+- **Webhook is the source of truth** for recording orders + sending confirmation emails. The success-page sync is a best-effort fast path only.
+
 ## Stripe test card
 
 - Card: `4242 4242 4242 4242`

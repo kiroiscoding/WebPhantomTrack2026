@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Map, Download, ArrowRight, Brain, Users, Star } from "lucide-react";
 
@@ -77,18 +78,18 @@ export function Specs() {
                         </h2>
 
                         <div className="mt-8 flex flex-wrap gap-4">
-                            <a
-                                href="#waitlist"
+                            <Link
+                                href="/products"
                                 className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 bg-white text-black rounded-full font-bold text-sm tracking-wide overflow-hidden transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(168,85,247,0.3)]"
                             >
-                                <span className="relative z-10">Join the Waitlist</span>
+                                <span className="relative z-10">Shop Now</span>
                                 <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-0.5 transition-transform" />
                                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-purple-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                                 <span className="absolute inset-0 z-10 flex items-center justify-center gap-2.5 font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Join the Waitlist
+                                    Shop Now
                                     <ArrowRight className="w-4 h-4" />
                                 </span>
-                            </a>
+                            </Link>
                             <a
                                 href="#features"
                                 className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm tracking-wide text-white/70 border border-white/10 hover:border-primary/50 hover:bg-primary/5 hover:text-white transition-all duration-300"

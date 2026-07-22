@@ -3,11 +3,11 @@ import { NextResponse } from "next/server";
 import { getProduct } from "@/lib/products";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { getStripe, STRIPE_AUTOMATIC_TAX_ENABLED } from "@/lib/stripe";
 
 export const runtime = "nodejs";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-});
+const stripe = getStripe();
 
 type CheckoutBody = {
   items: { slug: string; quantity: number; variant?: string }[];
@@ -45,6 +45,9 @@ export async function POST(request: Request) {
         price_data: {
           currency: "usd",
           unit_amount: product.priceCents,
+          // With Stripe Tax enabled, unit prices are treated as tax-exclusive
+          // (tax is added on top). Harmless when tax is disabled.
+          ...(STRIPE_AUTOMATIC_TAX_ENABLED ? { tax_behavior: "exclusive" as const } : {}),
           product_data: {
             name: variant ? `${product.name} (${variant})` : product.name,
             description: product.subtitle,
@@ -92,7 +95,7 @@ export async function POST(request: Request) {
       // Non-fatal: guest checkout will still work.
     }
 
-    const session = await stripe.checkout.sessions.create({
+    const params: Stripe.Checkout.SessionCreateParams = {
       mode: "payment",
       line_items,
       // Ensure we always get an address back on the Session (at minimum billing/customer_details.address).
@@ -115,9 +118,28 @@ export async function POST(request: Request) {
       ],
       success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/checkout/cancel`,
-      ...(stripeCustomerId ? { customer: stripeCustomerId } : {}),
-      ...(clientReferenceId ? { client_reference_id: clientReferenceId } : {}),
-    });
+    };
+
+    // Let Stripe calculate and collect sales tax automatically (opt-in; requires
+    // an origin address + default tax code configured in the Stripe Dashboard).
+    if (STRIPE_AUTOMATIC_TAX_ENABLED) {
+      params.automatic_tax = { enabled: true };
+    }
+
+    if (stripeCustomerId) {
+      params.customer = stripeCustomerId;
+      // When reusing a Customer, allow Checkout to save the collected address so
+      // Stripe Tax has an accurate destination to calculate against.
+      if (STRIPE_AUTOMATIC_TAX_ENABLED) {
+        params.customer_update = { shipping: "auto", address: "auto" };
+      }
+    }
+
+    if (clientReferenceId) {
+      params.client_reference_id = clientReferenceId;
+    }
+
+    const session = await stripe.checkout.sessions.create(params);
 
     return NextResponse.json({ url: session.url });
   } catch (e) {

@@ -1,14 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronRight, Globe } from "lucide-react";
+import { Menu, X, ChevronRight, Globe, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCartStore } from "@/lib/cartStore";
+
+const emptySubscribe = () => () => {};
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
+    const openCart = useCartStore((s) => s.openCart);
+    const itemCount = useCartStore((s) => s.items.reduce((sum, x) => sum + x.quantity, 0));
+
+    // Cart is persisted in localStorage; only reveal the count once we're on the
+    // client to avoid a hydration mismatch between server (empty cart) and client.
+    const isClient = useSyncExternalStore(emptySubscribe, () => true, () => false);
+
     const menuItems = [
+        { name: "Shop", href: "/products" },
         { name: "App", href: "/app" },
         { name: "About us", href: "/about" },
         { name: "Support", href: "/support" },
@@ -76,7 +87,19 @@ export function Navbar() {
                             </Link>
                         </div>
 
-                        <div className="w-9" />
+                        <button
+                            type="button"
+                            onClick={openCart}
+                            className="relative text-white p-2 mr-1 hover:bg-white/10 rounded-full transition-colors"
+                            aria-label={itemCount > 0 ? `Open cart, ${itemCount} item${itemCount === 1 ? "" : "s"}` : "Open cart"}
+                        >
+                            <ShoppingBag className="h-5 w-5" />
+                            {isClient && itemCount > 0 && (
+                                <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-primary text-white text-[10px] font-bold flex items-center justify-center tabular-nums leading-none">
+                                    {itemCount > 9 ? "9+" : itemCount}
+                                </span>
+                            )}
+                        </button>
                     </div>
 
                     {/* Expanding content */}

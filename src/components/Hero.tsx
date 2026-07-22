@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Star } from "lucide-react";
-import { WaitlistForm } from "@/components/WaitlistForm";
+import { Star, ArrowRight } from "lucide-react";
 
 const HERO_BG_VIDEO = "/videos/TestCanlanVid.mp4";
 const HERO_BG_POSTER = "/images/hero-bg.jpg";
@@ -101,14 +101,20 @@ export function Hero() {
             {/* Dark Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-black/18 pointer-events-none" />
 
-            {/* Join Waitlist CTA — top right, desktop only */}
+            {/* Shop CTA — top right, desktop only */}
             <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1 }}
                 className="absolute top-8 right-10 z-20 hidden md:block"
             >
-                <WaitlistForm variant="inline" />
+                <Link
+                    href="/products"
+                    className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-2.5 text-sm font-bold tracking-wide text-black transition-all hover:bg-gray-200 hover:shadow-[0_0_30px_rgba(168,85,247,0.25)]"
+                >
+                    Shop Now
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
             </motion.div>
 
             {/* Main content — bottom left editorial layout */}

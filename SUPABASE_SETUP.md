@@ -96,7 +96,8 @@ Supabase Dashboard → SQL Editor → run:
 ```sql
 create table if not exists public.orders (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid not null references auth.users (id) on delete cascade,
+  -- Nullable so guest (not-signed-in) checkouts can still be recorded.
+  user_id uuid references auth.users (id) on delete cascade,
   stripe_session_id text unique,
   stripe_customer_id text,
   amount_total_cents integer,
@@ -114,9 +115,15 @@ to authenticated
 using (auth.uid() = user_id);
 ```
 
+If your `orders` table was created earlier with `user_id` as `not null`, relax it so guest orders can be stored (this migration is already applied to the linked project):
+
+```sql
+alter table public.orders alter column user_id drop not null;
+```
+
 Notes:
-- Orders are written server-side (webhook or success-page sync) using the Service Role key.
-- Guest checkout (not signed in) won’t attach to a `user_id`, so it won’t show in order history.
+- Orders are written server-side by the **webhook** (`/api/webhook`, source of truth) and, as a best-effort fast path for signed-in buyers, by the success-page sync (`/api/orders/sync`). Both call the same idempotent recorder in `src/lib/orders.ts`.
+- Guest checkouts (not signed in) are now recorded with `user_id = null`. They won’t appear in a customer’s order history (the RLS policy scopes reads to `auth.uid() = user_id`) but are visible to admins/fulfillment via the Service Role key.
 
 ## 7) Add shipping + tracking fields to `orders` (recommended)
 

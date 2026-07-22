@@ -3,8 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { WaitlistForm } from "@/components/WaitlistForm";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -113,14 +113,23 @@ export function GrandFinale() {
                         </motion.h2>
 
                         <motion.p variants={itemV} className="mt-6 text-sm md:text-base text-white/60">
-                            Pro-grade GPS performance tracking. Launching soon.
+                            Pro-grade GPS performance tracking. Available now.
                         </motion.p>
 
-                        <motion.div variants={itemV} id="waitlist" className="mt-8 w-full max-w-lg scroll-mt-28">
-                            <WaitlistForm variant="footer" />
-                            <p className="mt-3 text-xs text-white/45">
-                                Be first in line — no payment today.
-                            </p>
+                        <motion.div variants={itemV} className="mt-8 flex flex-col sm:flex-row gap-4 w-full max-w-lg">
+                            <Link
+                                href="/products"
+                                className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-white rounded-full font-bold text-base tracking-wide transition-all hover:bg-purple-500 hover:shadow-[0_0_40px_rgba(168,85,247,0.5)]"
+                            >
+                                Shop Now
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                            </Link>
+                            <Link
+                                href="/products/tracker-combo"
+                                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full font-bold text-base tracking-wide text-white border border-white/15 hover:bg-white/10 transition-colors"
+                            >
+                                View the Tracker
+                            </Link>
                         </motion.div>
                     </motion.div>
                 </div>

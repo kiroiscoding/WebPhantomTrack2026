@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { Globe, ChevronRight, ArrowRight, Check, Loader2, Users, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { Globe, ChevronRight, ShoppingBag } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -16,119 +16,7 @@ const fadeUp = {
     }),
 };
 
-function WaitlistInline() {
-    const [email, setEmail] = useState("");
-    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-    const [message, setMessage] = useState("");
-    const [count, setCount] = useState<number | null>(null);
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    React.useEffect(() => {
-        fetch("/api/waitlist")
-            .then((r) => r.json())
-            .then((d) => setCount(d.count ?? null))
-            .catch(() => {});
-    }, []);
-
-    React.useEffect(() => {
-        if (inputRef.current) inputRef.current.focus();
-    }, []);
-
-    async function handleSubmit(e: React.FormEvent) {
-        e.preventDefault();
-        if (!email.trim() || status === "loading") return;
-        setStatus("loading");
-        setMessage("");
-        try {
-            const res = await fetch("/api/waitlist", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: email.trim() }),
-            });
-            const data = await res.json();
-            if (!res.ok) { setStatus("error"); setMessage(data.error ?? "Something went wrong."); return; }
-            setStatus("success");
-            setMessage(data.message ?? "You're on the list.");
-            if (data.count != null) setCount(data.count);
-            if (!data.alreadyJoined) setEmail("");
-        } catch {
-            setStatus("error");
-            setMessage("Network error. Try again.");
-        }
-    }
-
-    return (
-        <div className="w-full pt-1">
-            <AnimatePresence mode="wait">
-                {status === "success" ? (
-                    <motion.div
-                        key="success"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="flex flex-col items-center gap-3 py-2"
-                    >
-                        <div className="w-12 h-12 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-                            <Check className="w-6 h-6 text-primary" />
-                        </div>
-                        <p className="text-white font-semibold text-base">{message}</p>
-                        {count != null && (
-                            <span className="text-white/40 text-xs flex items-center gap-1.5">
-                                <Users className="w-3 h-3 text-primary/60" />
-                                {count} people on the waitlist
-                            </span>
-                        )}
-                    </motion.div>
-                ) : (
-                    <motion.form
-                        key="form"
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.35 }}
-                        onSubmit={handleSubmit}
-                        className="flex flex-col gap-3"
-                    >
-                        <input
-                            ref={inputRef}
-                            type="email"
-                            value={email}
-                            onChange={(e) => { setEmail(e.target.value); if (status === "error") setStatus("idle"); }}
-                            placeholder="your@email.com"
-                            required
-                            className={`w-full bg-white/[0.07] border text-white placeholder:text-white/30 font-medium outline-none transition-all duration-200 focus:border-primary/60 focus:bg-white/[0.1] px-5 py-4 rounded-2xl text-base ${status === "error" ? "border-red-500/50" : "border-white/10"}`}
-                        />
-                        <button
-                            type="submit"
-                            disabled={status === "loading"}
-                            className="group relative w-full inline-flex items-center justify-center gap-2 font-bold tracking-wide overflow-hidden transition-all disabled:opacity-60 px-6 py-4 bg-primary text-white rounded-2xl text-base active:scale-[0.98]"
-                        >
-                            {status === "loading" ? (
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                            ) : (
-                                <>
-                                    Join the Waitlist
-                                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                                </>
-                            )}
-                        </button>
-                        {status === "error" && message && (
-                            <p className="text-red-400 text-xs text-center">{message}</p>
-                        )}
-                        {count != null && (
-                            <p className="text-white/35 text-xs text-center flex items-center justify-center gap-1.5">
-                                <Users className="w-3 h-3 text-primary/50" />
-                                {count} people already waiting
-                            </p>
-                        )}
-                    </motion.form>
-                )}
-            </AnimatePresence>
-        </div>
-    );
-}
-
 export default function ScanPage() {
-    const [waitlistOpen, setWaitlistOpen] = useState(false);
-
     return (
         <div className="relative min-h-[100dvh] w-full overflow-hidden bg-[#050505] flex flex-col">
             {/* Video background */}
@@ -206,6 +94,21 @@ export default function ScanPage() {
                     animate="show"
                     className="flex flex-col gap-3 w-full max-w-sm mx-auto"
                 >
+                    {/* Shop Now */}
+                    <Link
+                        href="/products"
+                        className="group flex items-center gap-4 px-5 py-4 rounded-2xl bg-primary/15 border border-primary/30 backdrop-blur-sm active:scale-[0.98] transition-all duration-200 hover:border-primary/50 hover:bg-primary/20"
+                    >
+                        <div className="w-11 h-11 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center flex-shrink-0">
+                            <ShoppingBag className="w-5 h-5 text-primary" />
+                        </div>
+                        <div className="flex-1 text-left">
+                            <p className="text-white font-semibold text-base leading-tight">Shop Now</p>
+                            <p className="text-white/50 text-xs mt-0.5">Get the Phantom Track tracker</p>
+                        </div>
+                        <ChevronRight className="w-5 h-5 text-white/30 group-hover:text-white/60 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                    </Link>
+
                     {/* Download App */}
                     <div className="rounded-2xl bg-white/[0.06] border border-white/10 backdrop-blur-sm overflow-hidden">
                         {/* iOS — tappable */}
@@ -260,58 +163,6 @@ export default function ScanPage() {
                         </div>
                         <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-white/50 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
                     </Link>
-
-                    {/* Join Waitlist — expandable */}
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm overflow-hidden">
-                        <button
-                            onClick={() => setWaitlistOpen((o) => !o)}
-                            className="w-full group flex items-center gap-4 px-5 py-4 active:scale-[0.98] transition-all duration-200"
-                        >
-                            <div className="w-11 h-11 rounded-xl bg-white/[0.08] border border-white/10 flex items-center justify-center flex-shrink-0">
-                                <AnimatePresence mode="wait" initial={false}>
-                                    {waitlistOpen ? (
-                                        <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                                            <X className="w-5 h-5 text-white/60" />
-                                        </motion.span>
-                                    ) : (
-                                        <motion.span key="mail" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                                            <svg className="w-5 h-5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                                                <polyline points="22,6 12,13 2,6" />
-                                            </svg>
-                                        </motion.span>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                            <div className="flex-1 text-left">
-                                <p className="text-white font-semibold text-base leading-tight">Join the Waitlist</p>
-                                <p className="text-white/40 text-xs mt-0.5">Be first when we launch</p>
-                            </div>
-                            <motion.div
-                                animate={{ rotate: waitlistOpen ? 90 : 0 }}
-                                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                            >
-                                <ChevronRight className="w-5 h-5 text-white/20 flex-shrink-0" />
-                            </motion.div>
-                        </button>
-
-                        <AnimatePresence initial={false}>
-                            {waitlistOpen && (
-                                <motion.div
-                                    key="waitlist"
-                                    initial={{ height: 0, opacity: 0 }}
-                                    animate={{ height: "auto", opacity: 1 }}
-                                    exit={{ height: 0, opacity: 0 }}
-                                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                    className="overflow-hidden"
-                                >
-                                    <div className="px-5 pb-5 border-t border-white/[0.06]">
-                                        <WaitlistInline />
-                                    </div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
                 </motion.div>
 
                 {/* Footer */}
