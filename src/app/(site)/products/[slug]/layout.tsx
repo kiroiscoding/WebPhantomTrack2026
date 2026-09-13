@@ -84,17 +84,6 @@ export default async function ProductLayout({
             name: "Phantom Track",
           },
         },
-        ...(product.reviews > 0 && product.rating > 0
-          ? {
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: product.rating.toFixed(1),
-                reviewCount: product.reviews,
-                bestRating: "5",
-                worstRating: "1",
-              },
-            }
-          : {}),
       }
     : null;
 

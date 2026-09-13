@@ -17,6 +17,7 @@ import {
   Clock,
 } from "lucide-react";
 import { Footer } from "@/components/Footer";
+import { Brands } from "@/components/Brands";
 import { PRODUCTS, formatUsdFromCents, type Product } from "@/lib/products";
 import { useCartStore } from "@/lib/cartStore";
 
@@ -29,14 +30,14 @@ type Display = {
 
 // Presentation config, keyed to the single source of truth in lib/products.ts
 const DISPLAY_ORDER: Display[] = [
-  { slug: "tracker-combo", badge: { label: "Best value", tone: "accent" }, image: "/productImage.png", featureCount: 4 },
+  { slug: "tracker-combo", badge: { label: "Best value", tone: "accent" }, featureCount: 4 },
   { slug: "phantom-vest", featureCount: 4 },
   { slug: "apparel", badge: { label: "Coming soon", tone: "neutral" }, featureCount: 4 },
 ];
 
 const trustItems = [
   { icon: ShieldCheck, label: "1-year warranty" },
-  { icon: Truck, label: "Free shipping over $150" },
+  { icon: Truck, label: "Free shipping over $75" },
   { icon: RotateCcw, label: "30-day returns" },
   { icon: Lock, label: "Secure checkout" },
 ];
@@ -90,8 +91,10 @@ export default function ProductsPage() {
         </div>
       </section>
 
+      <Brands tone="light" />
+
       {/* Product grid */}
-      <section className="px-5 md:px-8 mt-12 md:mt-16 pb-24">
+      <section className="px-5 md:px-8 mt-4 md:mt-8 pb-24">
         <div className="mx-auto max-w-[1200px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {DISPLAY_ORDER.map((d, i) => {
@@ -133,6 +136,7 @@ function ProductCard({
   const purchasable = product.purchasable;
   const priceLabel = purchasable ? formatUsdFromCents(product.priceCents) : "Coming soon";
   const features = product.features.slice(0, display.featureCount);
+  const cardImage = display.image ?? product.images[0];
 
   function handleAdd() {
     addItem(product, { quantity: 1 });
@@ -166,9 +170,9 @@ function ProductCard({
           </span>
         )}
 
-        {display.image ? (
+        {cardImage ? (
           <Image
-            src={display.image}
+            src={cardImage}
             alt={`${product.name} — ${product.subtitle}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -189,8 +193,8 @@ function ProductCard({
         <h2 className="mt-1.5 text-xl font-bold tracking-tight text-slate-900">{product.name}</h2>
 
         {/* Rating */}
-        {product.reviews > 0 && (
-          <div className="mt-2 flex items-center gap-1.5">
+        {product.rating > 0 && (
+          <div className="mt-2 flex items-center gap-1.5" aria-label={`Rated ${product.rating} out of 5`}>
             <div className="flex" aria-hidden="true">
               {[...Array(5)].map((_, s) => (
                 <Star
@@ -203,9 +207,7 @@ function ProductCard({
                 />
               ))}
             </div>
-            <span className="text-xs text-slate-500">
-              {product.rating.toFixed(1)} ({product.reviews})
-            </span>
+            <span className="text-xs text-slate-500">{product.rating.toFixed(1)}</span>
           </div>
         )}
 

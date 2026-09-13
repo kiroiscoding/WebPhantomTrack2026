@@ -10,7 +10,14 @@ export type Product = {
   description: string;
   features: string[];
   specs: { label: string; value: string }[];
-  images: string[]; // Tailwind bg-* placeholders for now
+  /** Public image paths (e.g. `/products/phantom-vest/vest-1.png`). Empty = no photos yet. */
+  images: string[];
+  /** Size options shown on the PDP. Empty = no size picker. */
+  sizes: string[];
+  /** Short labels for gallery thumbs (same order as `images`). */
+  imageLabels?: string[];
+  /** If set, PDP clarifies this accessory needs the named device. */
+  requiresDevice?: string;
   theme: ProductTheme;
   purchasable: boolean;
 };
@@ -38,7 +45,27 @@ export const PRODUCTS: Record<string, Product> = {
       { label: "Connectivity", value: "Bluetooth 5.3 / Ant+" },
       { label: "Weight", value: "45g (Module)" },
     ],
-    images: ["bg-[#1a1a1a]", "bg-[#262626]", "bg-[#333333]"],
+    images: [
+      "/productImage.png",
+      "/products/phantom-vest/BicyclePicture.png",
+      "/images/juggle-vest.png",
+      "/images/IMG_1580.jpg",
+      "/images/IMG_1468.jpg",
+      "/images/IMG_1607.jpg",
+      "/products/phantom-vest/vest-2.png",
+      "/images/ReviewStep3.png",
+    ],
+    imageLabels: [
+      "Phantom Core",
+      "In action",
+      "On the pitch",
+      "Vest back",
+      "Training",
+      "Play",
+      "Elite Vest",
+      "In the app",
+    ],
+    sizes: ["S", "M", "L"],
     theme: "dark",
     purchasable: true,
   },
@@ -60,10 +87,19 @@ export const PRODUCTS: Record<string, Product> = {
     specs: [
       { label: "Material", value: "Polyester / Elastane Blend" },
       { label: "Fit", value: "Compression" },
-      { label: "Sizes", value: "XS - XXL" },
+      { label: "Sizes", value: "S – L" },
       { label: "Care", value: "Cold Wash / Hang Dry" },
     ],
-    images: ["bg-[#111111]", "bg-[#1a1a1a]", "bg-[#262626]"],
+    images: [
+      "/products/phantom-vest/BicyclePicture.png",
+      "/images/juggle-vest.png",
+      "/images/IMG_1580.jpg",
+      "/products/phantom-vest/vest-2.png",
+      "/products/phantom-vest/vest-1.png",
+    ],
+    imageLabels: ["In action", "Chest branding", "Back view", "Front & back", "Sensor pouch"],
+    sizes: ["S", "M", "L"],
+    requiresDevice: "Phantom Core Gen-2",
     theme: "dark",
     purchasable: true,
   },
@@ -78,7 +114,8 @@ export const PRODUCTS: Record<string, Product> = {
       "Performance wear that keeps up. Moisture-wicking drill top and shorts designed for high-intensity sessions.",
     features: ["4-Way Stretch Fabric", "Thermal Regulation", "Reflective Detailing", "Quick-Dry Technology"],
     specs: [],
-    images: ["bg-[#1a1a1a]", "bg-[#262626]", "bg-[#333333]"],
+    images: [],
+    sizes: [],
     theme: "dark",
     purchasable: false,
   },
@@ -91,4 +128,13 @@ export function getProduct(slug: string): Product | null {
 export function formatUsdFromCents(cents: number): string {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
 }
+
+/** Placeholder chest measurements until a measured chart is provided. */
+export const VEST_SIZE_CHART: { size: string; chest: string }[] = [
+  { size: "S", chest: "34–36 in" },
+  { size: "M", chest: "37–39 in" },
+  { size: "L", chest: "40–42 in" },
+];
+
+export const FREE_SHIPPING_THRESHOLD_CENTS = 7500;
 

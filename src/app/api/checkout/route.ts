@@ -23,6 +23,9 @@ export async function POST(request: Request) {
     }
 
     const origin = request.headers.get("origin") || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    // Stripe fetches product images from its servers, so the URL must be publicly
+    // reachable. Prefer the configured site URL over localhost.
+    const imageBase = (process.env.NEXT_PUBLIC_SITE_URL || origin).replace(/\/$/, "");
     const body = (await request.json()) as CheckoutBody;
     const items = Array.isArray(body?.items) ? body.items : [];
 
@@ -40,6 +43,18 @@ export async function POST(request: Request) {
       const quantity = Math.max(1, Math.min(10, Number(i.quantity || 1)));
       const variant = i.variant?.trim();
 
+      // Absolute public URL only — Stripe's servers must be able to fetch it.
+      const primaryImage = product.images[0];
+      let images: string[] | undefined;
+      if (primaryImage) {
+        const absolute = primaryImage.startsWith("http")
+          ? primaryImage
+          : `${imageBase}${primaryImage.startsWith("/") ? "" : "/"}${primaryImage}`;
+        if (!/localhost|127\.0\.0\.1/.test(absolute)) {
+          images = [absolute];
+        }
+      }
+
       line_items.push({
         quantity,
         price_data: {
@@ -51,6 +66,7 @@ export async function POST(request: Request) {
           product_data: {
             name: variant ? `${product.name} (${variant})` : product.name,
             description: product.subtitle,
+            ...(images ? { images } : {}),
           },
         },
       });

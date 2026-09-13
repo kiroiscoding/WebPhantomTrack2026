@@ -1,53 +1,70 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-const steps = [
+type Step = {
+  id: string;
+  title: string;
+  description: string;
+  image?: string;
+  /** Portrait product/app shots need a tall frame; placeholders stay landscape. */
+  imageOrientation?: "portrait" | "landscape";
+};
+
+const steps: Step[] = [
   {
     id: "01",
     title: "Attach",
-    description: "Securely fasten the Phantom Track device to your gear using the universal mount.",
+    description:
+      "Securely fasten the Phantom Track device to your gear using the universal mount.",
+    image: "/products/phantom-vest/vest-1.png",
+    imageOrientation: "landscape",
   },
   {
     id: "02",
     title: "Train",
-    description: "Focus on your performance while our advanced sensors capture every metric in real-time.",
+    description:
+      "Focus on your performance while our advanced sensors capture every metric in real-time.",
+    image: "/images/IMG_1459.jpg",
+    imageOrientation: "portrait",
   },
   {
     id: "03",
     title: "Review",
-    description: "Sync with the app to analyze your data, gain insights, and improve your technique.",
+    description:
+      "Sync with the app to analyze your data, gain insights, and improve your technique.",
+    image: "/images/ReviewStep3.png",
+    imageOrientation: "portrait",
   },
 ];
 
 export function HowItWorks() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   return (
     <section id="features" className="py-20 bg-[#050505]">
       <div className="w-full px-4 md:px-8">
         <div className="mx-auto max-w-[1400px] bg-[#050505] rounded-[40px] p-8 md:p-16 shadow-2xl relative overflow-hidden">
-            
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-12 md:mb-24 text-center">
-              Seamless Integration
-            </h2>
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-12 md:mb-24 text-center">
+            Seamless Integration
+          </h2>
 
-            <div ref={containerRef} className="relative space-y-16 md:space-y-32">
-              {/* Vertical Line */}
-              <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent -translate-x-1/2 hidden md:block" />
+          <div ref={containerRef} className="relative space-y-16 md:space-y-32">
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent -translate-x-1/2 hidden md:block" />
 
-              {steps.map((step, index) => (
-                <StepCard key={step.id} step={step} index={index} />
-              ))}
-            </div>
+            {steps.map((step, index) => (
+              <StepCard key={step.id} step={step} index={index} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function StepCard({ step, index }: { step: typeof steps[0], index: number }) {
+function StepCard({ step, index }: { step: Step; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -58,6 +75,7 @@ function StepCard({ step, index }: { step: typeof steps[0], index: number }) {
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
   const isEven = index % 2 === 0;
+  const isPortrait = step.imageOrientation === "portrait";
 
   return (
     <motion.div
@@ -68,24 +86,46 @@ function StepCard({ step, index }: { step: typeof steps[0], index: number }) {
       }`}
     >
       <div className="flex-1 text-center md:text-left">
-         <div className={`flex flex-col ${isEven && "md:items-end md:text-right"}`}>
-            <span className="text-6xl font-bold text-primary/20 mb-4">{step.id}</span>
-            <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
-            <p className="text-muted-foreground text-base md:text-lg max-w-md">
-              {step.description}
-            </p>
-         </div>
+        <div className={`flex flex-col ${isEven ? "md:items-end md:text-right" : ""}`}>
+          <span className="text-6xl font-bold text-primary/20 mb-4">{step.id}</span>
+          <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
+          <p className="text-muted-foreground text-base md:text-lg max-w-md">
+            {step.description}
+          </p>
+        </div>
       </div>
-      
-      {/* Center Marker */}
+
       <div className="relative z-10 hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-black border border-primary/50 shadow-[0_0_20px_rgba(168,85,247,0.4)]">
         <div className="w-3 h-3 bg-primary rounded-full" />
       </div>
 
-      <div className="flex-1 w-full md:w-auto">
-        <div className="aspect-video rounded-2xl glass border border-white/5 flex items-center justify-center bg-white/5">
-             <span className="text-muted-foreground/50">Visual for {step.title}</span>
-        </div>
+      <div className="flex-1 w-full md:w-auto flex justify-center">
+        {step.image ? (
+          <div
+            className={`relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl ${
+              isPortrait
+                ? // Tall phone-shot / action frame — capped so it doesn't dominate the page
+                  "max-w-[280px] sm:max-w-[320px] md:max-w-[300px] lg:max-w-[340px] aspect-[9/16]"
+                : "aspect-[4/3]"
+            }`}
+          >
+            <Image
+              src={step.image}
+              alt={`${step.title} — ${step.description}`}
+              fill
+              sizes={
+                isPortrait
+                  ? "(max-width: 640px) 280px, (max-width: 1024px) 300px, 340px"
+                  : "(max-width: 768px) 100vw, 50vw"
+              }
+              className="object-cover object-center"
+            />
+          </div>
+        ) : (
+          <div className="aspect-video w-full rounded-2xl glass border border-white/5 flex items-center justify-center bg-white/5">
+            <span className="text-muted-foreground/50">Visual for {step.title}</span>
+          </div>
+        )}
       </div>
     </motion.div>
   );

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -14,45 +15,105 @@ export default function ReturnPolicyPage() {
       <section className="px-6 lg:px-8">
         <div className="mx-auto max-w-[1100px]">
           <h1 className="text-[9vw] md:text-[5vw] leading-[0.9] font-bold tracking-tighter text-white">
-            RETURN POLICY<span className="text-primary">.</span>
+            RETURNS<span className="text-primary">.</span>
           </h1>
           <p className="mt-4 text-white/70 text-lg md:text-xl max-w-3xl font-medium">
-            30-day return. Money-back guarantee.
+            30-day returns. Full refund to your original payment method when eligibility is met.
           </p>
 
           <div className="mt-10 rounded-[40px] bg-[#050505] text-white border border-white/10 shadow-2xl p-8 md:p-12 space-y-8">
             <Section title="Eligibility">
               <ul className="list-disc pl-5 space-y-2 text-white/70">
-                <li>Returns are accepted within <strong className="text-white">30 days</strong> of delivery.</li>
-                <li>Items must be returned in original condition (normal wear from reasonable testing is okay).</li>
-                <li>Include all accessories and packaging when possible.</li>
-              </ul>
-            </Section>
-
-            <Section title="Refunds">
-              <ul className="list-disc pl-5 space-y-2 text-white/70">
-                <li>Refunds are issued to the original payment method after inspection.</li>
-                <li>Shipping fees may be non-refundable unless required by law or the return is due to our error.</li>
+                <li>
+                  Returns are accepted within <strong className="text-white">30 days</strong> of
+                  delivery for most new hardware purchases.
+                </li>
+                <li>
+                  Items should be returned in original condition. Light use from reasonable testing
+                  is acceptable; excessive wear, damage, or missing components may affect eligibility.
+                </li>
+                <li>Include the device, vest (if purchased), accessories, and packaging when possible.</li>
+                <li>
+                  Final-sale or specially marked items (if any) will be noted at checkout and are not
+                  eligible for return unless defective.
+                </li>
               </ul>
             </Section>
 
             <Section title="How to start a return">
-              <div className="text-white/70 space-y-3">
-                <p>
-                  Go to <a className="text-primary underline" href="/support">Support</a> and open a ticket with your order email and order reference.
-                </p>
-                <p>We’ll reply with the return address and next steps.</p>
-              </div>
+              <ol className="list-decimal pl-5 space-y-2 text-white/70">
+                <li>
+                  Email{" "}
+                  <a className="text-primary underline" href="mailto:contact@phantom-track.com">
+                    contact@phantom-track.com
+                  </a>{" "}
+                  or open a request via{" "}
+                  <Link className="text-primary underline" href="/support">
+                    Support
+                  </Link>{" "}
+                  with your order email and order reference.
+                </li>
+                <li>We’ll confirm eligibility and send return instructions and the return address.</li>
+                <li>Ship the package using a trackable method and keep your receipt until the refund clears.</li>
+              </ol>
             </Section>
 
-            <Section title="Exchanges / damaged items">
+            <Section title="Refunds">
+              <ul className="list-disc pl-5 space-y-2 text-white/70">
+                <li>
+                  Once we receive and inspect your return (typically within{" "}
+                  <strong className="text-white">3–5 business days</strong> of arrival), refunds are
+                  issued to the original payment method.
+                </li>
+                <li>
+                  Card refunds usually appear within <strong className="text-white">5–10 business days</strong>,
+                  depending on your bank.
+                </li>
+                <li>
+                  Original outbound shipping charges are non-refundable unless the return is due to our
+                  error or a defective product, or as otherwise required by law.
+                </li>
+              </ul>
+            </Section>
+
+            <Section title="Exchanges &amp; defective items">
               <p className="text-white/70">
-                If your item arrives damaged or defective, contact <a className="text-primary underline" href="/support">Support</a> and we’ll make it right.
+                If your order arrives damaged or defective, contact Support with photos and your order
+                details. We’ll arrange a replacement or refund — you shouldn’t pay to fix our mistake.
+              </p>
+            </Section>
+
+            <Section title="Warranty">
+              <p className="text-white/70">
+                Hardware is covered by a <strong className="text-white">1-year limited warranty</strong>{" "}
+                against manufacturing defects under normal use. Warranty service is separate from the
+                30-day return window — reach out via Support and we’ll walk you through next steps.
+              </p>
+            </Section>
+
+            <Section title="Shipping for returns">
+              <p className="text-white/70">
+                For details on outbound delivery, free-shipping thresholds, and tracking, see our{" "}
+                <Link className="text-primary underline" href="/shipping">
+                  Shipping Policy
+                </Link>
+                . Return shipping costs are the customer’s responsibility unless the item is defective
+                or we shipped the wrong product.
+              </p>
+            </Section>
+
+            <Section title="Questions">
+              <p className="text-white/70">
+                Contact{" "}
+                <a className="text-primary underline" href="mailto:contact@phantom-track.com">
+                  contact@phantom-track.com
+                </a>
+                .
               </p>
             </Section>
 
             <div className="pt-2 text-xs text-white/40 font-mono uppercase tracking-wider">
-              Last updated: {new Date().toLocaleDateString()}
+              Last updated: September 1, 2026
             </div>
           </div>
         </div>
@@ -71,4 +132,3 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </div>
   );
 }
-
