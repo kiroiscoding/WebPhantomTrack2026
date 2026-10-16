@@ -26,8 +26,11 @@ export default function ScanPage() {
                 loop
                 playsInline
                 className="absolute inset-0 w-full h-full object-cover"
-                src="/videos/TestCanlanVid.mp4"
-            />
+                poster="/images/hero-bg.jpg"
+            >
+                <source src="/videos/TestCanlanVid.hevc.mp4" type='video/mp4; codecs="hvc1.1.6.L120.90"' />
+                <source src="/videos/TestCanlanVid.mp4" type="video/mp4" />
+            </video>
 
             {/* Layered overlays for depth */}
             <div className="absolute inset-0 bg-black/70" />

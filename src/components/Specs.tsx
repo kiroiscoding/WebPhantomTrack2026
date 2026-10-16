@@ -154,10 +154,10 @@ export function Specs() {
                             <Image
                                 src="/app/screenshots/newPhotosAPP.png"
                                 alt="Phantom Track app — performance dashboard and match analysis"
-                                width={1400}
-                                height={1800}
+                                width={1012}
+                                height={1440}
+                                sizes="(max-width: 768px) 360px, (max-width: 1024px) 440px, 500px"
                                 className="w-full h-auto select-none drop-shadow-2xl"
-                                priority
                             />
                         </motion.div>
                     </div>

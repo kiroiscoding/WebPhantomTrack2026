@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
+import { motion, useAnimationFrame, useInView, useMotionValue } from "framer-motion";
 import Image from "next/image";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -162,6 +162,8 @@ function MarqueeRow({
     const [loopWidth, setLoopWidth] = useState(0);
     const initializedRef = useRef(false);
     const glideVelocityRef = useRef(0);
+    // Only run the per-frame loop while the row is near the viewport.
+    const isNearViewport = useInView(rowRef, { margin: "200px 0px" });
 
     useEffect(() => {
         const measure = () => {
@@ -182,7 +184,7 @@ function MarqueeRow({
     }, [direction, x]);
 
     useAnimationFrame((_, delta) => {
-        if (loopWidth <= 0) return;
+        if (loopWidth <= 0 || !isNearViewport) return;
 
         let next = x.get();
 

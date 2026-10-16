@@ -88,8 +88,8 @@ export function Footer() {
               <Image
                 src="/logo_light.png"
                 alt="Phantom Track"
-                width={320}
-                height={36}
+                width={2048}
+                height={259}
                 unoptimized
                 className="h-7 sm:h-8 w-auto object-contain"
               />

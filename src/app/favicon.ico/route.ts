@@ -8,8 +8,7 @@ export async function GET() {
   return new Response(bytes, {
     headers: {
       "Content-Type": "image/png",
-      // Avoid stubborn favicon caching during dev/initial rollout.
-      "Cache-Control": "no-store",
+      "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
     },
   });
 }
