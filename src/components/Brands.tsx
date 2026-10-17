@@ -10,6 +10,12 @@ export type Brand = {
 };
 
 export const TEAM_BRANDS: Brand[] = [
+  // Leagues first, then clubs and schools.
+  { name: "NCAA", src: "/Logos/NCAA_logo.svg.webp" },
+  { name: "NJCAA", src: "/Logos/njcaa.png" },
+  { name: "MLS Next", src: "/Logos/MLS_Next_logo.svg" },
+  { name: "ECNL", src: "/Logos/ECNL-Badge.webp" },
+  { name: "NPL / MAPL", src: "/Logos/npl-mapl.png" },
   { name: "Crystal Lake Force", src: "/Logos/crystal-lake-force.png" },
   { name: "Sockers FC", src: "/Logos/sockers-fc.png" },
   { name: "Rockford Raptors FC", src: "/Logos/rockford-raptors.png" },
@@ -19,11 +25,6 @@ export const TEAM_BRANDS: Brand[] = [
   { name: "Millikin Big Blue", src: "/Logos/millikin-big-blue.svg" },
   { name: "Madison College WolfPack", src: "/Logos/madison-college-wolfpack.png" },
   { name: "Huntley High School", src: "/Logos/huntley-high-school.png" },
-  { name: "ECNL", src: "/Logos/ECNL-Badge.webp" },
-  { name: "MLS Next", src: "/Logos/MLS_Next_logo.svg" },
-  { name: "NPL / MAPL", src: "/Logos/npl-mapl.png" },
-  { name: "NCAA", src: "/Logos/NCAA_logo.svg.webp" },
-  { name: "NJCAA", src: "/Logos/njcaa.png" },
 ];
 
 type BrandsProps = {
