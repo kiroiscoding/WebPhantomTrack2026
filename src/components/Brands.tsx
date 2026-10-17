@@ -9,22 +9,28 @@ export type Brand = {
   src: string;
 };
 
-export const TEAM_BRANDS: Brand[] = [
-  // Leagues first, then clubs and schools.
-  { name: "NCAA", src: "/Logos/NCAA_logo.svg.webp" },
-  { name: "NJCAA", src: "/Logos/njcaa.png" },
-  { name: "MLS Next", src: "/Logos/MLS_Next_logo.svg" },
-  { name: "ECNL", src: "/Logos/ECNL-Badge.webp" },
-  { name: "NPL / MAPL", src: "/Logos/npl-mapl.png" },
-  { name: "Crystal Lake Force", src: "/Logos/crystal-lake-force.png" },
-  { name: "Sockers FC", src: "/Logos/sockers-fc.png" },
-  { name: "Rockford Raptors FC", src: "/Logos/rockford-raptors.png" },
-  { name: "Northwestern Wildcats", src: "/Logos/northwestern-wildcats.svg" },
-  { name: "North Central Cardinals", src: "/Logos/north-central-cardinals.png" },
-  { name: "MCC Scots", src: "/Logos/mcc-scots.png" },
-  { name: "Millikin Big Blue", src: "/Logos/millikin-big-blue.svg" },
-  { name: "Madison College WolfPack", src: "/Logos/madison-college-wolfpack.png" },
-  { name: "Huntley High School", src: "/Logos/huntley-high-school.png" },
+// Each group renders as its own row: leagues, then colleges, then clubs and schools.
+export const BRAND_GROUPS: Brand[][] = [
+  [
+    { name: "NCAA", src: "/Logos/NCAA_logo.svg.webp" },
+    { name: "NJCAA", src: "/Logos/njcaa.png" },
+    { name: "MLS Next", src: "/Logos/MLS_Next_logo.svg" },
+    { name: "ECNL", src: "/Logos/ECNL-Badge.webp" },
+    { name: "NPL / MAPL", src: "/Logos/npl-mapl.png" },
+  ],
+  [
+    { name: "Northwestern Wildcats", src: "/Logos/northwestern-wildcats.svg" },
+    { name: "North Central Cardinals", src: "/Logos/north-central-cardinals.png" },
+    { name: "Millikin Big Blue", src: "/Logos/millikin-big-blue.svg" },
+    { name: "Madison College WolfPack", src: "/Logos/madison-college-wolfpack.png" },
+    { name: "MCC Scots", src: "/Logos/mcc-scots.png" },
+  ],
+  [
+    { name: "Crystal Lake Force", src: "/Logos/crystal-lake-force.png" },
+    { name: "Sockers FC", src: "/Logos/sockers-fc.png" },
+    { name: "Rockford Raptors FC", src: "/Logos/rockford-raptors.png" },
+    { name: "Huntley High School", src: "/Logos/huntley-high-school.png" },
+  ],
 ];
 
 type BrandsProps = {
@@ -63,37 +69,41 @@ export function Brands({
           {eyebrow}
         </motion.p>
 
-        <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 md:gap-x-14 md:gap-y-10">
-          {TEAM_BRANDS.map((brand, i) => (
-            <motion.li
-              key={brand.src}
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-20px" }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="flex items-center justify-center"
-            >
-              <div
-                className={`relative h-12 w-[120px] sm:h-14 sm:w-[140px] ${
-                  isDark
-                    ? "opacity-80 hover:opacity-100"
-                    : "opacity-70 hover:opacity-100"
-                } transition-opacity duration-200`}
-                title={brand.name}
-              >
-                <Image
-                  src={brand.src}
-                  alt={brand.name}
-                  fill
-                  sizes="140px"
-                  className="object-contain"
-                  unoptimized={brand.src.endsWith(".svg")}
-                />
-              </div>
-              <span className="sr-only">{brand.name}</span>
-            </motion.li>
+        <div className="flex flex-col gap-y-8 md:gap-y-10">
+          {BRAND_GROUPS.map((group, g) => (
+            <ul key={g} className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 md:gap-x-14 md:gap-y-10">
+              {group.map((brand, i) => (
+                <motion.li
+                  key={brand.src}
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ duration: 0.4, delay: (g * 5 + i) * 0.05 }}
+                  className="flex items-center justify-center"
+                >
+                  <div
+                    className={`relative h-12 w-[120px] sm:h-14 sm:w-[140px] ${
+                      isDark
+                        ? "opacity-80 hover:opacity-100"
+                        : "opacity-70 hover:opacity-100"
+                    } transition-opacity duration-200`}
+                    title={brand.name}
+                  >
+                    <Image
+                      src={brand.src}
+                      alt={brand.name}
+                      fill
+                      sizes="140px"
+                      className="object-contain"
+                      unoptimized={brand.src.endsWith(".svg")}
+                    />
+                  </div>
+                  <span className="sr-only">{brand.name}</span>
+                </motion.li>
+              ))}
+            </ul>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
