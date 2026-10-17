@@ -182,11 +182,9 @@ export default function ProductDetailPage() {
                   </div>
                 )}
 
-                <div className="text-4xl font-mono mb-6 border-b border-white/10 pb-6">
+                <div className="text-4xl font-mono mb-8 border-b border-white/10 pb-6">
                   {comingSoon ? "Coming soon" : formatUsdFromCents(product.priceCents)}
                 </div>
-
-                <p className="text-white/70 text-lg leading-relaxed mb-8">{product.description}</p>
 
                 {/* Size picker + guide */}
                 {hasSizes && !comingSoon && (
