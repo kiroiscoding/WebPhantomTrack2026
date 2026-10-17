@@ -16,11 +16,14 @@ export const TEAM_BRANDS: Brand[] = [
   { name: "Northwestern Wildcats", src: "/Logos/northwestern-wildcats.svg" },
   { name: "North Central Cardinals", src: "/Logos/north-central-cardinals.png" },
   { name: "MCC Scots", src: "/Logos/mcc-scots.png" },
+  { name: "Millikin Big Blue", src: "/Logos/millikin-big-blue.svg" },
+  { name: "Madison College WolfPack", src: "/Logos/madison-college-wolfpack.png" },
   { name: "Huntley High School", src: "/Logos/huntley-high-school.png" },
   { name: "ECNL", src: "/Logos/ECNL-Badge.webp" },
   { name: "MLS Next", src: "/Logos/MLS_Next_logo.svg" },
   { name: "NPL / MAPL", src: "/Logos/npl-mapl.png" },
   { name: "NCAA", src: "/Logos/NCAA_logo.svg.webp" },
+  { name: "NJCAA", src: "/Logos/njcaa.png" },
 ];
 
 type BrandsProps = {
