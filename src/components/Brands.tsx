@@ -29,6 +29,7 @@ export const BRAND_GROUPS: Brand[][] = [
     { name: "Crystal Lake Force", src: "/Logos/crystal-lake-force.png" },
     { name: "Sockers FC", src: "/Logos/sockers-fc.png" },
     { name: "Rockford Raptors FC", src: "/Logos/rockford-raptors.png" },
+    { name: "FC United", src: "/Logos/fc-united.png" },
     { name: "Huntley High School", src: "/Logos/huntley-high-school.png" },
   ],
 ];
