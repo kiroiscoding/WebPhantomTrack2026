@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
     motion,
     useInView,
@@ -12,6 +13,7 @@ import {
     useMotionValue,
 } from "framer-motion";
 import {
+    ArrowRight,
     Users,
     Share2,
     Flame,
@@ -24,8 +26,6 @@ import {
 import { Footer } from "@/components/Footer";
 
 const APP_STORE_URL = "https://apps.apple.com/us/app/phantom-track/id6758968140";
-// Set once the Android app is live on Google Play; until then the badge isn't a link.
-const GOOGLE_PLAY_URL: string | null = null;
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 const SS = {
@@ -36,59 +36,6 @@ const SS = {
     compare:   "/app/new-screenshots/compare.png",
     friends:   "/app/new-screenshots/friends.png",
 };
-
-// ─── Store badges ─────────────────────────────────────────────────────────────
-
-function StoreBadges() {
-    const googlePlay = (
-        <Image
-            src="/badges/google-play.svg"
-            alt="Get it on Google Play"
-            width={203}
-            height={60}
-            unoptimized
-            className="h-[52px] w-auto md:h-[60px]"
-        />
-    );
-
-    return (
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <motion.a
-                href={APP_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                className="rounded-[10px] transition-shadow duration-300 hover:shadow-[0_0_50px_rgba(168,85,247,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            >
-                <Image
-                    src="/badges/app-store.svg"
-                    alt="Download on the App Store"
-                    width={180}
-                    height={60}
-                    unoptimized
-                    className="h-[52px] w-auto md:h-[60px]"
-                />
-            </motion.a>
-            {GOOGLE_PLAY_URL ? (
-                <motion.a
-                    href={GOOGLE_PLAY_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="rounded-[10px] transition-shadow duration-300 hover:shadow-[0_0_50px_rgba(168,85,247,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                >
-                    {googlePlay}
-                </motion.a>
-            ) : (
-                <span className="cursor-default opacity-50" title="Coming soon to Google Play">
-                    {googlePlay}
-                </span>
-            )}
-        </div>
-    );
-}
 
 // ─── Phone Frame ──────────────────────────────────────────────────────────────
 function PhoneFrame({
@@ -389,9 +336,28 @@ export default function AppPage() {
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: EASE, delay: 0.46 }}
-                        className="mb-20"
+                        className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
                     >
-                        <StoreBadges />
+                        <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+                            <Link
+                                href={APP_STORE_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group inline-flex items-center gap-2.5 px-7 py-4 bg-white text-black rounded-full font-bold text-base hover:shadow-[0_0_50px_rgba(168,85,247,0.5)] transition-shadow duration-300"
+                            >
+                                <svg className="w-5 h-5" viewBox="0 0 814 1000" fill="currentColor">
+                                    <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-42.8-157.5-127.8c-45-74.6-81.9-193.7-81.9-307.1 0-197.5 129-302 255.8-302 64.4 0 117.9 42.2 158.4 42.2 39.2 0 100.7-44.7 173.7-44.7 28 0 130.1 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
+                                </svg>
+                                Download for iOS
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                            </Link>
+                        </motion.div>
+                        <span className="inline-flex items-center gap-2 px-7 py-4 border border-white/10 text-white/40 rounded-full font-semibold text-base cursor-default">
+                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.523 15.341a.836.836 0 0 1-.836-.835.836.836 0 0 1 .836-.836.836.836 0 0 1 .835.836.836.836 0 0 1-.835.835m-11.046 0a.836.836 0 0 1-.835-.835.836.836 0 0 1 .835-.836.836.836 0 0 1 .836.836.836.836 0 0 1-.836.835M17.7 10.08l1.674-2.899a.348.348 0 0 0-.127-.476.348.348 0 0 0-.476.127l-1.696 2.937A10.466 10.466 0 0 0 12 8.976c-1.47 0-2.868.3-4.075.793L6.229 6.832a.348.348 0 0 0-.476-.127.348.348 0 0 0-.127.476L7.3 10.08C4.95 11.374 3.353 13.722 3.353 16.4H20.647c0-2.678-1.598-5.026-3.947-6.32" />
+                            </svg>
+                            Android — Coming Soon
+                        </span>
                     </motion.div>
 
                     {/* Hero phone trio */}
@@ -597,8 +563,25 @@ export default function AppPage() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.6, ease: EASE, delay: 0.3 }}
+                                    className="flex flex-col sm:flex-row items-center gap-4"
                                 >
-                                    <StoreBadges />
+                                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                                        <Link
+                                            href={APP_STORE_URL}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group inline-flex items-center gap-2.5 px-8 py-4 bg-white text-black rounded-full font-bold text-base hover:shadow-[0_0_60px_rgba(168,85,247,0.5)] transition-shadow duration-300"
+                                        >
+                                            <svg className="w-5 h-5" viewBox="0 0 814 1000" fill="currentColor">
+                                                <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-42.8-157.5-127.8c-45-74.6-81.9-193.7-81.9-307.1 0-197.5 129-302 255.8-302 64.4 0 117.9 42.2 158.4 42.2 39.2 0 100.7-44.7 173.7-44.7 28 0 130.1 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
+                                            </svg>
+                                            Download for iOS
+                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+                                        </Link>
+                                    </motion.div>
+                                    <span className="inline-flex items-center gap-2 px-7 py-4 border border-white/10 text-white/35 rounded-full font-semibold text-sm">
+                                        Android — Coming Soon
+                                    </span>
                                 </motion.div>
                             </div>
                         </div>
