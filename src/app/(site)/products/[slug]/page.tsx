@@ -219,7 +219,7 @@ export default function ProductDetailPage() {
 
                     {selectedSizeInfo && (
                       <p className="text-sm font-semibold text-white/80">
-                        Band {selectedSizeInfo.bandCm} ({selectedSizeInfo.bandIn})
+                        Chest band circumference: {selectedSizeInfo.bandCm} ({selectedSizeInfo.bandIn})
                       </p>
                     )}
 
