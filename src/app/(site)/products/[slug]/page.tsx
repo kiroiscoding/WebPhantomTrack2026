@@ -218,12 +218,8 @@ export default function ProductDetailPage() {
                     </div>
 
                     {selectedSizeInfo && (
-                      <p className="text-sm text-white/55">
-                        <span className="font-semibold text-white/80">
-                          Band {selectedSizeInfo.bandCm} ({selectedSizeInfo.bandIn})
-                        </span>
-                        {" "}unstretched ({selectedSizeInfo.flat} flat) · fits {selectedSizeInfo.height},{" "}
-                        {selectedSizeInfo.weight}
+                      <p className="text-sm font-semibold text-white/80">
+                        Band {selectedSizeInfo.bandCm} ({selectedSizeInfo.bandIn})
                       </p>
                     )}
 
@@ -237,11 +233,6 @@ export default function ProductDetailPage() {
                           className="overflow-hidden"
                         >
                           <div className="mt-2 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                            <p className="mb-3 text-xs text-white/45">
-                              Measure around your chest, just below the pecs. Height and weight are
-                              a guide — chest size matters most. Between sizes? Go smaller for a
-                              snug fit that keeps the tracker steady.
-                            </p>
                             <table className="w-full text-sm">
                               <thead>
                                 <tr className="text-left text-white/40 text-xs uppercase tracking-wider">

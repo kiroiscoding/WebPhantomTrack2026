@@ -120,8 +120,6 @@ export type VestSize = {
   /** Elastic band circumference, unstretched. */
   bandCm: string;
   bandIn: string;
-  /** Band laid flat (half the circumference). */
-  flat: string;
   /** Chest the band comfortably stretches to fit. */
   chest: string;
   height: string;
@@ -133,9 +131,9 @@ export type VestSize = {
  * ranges (band stretch + athlete feedback). Chest matters more than height.
  */
 export const VEST_SIZE_CHART: VestSize[] = [
-  { size: "S", bandCm: "76 cm", bandIn: "30 in", flat: "38 cm", chest: "34–37 in", height: "≤ 5'8\"", weight: "≤ 155 lb" },
-  { size: "M", bandCm: "80 cm", bandIn: "31.5 in", flat: "40 cm", chest: "36–40 in", height: "5'9\"–6'1\"", weight: "155–175 lb" },
-  { size: "L", bandCm: "84 cm", bandIn: "33 in", flat: "42 cm", chest: "39–42 in", height: "6'2\"+", weight: "175 lb+" },
+  { size: "S", bandCm: "76 cm", bandIn: "30 in", chest: "34–37 in", height: "≤ 5'8\"", weight: "≤ 155 lb" },
+  { size: "M", bandCm: "80 cm", bandIn: "31.5 in", chest: "36–40 in", height: "5'9\"–6'1\"", weight: "155–175 lb" },
+  { size: "L", bandCm: "84 cm", bandIn: "33 in", chest: "39–42 in", height: "6'2\"+", weight: "175 lb+" },
 ];
 
 export const FREE_SHIPPING_THRESHOLD_CENTS = 7500;
