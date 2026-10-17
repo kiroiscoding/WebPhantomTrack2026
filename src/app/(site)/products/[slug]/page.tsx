@@ -30,6 +30,7 @@ export default function ProductDetailPage() {
   const slug = params?.slug as string;
   const [activeImage, setActiveImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState("M");
+  const selectedSizeInfo = VEST_SIZE_CHART.find((row) => row.size === selectedSize);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
 
@@ -216,6 +217,16 @@ export default function ProductDetailPage() {
                       ))}
                     </div>
 
+                    {selectedSizeInfo && (
+                      <p className="text-sm text-white/55">
+                        <span className="font-semibold text-white/80">
+                          Band {selectedSizeInfo.bandCm} ({selectedSizeInfo.bandIn})
+                        </span>
+                        {" "}unstretched ({selectedSizeInfo.flat} flat) · fits {selectedSizeInfo.height},{" "}
+                        {selectedSizeInfo.weight}
+                      </p>
+                    )}
+
                     <AnimatePresence initial={false}>
                       {sizeGuideOpen && (
                         <motion.div
@@ -227,14 +238,18 @@ export default function ProductDetailPage() {
                         >
                           <div className="mt-2 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                             <p className="mb-3 text-xs text-white/45">
-                              Measure around the fullest part of your chest. Compression fit — size
-                              up if between sizes.
+                              Measure around your chest, just below the pecs. Height and weight are
+                              a guide — chest size matters most. Between sizes? Go smaller for a
+                              snug fit that keeps the tracker steady.
                             </p>
                             <table className="w-full text-sm">
                               <thead>
                                 <tr className="text-left text-white/40 text-xs uppercase tracking-wider">
-                                  <th className="pb-2 font-semibold">Size</th>
-                                  <th className="pb-2 font-semibold">Chest</th>
+                                  <th className="pb-2 pr-2 font-semibold">Size</th>
+                                  <th className="pb-2 pr-2 font-semibold">Band</th>
+                                  <th className="pb-2 pr-2 font-semibold">Chest</th>
+                                  <th className="pb-2 pr-2 font-semibold">Height</th>
+                                  <th className="pb-2 font-semibold">Weight</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -245,8 +260,14 @@ export default function ProductDetailPage() {
                                       selectedSize === row.size ? "text-white" : "text-white/70"
                                     }`}
                                   >
-                                    <td className="py-2.5 font-bold">{row.size}</td>
-                                    <td className="py-2.5 font-mono">{row.chest}</td>
+                                    <td className="py-2.5 pr-2 font-bold">{row.size}</td>
+                                    <td className="py-2.5 pr-2 font-mono text-xs whitespace-nowrap">
+                                      {row.bandCm}
+                                      <span className="hidden sm:inline"> ({row.bandIn})</span>
+                                    </td>
+                                    <td className="py-2.5 pr-2 font-mono text-xs whitespace-nowrap">{row.chest}</td>
+                                    <td className="py-2.5 pr-2 text-xs whitespace-nowrap">{row.height}</td>
+                                    <td className="py-2.5 text-xs whitespace-nowrap">{row.weight}</td>
                                   </tr>
                                 ))}
                               </tbody>
