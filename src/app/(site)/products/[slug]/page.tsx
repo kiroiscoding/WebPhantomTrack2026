@@ -25,6 +25,12 @@ import {
 } from "@/lib/products";
 import { useCartStore } from "@/lib/cartStore";
 
+// Per-photo crop focus for the gallery (default is centered).
+const IMAGE_FOCUS: Record<string, string> = {
+  // Keep the ball at the top of the bicycle kick in frame.
+  "/products/phantom-vest/BicyclePicture.png": "50% 20%",
+};
+
 export default function ProductDetailPage() {
   const params = useParams();
   const slug = params?.slug as string;
@@ -81,6 +87,7 @@ export default function ProductDetailPage() {
                     fill
                     sizes="(max-width: 1024px) 100vw, 58vw"
                     className="object-cover object-center"
+                    style={{ objectPosition: IMAGE_FOCUS[activeSrc] }}
                     priority
                   />
                 ) : (
@@ -122,6 +129,7 @@ export default function ProductDetailPage() {
                             fill
                             sizes="80px"
                             className="object-cover object-center"
+                            style={{ objectPosition: IMAGE_FOCUS[img] }}
                           />
                         </span>
                       </button>
