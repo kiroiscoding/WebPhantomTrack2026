@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
-import { getProduct } from "@/lib/products";
+import { getPrimaryImage, getProduct } from "@/lib/products";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { getStripe, STRIPE_AUTOMATIC_TAX_ENABLED } from "@/lib/stripe";
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
       const variant = i.variant?.trim();
 
       // Absolute public URL only — Stripe's servers must be able to fetch it.
-      const primaryImage = product.images[0];
+      const primaryImage = getPrimaryImage(product);
       let images: string[] | undefined;
       if (primaryImage) {
         const absolute = primaryImage.startsWith("http")

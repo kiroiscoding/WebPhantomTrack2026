@@ -19,6 +19,7 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import {
   getProduct,
+  getPrimaryImage,
   formatUsdFromCents,
   VEST_SIZE_CHART,
   FREE_SHIPPING_THRESHOLD_CENTS,
@@ -334,9 +335,9 @@ export default function ProductDetailPage() {
                     className="group mt-2 flex cursor-pointer items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 transition-colors hover:border-primary/40 hover:bg-primary/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   >
                     <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-[#111]">
-                      {combo.images[0] && (
+                      {getPrimaryImage(combo) && (
                         <Image
-                          src={combo.images[0]}
+                          src={getPrimaryImage(combo)!}
                           alt=""
                           fill
                           sizes="64px"

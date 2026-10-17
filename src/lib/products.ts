@@ -14,6 +14,8 @@ export type Product = {
   specs: { label: string; value: string }[];
   /** Public image paths (e.g. `/products/phantom-vest/vest-1.png`). Empty = no photos yet. */
   images: string[];
+  /** Product shot for the shop card, checkout and cross-sell. Defaults to `images[0]`. */
+  primaryImage?: string;
   /** Size options shown on the PDP. Empty = no size picker. */
   sizes: string[];
   /** Short labels for gallery thumbs (same order as `images`). */
@@ -47,25 +49,26 @@ export const PRODUCTS: Record<string, Product> = {
       { label: "Water Resistance", value: "Water Resistant" },
       { label: "Connectivity", value: "Bluetooth" },
     ],
+    primaryImage: "/productImage.png",
     images: [
-      "/productImage.png",
+      "/images/IMG_1580.jpg",
       "/products/phantom-vest/BicyclePicture.png",
       "/images/juggle-vest.png",
-      "/images/IMG_1580.jpg",
       "/images/IMG_1468.jpg",
       "/images/IMG_1607.jpg",
       "/products/phantom-vest/vest-2.png",
       "/images/ReviewStep3.png",
+      "/productImage.png",
     ],
     imageLabels: [
-      "Phantom Core",
+      "Vest back",
       "In action",
       "On the pitch",
-      "Vest back",
       "Training",
       "Play",
       "Elite Vest",
       "In the app",
+      "Phantom Core",
     ],
     sizes: ["S", "M", "L"],
     theme: "dark",
@@ -106,6 +109,10 @@ export const PRODUCTS: Record<string, Product> = {
     purchasable: true,
   },
 };
+
+export function getPrimaryImage(product: Product): string | undefined {
+  return product.primaryImage ?? product.images[0];
+}
 
 export function getProduct(slug: string): Product | null {
   return PRODUCTS[slug] ?? null;

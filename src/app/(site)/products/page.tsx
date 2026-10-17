@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Brands } from "@/components/Brands";
-import { PRODUCTS, formatUsdFromCents, type Product } from "@/lib/products";
+import { PRODUCTS, formatUsdFromCents, getPrimaryImage, type Product } from "@/lib/products";
 import { useCartStore } from "@/lib/cartStore";
 
 type Display = {
@@ -135,7 +135,7 @@ function ProductCard({
   const purchasable = product.purchasable;
   const priceLabel = purchasable ? formatUsdFromCents(product.priceCents) : "Coming soon";
   const features = product.features.slice(0, display.featureCount);
-  const cardImage = display.image ?? product.images[0];
+  const cardImage = display.image ?? getPrimaryImage(product);
 
   function handleAdd() {
     addItem(product, { quantity: 1 });
