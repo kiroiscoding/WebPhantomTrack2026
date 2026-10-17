@@ -103,22 +103,6 @@ export const PRODUCTS: Record<string, Product> = {
     theme: "dark",
     purchasable: true,
   },
-  apparel: {
-    slug: "apparel",
-    name: "Apparel",
-    subtitle: "Performance Wear",
-    priceCents: 0,
-    rating: 0,
-    reviews: 0,
-    description:
-      "Performance wear that keeps up. Moisture-wicking drill top and shorts designed for high-intensity sessions.",
-    features: ["4-Way Stretch Fabric", "Thermal Regulation", "Reflective Detailing", "Quick-Dry Technology"],
-    specs: [],
-    images: [],
-    sizes: [],
-    theme: "dark",
-    purchasable: false,
-  },
 };
 
 export function getProduct(slug: string): Product | null {

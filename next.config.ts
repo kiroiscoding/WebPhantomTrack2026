@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     qualities: [75, 90, 100],
   },
+  async redirects() {
+    return [
+      // Apparel was removed from the store; send old links to the shop.
+      { source: "/products/apparel", destination: "/products", permanent: false },
+    ];
+  },
   async headers() {
     return [
       {

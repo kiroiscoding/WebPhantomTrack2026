@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   // `default` titles the /products list page (the root template appends the
   // "| Phantom Track" suffix); `template` is re-declared so that same suffix
-  // keeps applying to child routes (apparel, [slug]) — a plain-string title
+  // keeps applying to child routes ([slug]) — a plain-string title
   // here would otherwise strip it from them.
   title: {
     default: "The Armory — Shop Trackers & Vests",

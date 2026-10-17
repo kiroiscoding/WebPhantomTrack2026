@@ -32,7 +32,6 @@ type Display = {
 const DISPLAY_ORDER: Display[] = [
   { slug: "tracker-combo", badge: { label: "Best value", tone: "accent" }, featureCount: 4 },
   { slug: "phantom-vest", featureCount: 4 },
-  { slug: "apparel", badge: { label: "Coming soon", tone: "neutral" }, featureCount: 4 },
 ];
 
 const trustItems = [
@@ -96,7 +95,7 @@ export default function ProductsPage() {
       {/* Product grid */}
       <section className="px-5 md:px-8 mt-4 md:mt-8 pb-24">
         <div className="mx-auto max-w-[1200px]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
             {DISPLAY_ORDER.map((d, i) => {
               const product = PRODUCTS[d.slug];
               if (!product) return null;
