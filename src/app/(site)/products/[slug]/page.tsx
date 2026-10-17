@@ -351,7 +351,7 @@ export default function ProductDetailPage() {
             <div className="bg-[#111111] border border-white/10 p-6 md:p-12 rounded-[28px] md:rounded-[40px]">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8">WHATS INSIDE.</h3>
               <div className="space-y-6">
-                {product.features.map((feature, i) => (
+                {(product.inTheBox ?? product.features).map((feature, i) => (
                   <div key={i} className="flex items-start gap-4">
                     <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center mt-1">
                       <Check className="w-3 h-3 text-primary" />

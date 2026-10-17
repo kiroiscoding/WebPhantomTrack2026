@@ -9,6 +9,8 @@ export type Product = {
   reviews: number;
   description: string;
   features: string[];
+  /** "What's inside" list on the PDP. Falls back to `features` when unset. */
+  inTheBox?: string[];
   specs: { label: string; value: string }[];
   /** Public image paths (e.g. `/products/phantom-vest/vest-1.png`). Empty = no photos yet. */
   images: string[];
@@ -39,11 +41,11 @@ export const PRODUCTS: Record<string, Product> = {
       "Unlimited Cloud Storage",
       "1-Year Warranty",
     ],
+    inTheBox: ["Phantom Vest", "Phantom Tracker", "Charging Cable"],
     specs: [
-      { label: "Battery Life", value: "12 Hours Active" },
-      { label: "Water Resistance", value: "IP67 Certified" },
-      { label: "Connectivity", value: "Bluetooth 5.3 / Ant+" },
-      { label: "Weight", value: "45g (Module)" },
+      { label: "Battery Life", value: "12 Hours" },
+      { label: "Water Resistance", value: "Water Resistant" },
+      { label: "Connectivity", value: "Bluetooth" },
     ],
     images: [
       "/productImage.png",
