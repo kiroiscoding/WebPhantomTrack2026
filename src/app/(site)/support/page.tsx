@@ -120,7 +120,7 @@ export default function SupportPage() {
               </div>
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">STILL OFFLINE?</h2>
               <p className="text-white/60 max-w-xl mb-10 text-lg">
-                Our engineering team is on standby. No bots, just ballers who code.
+                Reach Out:
               </p>
               <ContactButton label="Open Ticket" />
             </div>
