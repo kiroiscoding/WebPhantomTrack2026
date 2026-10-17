@@ -134,7 +134,7 @@ function ProductCard({
 
   const purchasable = product.purchasable;
   const priceLabel = purchasable ? formatUsdFromCents(product.priceCents) : "Coming soon";
-  const features = product.features.slice(0, display.featureCount);
+  const features = (product.inTheBox ?? product.features).slice(0, display.featureCount);
   const cardImage = display.image ?? getPrimaryImage(product);
 
   function handleAdd() {
@@ -174,7 +174,7 @@ function ProductCard({
             src={cardImage}
             alt={`${product.name} — ${product.subtitle}`}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            sizes="(max-width: 640px) 100vw, 500px"
             className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           />
         ) : (
@@ -210,12 +210,8 @@ function ProductCard({
           </div>
         )}
 
-        <p className="mt-3 text-sm leading-relaxed text-slate-600 line-clamp-3">
-          {product.description}
-        </p>
-
         {/* Features */}
-        <ul className="mt-4 space-y-2">
+        <ul className="mt-4 mb-6 space-y-2">
           {features.map((f) => (
             <li key={f} className="flex items-start gap-2 text-sm text-slate-700">
               <span className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
@@ -227,7 +223,7 @@ function ProductCard({
         </ul>
 
         {/* Price + actions */}
-        <div className="mt-6 flex items-end justify-between border-t border-slate-100 pt-5">
+        <div className="mt-auto flex items-end justify-between border-t border-slate-100 pt-5">
           <div>
             <div className="text-[11px] font-medium uppercase tracking-wider text-slate-400">
               {purchasable ? "Price" : "Availability"}
