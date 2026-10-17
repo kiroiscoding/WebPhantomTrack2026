@@ -123,15 +123,6 @@ export default function ProductDetailPage() {
                             className="object-cover object-center"
                           />
                         </span>
-                        {label && (
-                          <span
-                            className={`max-w-[80px] text-center text-[10px] font-medium leading-tight ${
-                              activeImage === idx ? "text-white" : "text-white/45"
-                            }`}
-                          >
-                            {label}
-                          </span>
-                        )}
                       </button>
                     );
                   })}
