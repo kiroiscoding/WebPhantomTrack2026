@@ -111,10 +111,6 @@ export default function ReturnPolicyPage() {
                 .
               </p>
             </Section>
-
-            <div className="pt-2 text-xs text-white/40 font-mono uppercase tracking-wider">
-              Last updated: September 1, 2026
-            </div>
           </div>
         </div>
       </section>
