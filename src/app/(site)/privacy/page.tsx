@@ -53,6 +53,21 @@ export default function PrivacyPolicyPage() {
               </div>
             </Section>
 
+            {/* TODO-LEGAL-REVIEW: draft. Confirm whether the app collects location only while a session is recording, or also at other times (e.g. match location labels). */}
+            <Section title="Location data">
+              <div className="text-white/70 space-y-3">
+                <p>When you record a session, the Phantom Track tracker and app collect precise location (GPS) data for that session. We use it to calculate your distance, speed, sprints and heatmaps, and it is stored with your account.</p>
+                <p>You can turn off location access for the app in your iPhone&apos;s Settings at any time. Session tracking will not work without it.</p>
+              </div>
+            </Section>
+
+            {/* TODO-LEGAL-REVIEW: draft. Based on the app using the photo picker for profile pictures; confirm no other photo/video use. */}
+            <Section title="Photos">
+              <div className="text-white/70 space-y-3">
+                <p>If you add a profile photo, the app accesses only the photo you pick from your library. Your profile photo is stored with your account and may be shown to friends you connect with in the app, for example on leaderboards.</p>
+              </div>
+            </Section>
+
             <Section title="How we use information">
               <ul className="list-disc pl-5 space-y-2 text-white/70">
                 <li>Provide and improve the website/app.</li>
@@ -83,9 +98,12 @@ export default function PrivacyPolicyPage() {
               </ul>
             </Section>
 
+            {/* TODO-LEGAL-REVIEW: draft. Confirm the privacy contact address; add the mailing address once decided. */}
             <Section title="Contact">
               <p className="text-white/70">
-                Questions? Contact us via the <a className="text-primary underline" href="/support">Support</a> page.
+                Questions or requests about your data? Email{" "}
+                <a className="text-primary underline" href="mailto:contact@phantom-track.com">contact@phantom-track.com</a>{" "}
+                or visit the <a className="text-primary underline" href="/support">Support</a> page.
               </p>
             </Section>
 

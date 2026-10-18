@@ -73,6 +73,11 @@ export default function TermsOfServicePage() {
               <p className="text-white/70">
                 The service is provided “as is” and “as available.” To the maximum extent permitted by law, we disclaim all warranties.
               </p>
+              {/* TODO-LEGAL-REVIEW: draft carve-out so this section doesn't contradict the hardware warranty. */}
+              <p className="mt-3 text-white/70">
+                This does not limit the 1-year limited warranty on Phantom Track hardware described in our{" "}
+                <a className="text-primary underline" href="/returns#warranty">Returns &amp; Warranty policy</a>.
+              </p>
             </Section>
 
             <Section title="7. Limitation of liability">
@@ -94,7 +99,7 @@ export default function TermsOfServicePage() {
             </Section>
 
             <div className="pt-2 text-xs text-white/40 font-mono uppercase tracking-wider">
-              Last updated: February 11, 2026
+              Last updated: October 17, 2026
             </div>
           </div>
         </div>
