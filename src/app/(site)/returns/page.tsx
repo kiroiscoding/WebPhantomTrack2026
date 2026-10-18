@@ -83,7 +83,7 @@ export default function ReturnPolicyPage() {
               </p>
             </Section>
 
-            <Section title="Warranty">
+            <Section id="warranty" title="Warranty">
               <p className="text-white/70">
                 Hardware is covered by a <strong className="text-white">1-year limited warranty</strong>{" "}
                 against manufacturing defects under normal use. Warranty service is separate from the
@@ -120,9 +120,9 @@ export default function ReturnPolicyPage() {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ id, title, children }: { id?: string; title: string; children: React.ReactNode }) {
   return (
-    <div>
+    <div id={id} className={id ? "scroll-mt-32" : undefined}>
       <div className="text-primary font-mono uppercase tracking-wider text-sm">{title}</div>
       <div className="mt-3">{children}</div>
     </div>

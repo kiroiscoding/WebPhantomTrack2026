@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   Search,
   Book,
-  Wrench,
   User,
   Shield,
   Mail,
   ChevronDown,
-  ChevronUp,
   type LucideIcon,
 } from "lucide-react";
 import { Footer } from "@/components/Footer";
-import { ContactButton } from "@/components/ContactButton";
+
+const SUPPORT_EMAIL = "contact@phantom-track.com";
 
 export default function SupportPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,7 +33,7 @@ export default function SupportPage() {
               SUPPORT<span className="text-primary">.</span>
             </h1>
             <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-medium mb-12">
-              Operational assistance. Manuals. Direct engineering contact.
+              Help with setup, your device, and your order. Email us anytime.
             </p>
 
             {/* Search Bar */}
@@ -52,30 +52,27 @@ export default function SupportPage() {
           </motion.div>
 
           {/* Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 md:mb-32">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 md:mb-32">
             <CategoryCard
               icon={Book}
               title="Getting Started"
-              desc="Quick start guides and setup protocols."
+              desc="How to wear the tracker and review your first session."
+              href="/#features"
               delay={0.1}
-            />
-            <CategoryCard
-              icon={Wrench}
-              title="Troubleshooting"
-              desc="Diagnose hardware and software anomalies."
-              delay={0.2}
             />
             <CategoryCard
               icon={User}
               title="Account"
-              desc="Manage subscriptions and team access."
-              delay={0.3}
+              desc="Sign in to see your orders."
+              href="/account"
+              delay={0.2}
             />
             <CategoryCard
               icon={Shield}
               title="Warranty"
-              desc="Claims, returns, and hardware policies."
-              delay={0.4}
+              desc="Returns, refunds, and the 1-year limited warranty."
+              href="/returns#warranty"
+              delay={0.3}
             />
           </div>
 
@@ -118,11 +115,20 @@ export default function SupportPage() {
               <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-8">
                 <Mail className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">STILL OFFLINE?</h2>
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">STILL NEED HELP?</h2>
               <p className="text-white/60 max-w-xl mb-10 text-lg">
-                Reach Out:
+                Email us at{" "}
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="text-white underline underline-offset-4 hover:text-primary transition-colors">
+                  {SUPPORT_EMAIL}
+                </a>
               </p>
-              <ContactButton label="Open Ticket" />
+              <a
+                href={`mailto:${SUPPORT_EMAIL}`}
+                className="px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-gray-200 transition-colors inline-flex items-center gap-2"
+              >
+                <span>Email support</span>
+                <Mail className="w-5 h-5" />
+              </a>
             </div>
           </div>
         </div>
@@ -137,11 +143,13 @@ function CategoryCard({
   icon: Icon,
   title,
   desc,
+  href,
   delay,
 }: {
   icon: LucideIcon;
   title: string;
   desc: string;
+  href: string;
   delay: number;
 }) {
   return (
@@ -149,46 +157,30 @@ function CategoryCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
-      className="group bg-[#111111] hover:bg-[#161616] border border-white/10 p-8 rounded-[32px] transition-colors duration-300 cursor-pointer"
     >
-      <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
-        <Icon className="w-6 h-6" />
-      </div>
-      <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-      <p className="text-white/60 text-sm">{desc}</p>
+      <Link
+        href={href}
+        className="group block h-full bg-[#111111] hover:bg-[#161616] border border-white/10 p-8 rounded-[32px] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      >
+        <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+          <Icon className="w-6 h-6" />
+        </div>
+        <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+        <p className="text-white/60 text-sm">{desc}</p>
+      </Link>
     </motion.div>
   );
 }
 
+// Native <details> keeps every answer in the server-rendered HTML.
 function FAQItem({ question, answer }: { question: string; answer: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <div className="bg-[#111111] rounded-[24px] border border-white/10 overflow-hidden">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-6 md:p-8 text-left"
-      >
+    <details className="group bg-[#111111] rounded-[24px] border border-white/10 overflow-hidden">
+      <summary className="w-full flex items-center justify-between p-6 md:p-8 text-left cursor-pointer list-none [&::-webkit-details-marker]:hidden">
         <span className="text-lg font-bold text-white">{question}</span>
-        {isOpen ? (
-          <ChevronUp className="w-5 h-5 opacity-50" />
-        ) : (
-          <ChevronDown className="w-5 h-5 opacity-50" />
-        )}
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <div className="px-6 md:px-8 pb-8 text-white/70 leading-relaxed">{answer}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+        <ChevronDown className="w-5 h-5 opacity-50 transition-transform group-open:rotate-180" />
+      </summary>
+      <div className="px-6 md:px-8 pb-8 text-white/70 leading-relaxed">{answer}</div>
+    </details>
   );
 }
-

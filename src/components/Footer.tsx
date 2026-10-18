@@ -37,7 +37,7 @@ const supportLinks = [
   { name: "Help Center", href: "/support" },
   { name: "Shipping", href: "/shipping" },
   { name: "Returns & refunds", href: "/returns" },
-  { name: "Warranty", href: "/returns" },
+  { name: "Warranty", href: "/returns#warranty" },
   { name: "Contact us", href: "mailto:contact@phantom-track.com", external: true },
 ];
 
@@ -49,8 +49,6 @@ const companyLinks = [
 const legalLinks = [
   { name: "Privacy Policy", href: "/privacy" },
   { name: "Terms of Service", href: "/terms" },
-  { name: "Shipping Policy", href: "/shipping" },
-  { name: "Return Policy", href: "/returns" },
 ];
 
 function FooterLink({
