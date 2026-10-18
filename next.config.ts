@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
     return [
       // Apparel was removed from the store; send old links to the shop.
       { source: "/products/apparel", destination: "/products", permanent: false },
+      // The Acceptable Use page was removed; prohibited use lives in the Terms.
+      { source: "/acceptable-use", destination: "/terms", permanent: false },
     ];
   },
   async headers() {
