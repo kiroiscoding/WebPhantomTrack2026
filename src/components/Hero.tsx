@@ -135,24 +135,38 @@ export function Hero() {
             <motion.div
                 className="absolute bottom-0 left-0 right-0 z-10 px-5 md:px-10 pb-10 md:pb-14"
             >
-                {/* Headline — full width, large */}
-                <h1
+                {/* Display slogan — the H1 below says what the product is */}
+                <p
                     style={heroEnter(40, 0.8, 0.3)}
                     className="hero-enter text-[17vw] sm:text-[14vw] md:text-[12vw] lg:text-[11vw] font-black tracking-tighter text-white leading-[0.85] mb-6 md:mb-8"
                 >
-                    DATA<br />DRIVEN<span className="text-primary">.</span>
-                </h1>
+                    <span className="block">DATA</span>{" "}
+                    <span className="block">DRIVEN<span className="text-primary">.</span></span>
+                </p>
 
-                {/* Bottom row */}
+                {/* Bottom row: product + price left, CTA right */}
                 <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-                    {/* Subtitle */}
-                    <p
+                    <div
                         style={heroEnter(20, 0.6, 0.6)}
-                        className="hero-enter text-sm md:text-base text-white/50 font-medium max-w-[260px] md:max-w-xs leading-snug"
+                        className="hero-enter max-w-xs md:max-w-sm"
                     >
-                        Elevate your training experience,<br />bringing data to life.
-                    </p>
+                        <h1 className="text-base md:text-lg text-white font-bold leading-snug">
+                            GPS performance tracker and vest for soccer players
+                        </h1>
+                        <p className="mt-1.5 text-sm md:text-base text-white/50 font-medium leading-snug">
+                            $120 — vest + tracker, free iOS app
+                        </p>
+                    </div>
 
+                    <div style={heroEnter(20, 0.6, 0.8)} className="hero-enter">
+                        <Link
+                            href="/products/tracker-combo"
+                            className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-bold tracking-wide text-white transition-all hover:bg-purple-500 hover:shadow-[0_0_40px_rgba(168,85,247,0.5)]"
+                        >
+                            Get the Tracker Combo
+                            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                        </Link>
+                    </div>
                 </div>
             </motion.div>
 

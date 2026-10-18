@@ -279,6 +279,12 @@ export default function ProductDetailPage() {
                       : `Add to Cart - ${formatUsdFromCents(product.priceCents)}`}
                   </button>
 
+                  {!comingSoon && (
+                    <p className="text-center text-white/70 text-sm font-medium">
+                      Requires iPhone (iOS 13 or later). Android app coming soon.
+                    </p>
+                  )}
+
                   <div className="text-center text-white/40 text-sm">
                     {comingSoon ? "This item isn’t available yet." : freeShippingLabel}
                   </div>

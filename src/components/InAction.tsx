@@ -72,17 +72,17 @@ export function InAction() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <Link
-              href="/products/phantom-vest"
+              href="/products/tracker-combo"
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold tracking-wide text-black transition-colors hover:bg-gray-200"
             >
-              Shop the Vest
+              Get the Tracker Combo
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
-              href="/products"
+              href="/products/phantom-vest"
               className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-bold tracking-wide text-white transition-colors hover:bg-white/10"
             >
-              Shop all
+              Spare vest only
             </Link>
           </div>
         </motion.div>
