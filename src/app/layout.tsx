@@ -5,12 +5,8 @@ import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://phantom-track.com";
 const SITE_NAME = "Phantom Track";
-// Description is intentionally explicit about the product being a
-// consensual, athlete-worn sports performance wearable. Automated
-// reputation classifiers can otherwise misread a GPS hardware brand
-// as a covert tracking / stalkerware product.
 const SITE_DESCRIPTION =
-  "Phantom Track is a sports performance wearable for athletes. Athletes wear the Phantom Core sensor in a chest-strap vest to record their own GNSS data (sprint speed, distance, heart-rate zones) and review it in the companion app. It is a self-tracking training device for soccer, lacrosse, and field sports — not a covert tracking device.";
+  "Phantom Track is a GPS performance tracker for soccer players. Wear the tracker in the Phantom Vest to record distance, top speed and sprints, then see a 3D heatmap of every session in the free iOS app. Vest + tracker for $120.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -21,22 +17,6 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
   generator: "Next.js",
-  keywords: [
-    "Phantom Track",
-    "sports performance wearable",
-    "athlete performance tracker",
-    "GNSS sports wearable",
-    "soccer performance tracker",
-    "lacrosse tracker",
-    "field sport wearable",
-    "chest strap GPS",
-    "athlete-worn fitness wearable",
-    "training performance device",
-    "Phantom Core",
-    "Phantom Vest",
-  ],
-  category: "Sports & Fitness Wearables",
-  classification: "Consumer Sports Performance Wearable (athlete-worn). Not a covert tracking device.",
   authors: [{ name: "Phantom Track", url: SITE_URL }],
   creator: "Phantom Track",
   publisher: "Phantom Track",

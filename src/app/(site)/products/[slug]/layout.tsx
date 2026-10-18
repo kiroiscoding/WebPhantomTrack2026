@@ -57,7 +57,7 @@ export default async function ProductLayout({
         "@context": "https://schema.org",
         "@type": "Product",
         name: product.name,
-        description: `${product.description} Worn by the athlete in a fitted chest-strap vest, this is a self-tracking sports performance wearable — not a covert tracking device.`,
+        description: product.description,
         sku: product.slug,
         brand: {
           "@type": "Brand",

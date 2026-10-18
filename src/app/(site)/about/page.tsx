@@ -83,15 +83,6 @@ export default function AboutPage() {
               It is a piece of personal training equipment, like a smartwatch
               or chest-strap heart-rate monitor.
             </p>
-            <p className="mt-4 text-white/40 text-sm md:text-base max-w-3xl leading-relaxed">
-              Phantom Track is not a covert tracking device. Using it to track
-              another person without their explicit, informed consent is
-              strictly prohibited — see our{" "}
-              <a href="/acceptable-use" className="text-primary underline">
-                Acceptable Use Policy
-              </a>
-              .
-            </p>
           </motion.div>
         </div>
       </section>
