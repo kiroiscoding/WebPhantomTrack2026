@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { StoreBadges } from "@/components/StoreBadges";
+import { APP_STORE_REVIEWS_URL } from "@/components/SocialProof";
 import { Map, Download, ArrowRight, Brain, Users, Star } from "lucide-react";
 
 
@@ -173,14 +174,19 @@ export function Specs() {
                 >
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 md:gap-14">
                         {/* Rating */}
-                        <div className="flex items-center gap-3">
-                            <div className="flex gap-0.5">
+                        <a
+                            href={APP_STORE_REVIEWS_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-3 group"
+                        >
+                            <div className="flex gap-0.5" aria-hidden="true">
                                 {[1, 2, 3, 4, 5].map((i) => (
                                     <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                                 ))}
                             </div>
-                            <span className="text-sm text-white/50 font-medium">5.0 on the App Store</span>
-                        </div>
+                            <span className="text-sm text-white/50 font-medium underline-offset-4 group-hover:text-white group-hover:underline transition-colors">5.0 on the App Store</span>
+                        </a>
 
                         {/* Divider */}
                         <div className="hidden sm:block w-px h-5 bg-white/10" />

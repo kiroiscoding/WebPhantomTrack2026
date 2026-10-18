@@ -2,8 +2,8 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Star, ArrowRight } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 // Same footage in two codecs, both hardware-decoded. Browsers only report HEVC
 // support when a hardware decoder exists; everyone else gets the H.264 file.
@@ -11,21 +11,6 @@ import { Star, ArrowRight } from "lucide-react";
 const HERO_BG_VIDEO_HEVC = "/videos/TestCanlanVid.hevc.mp4";
 const HERO_BG_VIDEO = "/videos/TestCanlanVid.mp4";
 const HERO_BG_POSTER = "/images/hero-bg.jpg";
-
-const reviews = [
-    {
-        id: 1,
-        text: "I stopped guessing and started seeing the pitch like a pro scout.",
-    },
-    {
-        id: 2,
-        text: "Every sprint, every turn captured with precision I haven't seen before.",
-    },
-    {
-        id: 3,
-        text: "Battery life that lasts through double sessions. Finally.",
-    },
-];
 
 // Entrance animations run in CSS (see .hero-enter in globals.css) so they start
 // at first paint instead of waiting for hydration. Same offset/duration/delay/
@@ -41,7 +26,6 @@ function heroEnter(fromY: number, duration: number, delay: number): React.CSSPro
 export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
-    const [activeReview, setActiveReview] = useState(0);
     const [isMobileViewport, setIsMobileViewport] = useState(false);
     const [lockedMobileHeight, setLockedMobileHeight] = useState<number | null>(null);
 
@@ -51,13 +35,6 @@ export function Hero() {
     });
 
     const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setActiveReview((prev) => (prev + 1) % reviews.length);
-        }, 5000);
-        return () => clearInterval(timer);
-    }, []);
 
     // Stop decoding the 1080p background video while the hero is off-screen,
     // so the rest of the page scrolls without competing for the GPU.
@@ -166,7 +143,7 @@ export function Hero() {
                     DATA<br />DRIVEN<span className="text-primary">.</span>
                 </h1>
 
-                {/* Bottom row: subtitle left, review right */}
+                {/* Bottom row */}
                 <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
                     {/* Subtitle */}
                     <p
@@ -176,47 +153,6 @@ export function Hero() {
                         Elevate your training experience,<br />bringing data to life.
                     </p>
 
-                    {/* Review strip — bottom right */}
-                    <div
-                        style={heroEnter(20, 0.6, 0.8)}
-                        className="hero-enter flex flex-col items-start sm:items-end gap-2"
-                    >
-                        <div className="flex gap-1">
-                            {[1, 2, 3, 4, 5].map((i) => (
-                                <Star key={i} className="w-3 h-3 fill-primary text-primary" />
-                            ))}
-                        </div>
-
-                        <div className="h-10 relative w-full sm:w-[280px] md:w-[320px] flex sm:justify-end">
-                            <AnimatePresence mode="wait">
-                                <motion.p
-                                    key={activeReview}
-                                    initial={{ opacity: 0, y: 6 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -6 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="text-[11px] md:text-xs text-white/50 font-medium leading-snug absolute sm:text-right"
-                                >
-                                    &quot;{reviews[activeReview].text}&quot;
-                                </motion.p>
-                            </AnimatePresence>
-                        </div>
-
-                        <div className="flex gap-2">
-                            {reviews.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => setActiveReview(index)}
-                                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                                        activeReview === index
-                                            ? "bg-primary w-5"
-                                            : "bg-white/20 hover:bg-white/40 w-1.5"
-                                    }`}
-                                    aria-label={`Go to review ${index + 1}`}
-                                />
-                            ))}
-                        </div>
-                    </div>
                 </div>
             </motion.div>
 

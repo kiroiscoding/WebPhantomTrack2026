@@ -6,7 +6,6 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   Check,
-  Star,
   ShoppingCart,
   ArrowRight,
   ShieldCheck,
@@ -190,25 +189,6 @@ function ProductCard({
           {product.subtitle}
         </div>
         <h2 className="mt-1.5 text-xl font-bold tracking-tight text-slate-900">{product.name}</h2>
-
-        {/* Rating */}
-        {product.rating > 0 && (
-          <div className="mt-2 flex items-center gap-1.5" aria-label={`Rated ${product.rating} out of 5`}>
-            <div className="flex" aria-hidden="true">
-              {[...Array(5)].map((_, s) => (
-                <Star
-                  key={s}
-                  className={`h-3.5 w-3.5 ${
-                    s < Math.round(product.rating)
-                      ? "fill-amber-400 text-amber-400"
-                      : "fill-slate-200 text-slate-200"
-                  }`}
-                />
-              ))}
-            </div>
-            <span className="text-xs text-slate-500">{product.rating.toFixed(1)}</span>
-          </div>
-        )}
 
         {/* Features */}
         <ul className="mt-4 mb-6 space-y-2">

@@ -5,8 +5,6 @@ export type Product = {
   name: string;
   subtitle: string;
   priceCents: number;
-  rating: number;
-  reviews: number;
   description: string;
   features: string[];
   /** "What's inside" list on the PDP. Falls back to `features` when unset. */
@@ -32,8 +30,6 @@ export const PRODUCTS: Record<string, Product> = {
     name: "Tracker Combo",
     subtitle: "The Complete Ecosystem",
     priceCents: 12000,
-    rating: 4.9,
-    reviews: 128,
     description:
       "The Phantom Core Gen-2 meets our elite compression vest. This is the gold standard for athlete monitoring. Capture 1000 data points per second with surgical precision.",
     features: [
@@ -79,8 +75,6 @@ export const PRODUCTS: Record<string, Product> = {
     name: "Phantom Vest",
     subtitle: "Professional Grade Textile",
     priceCents: 3500,
-    rating: 4.8,
-    reviews: 84,
     description:
       "Engineered for zero distraction. The Phantom Vest holds the core unit securely between the shoulder blades for optimal satellite reception and comfort.",
     features: [

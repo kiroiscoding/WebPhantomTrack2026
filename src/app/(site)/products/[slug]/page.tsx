@@ -6,7 +6,6 @@ import { useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
-  Star,
   ShoppingCart,
   Check,
   Shield,
@@ -164,22 +163,6 @@ export default function ProductDetailPage() {
                     <span className="text-sm text-white/55">
                       Does not include the tracker · Requires {product.requiresDevice}
                     </span>
-                  </div>
-                )}
-
-                {/* Stars only — no review count until real reviews exist */}
-                {product.rating > 0 && (
-                  <div className="flex items-center gap-2 mb-8" aria-label={`Rated ${product.rating} out of 5`}>
-                    <div className="flex text-primary" aria-hidden="true">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-4 h-4 ${
-                            i < Math.round(product.rating) ? "fill-current" : "fill-transparent opacity-30"
-                          }`}
-                        />
-                      ))}
-                    </div>
                   </div>
                 )}
 
