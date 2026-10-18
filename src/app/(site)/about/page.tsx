@@ -75,8 +75,8 @@ export default function AboutPage() {
               A sports performance wearable that athletes wear on themselves.
             </h2>
             <p className="mt-5 text-white/55 text-base md:text-lg max-w-3xl leading-relaxed">
-              Athletes secure the Phantom Core sensor in our fitted chest-strap
-              vest between their shoulder blades. The device records their own
+              Athletes slide the Phantom Core sensor into our compression vest,
+              where it sits between their shoulder blades. The device records their own
               GNSS performance data — sprint speed, distance covered,
               accelerations, heart-rate zones — and delivers it to the
               wearer&apos;s own authenticated account in our companion app.
@@ -161,7 +161,7 @@ export default function AboutPage() {
               {
                 icon: Target,
                 title: "Precision First",
-                desc: "Our sensors are calibrated to lab standards, ensuring every sprint and turn is captured with absolute fidelity.",
+                desc: "We test it on our own pitch every day, and we show you your numbers as they are — no inflated stats.",
               },
               {
                 icon: Shield,

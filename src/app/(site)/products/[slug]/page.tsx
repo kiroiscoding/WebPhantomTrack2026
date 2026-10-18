@@ -65,7 +65,7 @@ export default function ProductDetailPage() {
           className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors font-medium cursor-pointer"
         >
           <ArrowLeft className="w-5 h-5" />
-          Back to Armory
+          Back to Shop
         </Link>
       </div>
 
@@ -301,7 +301,7 @@ export default function ProductDetailPage() {
                       </li>
                       <li className="flex items-start gap-2 text-sm text-white/70">
                         <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                        Machine washable
+                        Machine-washable vest
                       </li>
                       <li className="flex items-start gap-2 text-sm text-white/70">
                         <Truck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
@@ -351,7 +351,9 @@ export default function ProductDetailPage() {
         <div className="mx-auto max-w-[1400px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-[#111111] border border-white/10 p-6 md:p-12 rounded-[28px] md:rounded-[40px]">
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8">WHATS INSIDE.</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8">
+                {product.inTheBox ? "WHAT'S INSIDE." : "FEATURES."}
+              </h3>
               <div className="space-y-6">
                 {(product.inTheBox ?? product.features).map((feature, i) => (
                   <div key={i} className="flex items-start gap-4">

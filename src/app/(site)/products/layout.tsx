@@ -6,18 +6,18 @@ export const metadata: Metadata = {
   // keeps applying to child routes ([slug]) — a plain-string title
   // here would otherwise strip it from them.
   title: {
-    default: "The Armory — Shop Trackers & Vests",
+    default: "Shop — Trackers & Vests",
     template: "%s | Phantom Track",
   },
   description:
-    "Shop Phantom Track hardware: the Phantom Core GNSS sensor, elite compression vest, and the complete Tracker Combo. Pro-grade gear engineered for athletes.",
+    "Shop Phantom Track: the Tracker Combo (GPS tracker + compression vest, $120) and the Phantom Vest ($35). Works with the free iOS app.",
   alternates: { canonical: "/products" },
   openGraph: {
     type: "website",
     url: "/products",
-    title: "The Armory — Phantom Track Hardware",
+    title: "Shop Phantom Track",
     description:
-      "Pro-grade athlete performance hardware: the Phantom Core GNSS sensor, compression vest, and Tracker Combo.",
+      "The Tracker Combo (GPS tracker + compression vest, $120) and the Phantom Vest ($35). Works with the free iOS app.",
     images: [{ url: "/Device_Web.png", width: 1200, height: 630, alt: "Phantom Track performance hardware" }],
   },
 };

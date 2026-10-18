@@ -18,7 +18,7 @@ const steps: Step[] = [
     id: "01",
     title: "Attach",
     description:
-      "Securely fasten the Phantom Track device to your gear using the universal mount.",
+      "Slide the tracker into the sensor pouch on the back of the Phantom Vest.",
     image: "/products/phantom-vest/vest-1.png",
     imageOrientation: "landscape",
   },
@@ -34,7 +34,7 @@ const steps: Step[] = [
     id: "03",
     title: "Review",
     description:
-      "Sync with the app to analyze your data, gain insights, and improve your technique.",
+      "Sync with the app to analyze your data, see how you move, and track your work rate.",
     image: "/images/ReviewStep3.png",
     imageOrientation: "portrait",
   },
@@ -48,7 +48,7 @@ export function HowItWorks() {
       <div className="w-full px-4 md:px-8">
         <div className="mx-auto max-w-[1400px] bg-[#050505] rounded-[40px] p-8 md:p-16 shadow-2xl relative overflow-hidden">
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-12 md:mb-24 text-center">
-            Seamless Integration
+            How it works
           </h2>
 
           <div ref={containerRef} className="relative space-y-16 md:space-y-32">

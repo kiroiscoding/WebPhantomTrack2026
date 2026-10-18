@@ -93,7 +93,7 @@ export default async function ProductLayout({
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-          { "@type": "ListItem", position: 2, name: "Armory", item: `${SITE_URL}/products` },
+          { "@type": "ListItem", position: 2, name: "Shop", item: `${SITE_URL}/products` },
           {
             "@type": "ListItem",
             position: 3,

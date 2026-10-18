@@ -35,7 +35,7 @@ export const BRAND_GROUPS: Brand[][] = [
 ];
 
 type BrandsProps = {
-  /** Visual tone — dark for homepage, light for the Armory. */
+  /** Visual tone — dark for homepage, light for the Shop page. */
   tone?: "dark" | "light";
   /** Optional custom eyebrow. */
   eyebrow?: string;

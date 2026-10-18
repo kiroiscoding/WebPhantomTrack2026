@@ -12,7 +12,7 @@ import { Map, Download, ArrowRight, Brain, Users, Star } from "lucide-react";
 const appHighlights = [
     { title: "AI Coaching", description: "Personalized training insights", icon: Brain },
     { title: "Friends & Team Stats", description: "Compare performance with teammates", icon: Users },
-    { title: "Session Heatmaps", description: "Visualize your movement on the pitch", icon: Map },
+    { title: "3D Heatmaps", description: "See your movement on the pitch in 3D", icon: Map },
 ];
 
 export function Specs() {

@@ -66,8 +66,8 @@ export function InAction() {
               <span className="text-primary">.</span>
             </h2>
             <p className="mt-4 text-base md:text-lg text-white/60 max-w-md leading-relaxed">
-              Zero distraction. Locked between the shoulder blades. Capture every sprint, turn,
-              and touch — while you play.
+              Zero distraction. Locked between the shoulder blades. Capture every sprint and
+              turn — while you play.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
@@ -82,7 +82,7 @@ export function InAction() {
               href="/products"
               className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-bold tracking-wide text-white transition-colors hover:bg-white/10"
             >
-              View the Armory
+              Shop all
             </Link>
           </div>
         </motion.div>

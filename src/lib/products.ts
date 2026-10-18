@@ -31,7 +31,7 @@ export const PRODUCTS: Record<string, Product> = {
     subtitle: "The Complete Ecosystem",
     priceCents: 12000,
     description:
-      "The Phantom Core Gen-2 meets our elite compression vest. This is the gold standard for athlete monitoring. Capture 1000 data points per second with surgical precision.",
+      "The Phantom Core Gen-2 meets our elite compression vest. Capture 1000 data points per second.",
     features: [
       "1000Hz GNSS Module",
       "Elite Compression Vest (Unisex)",
@@ -78,7 +78,7 @@ export const PRODUCTS: Record<string, Product> = {
     description:
       "Engineered for zero distraction. The Phantom Vest holds the core unit securely between the shoulder blades for optimal satellite reception and comfort.",
     features: [
-      "Surgical-Grade Elastane",
+      "Polyester / Elastane Blend",
       "Anti-Slip Silicone Grip",
       "Machine Washable",
       "Breathable Mesh Back",

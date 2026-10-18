@@ -62,11 +62,11 @@ export default function ProductsPage() {
             </div>
 
             <h1 className="mt-5 text-4xl md:text-6xl font-black tracking-tight text-slate-900">
-              The Armory<span className="text-primary">.</span>
+              Shop<span className="text-primary">.</span>
             </h1>
             <p className="mt-4 text-base md:text-lg text-slate-600 leading-relaxed">
               Professional-grade tracking hardware, engineered for the elite. Pick your setup and
-              start capturing every sprint, turn, and touch.
+              start capturing every sprint and turn.
             </p>
           </motion.div>
 
