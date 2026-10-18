@@ -6,6 +6,19 @@ export const metadata: Metadata = {
   description:
     "The terms governing your use of the Phantom Track website, iOS app, and hardware purchases. Read our full terms of service before you buy or download.",
   alternates: { canonical: "/terms" },
+  openGraph: {
+    type: "website",
+    url: "/terms",
+    title: "Terms of Service | Phantom Track",
+    description: "The terms governing your use of the Phantom Track website, iOS app, and hardware purchases. Read our full terms of service before you buy or download.",
+    images: [{ url: "/Device_Web.png", width: 1200, height: 630, alt: "Phantom Track performance hardware" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service | Phantom Track",
+    description: "The terms governing your use of the Phantom Track website, iOS app, and hardware purchases. Read our full terms of service before you buy or download.",
+    images: ["/Device_Web.png"],
+  },
 };
 
 export default function TermsOfServicePage() {
@@ -81,7 +94,7 @@ export default function TermsOfServicePage() {
             </Section>
 
             <div className="pt-2 text-xs text-white/40 font-mono uppercase tracking-wider">
-              Last updated: {new Date().toLocaleDateString()}
+              Last updated: February 11, 2026
             </div>
           </div>
         </div>

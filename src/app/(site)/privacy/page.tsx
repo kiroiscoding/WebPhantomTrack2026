@@ -6,6 +6,19 @@ export const metadata: Metadata = {
   description:
     "How Phantom Track collects, uses, and protects your data across our website and iOS app. Read our full privacy commitment to athletes and customers.",
   alternates: { canonical: "/privacy" },
+  openGraph: {
+    type: "website",
+    url: "/privacy",
+    title: "Privacy Policy | Phantom Track",
+    description: "How Phantom Track collects, uses, and protects your data across our website and iOS app. Read our full privacy commitment to athletes and customers.",
+    images: [{ url: "/Device_Web.png", width: 1200, height: 630, alt: "Phantom Track performance hardware" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Phantom Track",
+    description: "How Phantom Track collects, uses, and protects your data across our website and iOS app. Read our full privacy commitment to athletes and customers.",
+    images: ["/Device_Web.png"],
+  },
 };
 
 export default function PrivacyPolicyPage() {
@@ -77,7 +90,7 @@ export default function PrivacyPolicyPage() {
             </Section>
 
             <div className="pt-2 text-xs text-white/40 font-mono uppercase tracking-wider">
-              Last updated: {new Date().toLocaleDateString()}
+              Last updated: October 17, 2026
             </div>
           </div>
         </div>

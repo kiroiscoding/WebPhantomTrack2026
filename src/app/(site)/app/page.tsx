@@ -318,6 +318,7 @@ export default function AppPage() {
                                     className={`block ${li === 1 ? "text-primary" : ""}`}
                                 >
                                     {line}
+                                    {li === 0 && " "}
                                 </motion.span>
                             </span>
                         ))}
@@ -410,7 +411,7 @@ export default function AppPage() {
             {/* ── Feature sections ───────────────────────────────────────── */}
             <FeatureSection
                 tag="Dashboard" tagIcon={LayoutDashboard}
-                title={<>Everything at<br /><span className="text-primary">a glance.</span></>}
+                title={<>Everything at{" "}<br /><span className="text-primary">a glance.</span></>}
                 description="Your performance hub. See your latest session stats, personal bests, and progress the moment you open the app."
                 bullets={["Live session overview with real-time metrics","Weekly and monthly performance summaries","Quick-launch your next session in one tap"]}
                 phoneSrc={SS.home} phoneAlt="App home dashboard" accentColor="primary"
@@ -418,7 +419,7 @@ export default function AppPage() {
 
             <FeatureSection
                 tag="Stats & Heatmap" tagIcon={Flame}
-                title={<>See every<br /><span className="text-orange-400">move you made.</span></>}
+                title={<>See every{" "}<br /><span className="text-orange-400">move you made.</span></>}
                 description="A full breakdown of your session — from distance covered to your 3D heatmap. Know exactly where you dominated and where to improve."
                 bullets={["3D field heatmap showing your movement density","Distance, top speed, sprint count, and more","Compare stats across different sessions easily"]}
                 phoneSrc={SS.stats} phoneAlt="Stats and heatmap screen" flip accentColor="orange"
@@ -426,7 +427,7 @@ export default function AppPage() {
 
             <FeatureSection
                 tag="Sprint Map" tagIcon={Zap}
-                title={<>Break every<br /><span className="text-blue-400">speed limit.</span></>}
+                title={<>Break every{" "}<br /><span className="text-blue-400">speed limit.</span></>}
                 description="Every sprint, burst, and acceleration mapped directly onto the pitch. Understand how fast, how far, and how often you push the pace."
                 bullets={["Top speed, average speed, and sprint count per session","Sprint corridors visualized on a field map","Acceleration and deceleration zones flagged automatically"]}
                 phoneSrc={SS.sprintMap} phoneAlt="Sprint map screen" accentColor="blue"
@@ -434,7 +435,7 @@ export default function AppPage() {
 
             <FeatureSection
                 tag="AI Coach" tagIcon={Brain}
-                title={<>Your personal<br /><span className="text-emerald-400">coach. 24/7.</span></>}
+                title={<>Your personal{" "}<br /><span className="text-emerald-400">coach. 24/7.</span></>}
                 description="An AI that studies your data and tells you exactly what to work on. No guesswork — just data-driven coaching tailored to your game."
                 bullets={["Post-session feedback personalized to your play style","Identifies recurring patterns and weaknesses","Weekly training focus recommendations"]}
                 phoneSrc={SS.aiCoach} phoneAlt="AI coach screen" flip accentColor="emerald"
@@ -442,7 +443,7 @@ export default function AppPage() {
 
             <FeatureSection
                 tag="Compare" tagIcon={GitCompare}
-                title={<>Stack up<br /><span className="text-primary">against anyone.</span></>}
+                title={<>Stack up{" "}<br /><span className="text-primary">against anyone.</span></>}
                 description="Compare your sessions side-by-side against teammates, past versions of yourself, or anyone in your network."
                 bullets={["Head-to-head stat comparison with any player","Session vs. session performance breakdowns","Identify gaps and celebrate improvements"]}
                 phoneSrc={SS.compare} phoneAlt="Compare screen" accentColor="primary"
@@ -465,7 +466,7 @@ export default function AppPage() {
                             Friends · Leaderboard · Share
                         </motion.div>
                         <h2 className="text-4xl sm:text-5xl font-extrabold text-white leading-[1.1] tracking-tight mb-5">
-                            Compete. Connect.<br />
+                            Compete. Connect.{" "}<br />
                             <span className="text-primary">Dominate.</span>
                         </h2>
                         <p className="text-white/50 text-lg max-w-xl mx-auto leading-relaxed">
@@ -545,7 +546,7 @@ export default function AppPage() {
                                         transition={{ duration: 0.8, ease: EASE }}
                                         className="text-5xl md:text-7xl font-extrabold text-white tracking-tighter leading-[0.9]"
                                     >
-                                        READY TO<br />
+                                        READY TO{" "}<br />
                                         <span className="text-primary">LEVEL UP?</span>
                                     </motion.h2>
                                 </div>

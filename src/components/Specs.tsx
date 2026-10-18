@@ -74,7 +74,7 @@ export function Specs() {
                         </motion.div>
 
                         <h2 className="text-[12vw] sm:text-6xl lg:text-[4.2rem] xl:text-[5.5rem] font-black tracking-tighter text-white leading-[0.9]">
-                            YOUR DATA,<br />
+                            YOUR DATA,{" "}<br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary to-purple-400 pr-2 -mr-2">UNLEASHED</span><span className="text-white">.</span>
                         </h2>
 

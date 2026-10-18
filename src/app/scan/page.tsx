@@ -74,7 +74,7 @@ export default function ScanPage() {
                         animate="show"
                         className="text-4xl sm:text-5xl font-extrabold text-white leading-[1.1] tracking-tight"
                     >
-                        Track smarter.<br />
+                        Track smarter.{" "}<br />
                         <span className="text-primary">Move faster.</span>
                     </motion.h1>
 

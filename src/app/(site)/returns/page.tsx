@@ -7,6 +7,19 @@ export const metadata: Metadata = {
   description:
     "Phantom Track offers a 30-day return policy with a full money-back guarantee. See how to start a return, what qualifies, and how refunds are processed.",
   alternates: { canonical: "/returns" },
+  openGraph: {
+    type: "website",
+    url: "/returns",
+    title: "Returns & 30-Day Money-Back Guarantee | Phantom Track",
+    description: "Phantom Track offers a 30-day return policy with a full money-back guarantee. See how to start a return, what qualifies, and how refunds are processed.",
+    images: [{ url: "/Device_Web.png", width: 1200, height: 630, alt: "Phantom Track performance hardware" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Returns & 30-Day Money-Back Guarantee | Phantom Track",
+    description: "Phantom Track offers a 30-day return policy with a full money-back guarantee. See how to start a return, what qualifies, and how refunds are processed.",
+    images: ["/Device_Web.png"],
+  },
 };
 
 export default function ReturnPolicyPage() {

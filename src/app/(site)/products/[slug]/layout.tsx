@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getProduct, formatUsdFromCents } from "@/lib/products";
+import { getProduct, getPrimaryImage, formatUsdFromCents } from "@/lib/products";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://phantom-track.com";
 
@@ -22,6 +22,7 @@ export async function generateMetadata({
 
   const url = `${SITE_URL}/products/${product.slug}`;
   const priceLabel = product.purchasable ? formatUsdFromCents(product.priceCents) : "Coming soon";
+  const image = getPrimaryImage(product);
 
   return {
     title: product.name,
@@ -33,11 +34,13 @@ export async function generateMetadata({
       title: `${product.name} — Phantom Track`,
       description: `${product.subtitle} — ${priceLabel}`,
       siteName: "Phantom Track",
+      images: image ? [{ url: image, alt: `${product.name} — Phantom Track` }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title: `${product.name} — Phantom Track`,
       description: `${product.subtitle} — ${priceLabel}`,
+      images: image ? [image] : undefined,
     },
   };
 }

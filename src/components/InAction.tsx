@@ -61,7 +61,7 @@ export function InAction() {
             </p>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter text-white leading-[0.9]">
               BUILT FOR
-              <br />
+              {" "}<br />
               THE MOMENT
               <span className="text-primary">.</span>
             </h2>

@@ -81,7 +81,7 @@ export default function SupportPage() {
             <div className="lg:col-span-4">
               <h2 className="text-4xl font-bold text-white mb-6">
                 FREQUENTLY
-                <br />
+                {" "}<br />
                 ASKED.
               </h2>
               <p className="text-white/70 text-lg">

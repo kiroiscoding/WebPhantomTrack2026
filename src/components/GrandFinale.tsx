@@ -71,6 +71,7 @@ export function GrandFinale() {
                                 <span key={lineText} className="block overflow-hidden pb-[0.06em]">
                                     <motion.span variants={lineV} className="block">
                                         {lineText}
+                                        {i < headlineLines.length - 1 && " "}
                                         {i === headlineLines.length - 1 && (
                                             <span className="text-primary">.</span>
                                         )}

@@ -8,6 +8,19 @@ export const metadata: Metadata = {
   description:
     "Phantom Track shipping details for the US and Canada — processing times, delivery estimates, free shipping threshold, and order tracking.",
   alternates: { canonical: "/shipping" },
+  openGraph: {
+    type: "website",
+    url: "/shipping",
+    title: "Shipping Policy | Phantom Track",
+    description: "Phantom Track shipping details for the US and Canada — processing times, delivery estimates, free shipping threshold, and order tracking.",
+    images: [{ url: "/Device_Web.png", width: 1200, height: 630, alt: "Phantom Track performance hardware" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shipping Policy | Phantom Track",
+    description: "Phantom Track shipping details for the US and Canada — processing times, delivery estimates, free shipping threshold, and order tracking.",
+    images: ["/Device_Web.png"],
+  },
 };
 
 const FREE_SHIP = formatUsdFromCents(FREE_SHIPPING_THRESHOLD_CENTS);
