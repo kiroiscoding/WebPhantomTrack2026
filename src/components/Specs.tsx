@@ -86,7 +86,7 @@ export function Specs() {
                                 <span className="relative z-10">Shop Now</span>
                                 <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-0.5 transition-transform" />
                                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-purple-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                                <span className="absolute inset-0 z-10 flex items-center justify-center gap-2.5 font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <span aria-hidden="true" className="absolute inset-0 z-10 flex items-center justify-center gap-2.5 font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     Shop Now
                                     <ArrowRight className="w-4 h-4" />
                                 </span>

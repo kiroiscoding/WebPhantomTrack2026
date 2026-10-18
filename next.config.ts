@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   // <Image unoptimized> opt out of this on a per-image basis.
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [75, 90, 100],
+    qualities: [75, 90],
   },
   async redirects() {
     return [

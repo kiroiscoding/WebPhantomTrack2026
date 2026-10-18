@@ -8,8 +8,8 @@ import { ArrowRight } from "lucide-react";
 // Same footage in two codecs, both hardware-decoded. Browsers only report HEVC
 // support when a hardware decoder exists; everyone else gets the H.264 file.
 // HEVC (~13MB) is visually identical to the H.264 fallback (~19MB).
-const HERO_BG_VIDEO_HEVC = "/videos/TestCanlanVid.hevc.mp4";
-const HERO_BG_VIDEO = "/videos/TestCanlanVid.mp4";
+const HERO_BG_VIDEO_HEVC = "/videos/hero.hevc.mp4";
+const HERO_BG_VIDEO = "/videos/hero.mp4";
 const HERO_BG_POSTER = "/images/hero-bg.jpg";
 
 // Entrance animations run in CSS (see .hero-enter in globals.css) so they start

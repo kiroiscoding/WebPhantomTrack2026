@@ -113,7 +113,6 @@ export function GrandFinale() {
                         src="/productImage.png"
                         alt="Phantom Track device — Elite Series performance tracker"
                         fill
-                        quality={100}
                         sizes="(max-width: 1024px) 100vw, 60vw"
                         className="object-cover object-center select-none"
                     />

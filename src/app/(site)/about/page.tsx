@@ -33,7 +33,6 @@ export default function AboutPage() {
           alt="Phantom Track in action"
           fill
           sizes="100vw"
-          unoptimized
           className="object-cover"
           priority
         />
@@ -100,7 +99,6 @@ export default function AboutPage() {
               alt="Building Phantom Track"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
-              unoptimized
               className="object-cover"
             />
           </motion.div>
@@ -202,7 +200,6 @@ export default function AboutPage() {
               alt="The Phantom Track team"
               fill
               sizes="100vw"
-              unoptimized
               className="object-cover"
             />
           </div>

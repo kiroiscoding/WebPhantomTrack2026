@@ -494,7 +494,7 @@ export default function AppPage() {
                             transition={{ duration: 0.9, ease: EASE, delay: 0 }}
                             animate={{ y: [0, -14, 0] }}
                         >
-                            <PhoneFrame src={SS.friends} alt="Friends screen" glow />
+                            <PhoneFrame src={SS.friends} alt="Friends leaderboard screen" glow />
                         </motion.div>
 
                         <motion.div
@@ -504,7 +504,7 @@ export default function AppPage() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
                         >
-                            <PhoneFrame src={SS.stats} alt="Leaderboard screen" width={200} height={430} />
+                            <PhoneFrame src={SS.stats} alt="Stats and 3D heatmap screen" width={200} height={430} />
                         </motion.div>
                     </div>
 
