@@ -121,9 +121,38 @@ export function SocialProof() {
             <div className="mx-auto max-w-full px-0">
 
                 {/* Headline */}
-                <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white mb-16 text-center px-6">
-                    TRUSTED BY <span className="text-primary">BALLERS</span>
-                </h2>
+                <div className="mb-14 md:mb-16 px-6 text-center">
+                    <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white">
+                        TRUSTED BY <span className="text-primary">BALLERS</span>
+                    </h2>
+
+                    {/* Partner strip — same visual language as the programs logo rows */}
+                    <div className="mt-8 md:mt-10 flex flex-col items-center gap-3">
+                        <p className="text-[11px] md:text-xs font-semibold uppercase tracking-[0.22em] text-white/40">
+                            Partnered with
+                        </p>
+                        <div className="flex items-center gap-3.5 md:gap-4 px-4 py-2 opacity-85">
+                            <span className="relative block h-12 w-12 md:h-14 md:w-14 shrink-0">
+                                <Image
+                                    src="/Logos/european-sports.png"
+                                    alt=""
+                                    fill
+                                    sizes="56px"
+                                    className="object-contain"
+                                />
+                            </span>
+                            <span className="relative block h-7 w-[140px] md:h-8 md:w-[168px]">
+                                <Image
+                                    src="/Logos/european-sports-wordmark-white.png"
+                                    alt="European Sports"
+                                    fill
+                                    sizes="168px"
+                                    className="object-contain object-left"
+                                />
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
                 {/* 3 Infinite Marquee Rows */}
                 <div className="flex flex-col gap-8 relative w-full overflow-hidden">
