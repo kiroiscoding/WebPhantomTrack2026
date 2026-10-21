@@ -91,14 +91,14 @@ function PhoneFrame({
                     transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
                 />
             )}
-            {/* Rendered iPhone or Pixel with the screenshot on its display. */}
+            {/* Screenshot in the iPhone (Simulator) or Pixel (emulator) device frame. */}
             <div className="relative w-full h-full">
                 {platform && (
                     <Image
                         src={appDevice(platform, src)}
                         alt={alt}
                         fill
-                        className="object-contain scale-[1.16] drop-shadow-[0_30px_50px_rgba(0,0,0,0.65)]"
+                        className="object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.65)]"
                         sizes={`${Math.round(width * 1.2)}px`}
                     />
                 )}

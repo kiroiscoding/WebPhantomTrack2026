@@ -30,7 +30,7 @@ const SCREENSHOT_DIRS: Record<DevicePlatform, string> = {
     android: "/app/android-screenshots",
 };
 
-/** Render of a screenshot such as `home.png` inside an iPhone or Pixel. */
+/** A screenshot such as `home.png` inside its iPhone or Pixel device frame. */
 export function appDevice(platform: DevicePlatform, file: string): string {
     return `/app/devices/${platform}/${file}`;
 }
