@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { appScreenshot, useDevicePlatform } from "@/lib/devicePlatform";
+import { appDevice, useDevicePlatform } from "@/lib/devicePlatform";
 import {
     motion,
     useInView,
@@ -91,14 +91,17 @@ function PhoneFrame({
                     transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
                 />
             )}
-            <div className="relative w-full h-full rounded-[44px] border-[2px] border-white/10 bg-[#0a0a0a] shadow-[0_30px_80px_rgba(0,0,0,0.7)] overflow-hidden">
-                <div className="relative w-full h-full">
-                    {platform && (
-                        <Image src={appScreenshot(platform, src)} alt={alt} fill className="object-cover object-top" sizes={`${width}px`} />
-                    )}
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent" />
-                </div>
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-24 h-[4px] bg-white/20 rounded-full z-20" />
+            {/* Rendered iPhone or Pixel with the screenshot on its display. */}
+            <div className="relative w-full h-full">
+                {platform && (
+                    <Image
+                        src={appDevice(platform, src)}
+                        alt={alt}
+                        fill
+                        className="object-contain scale-[1.16] drop-shadow-[0_30px_50px_rgba(0,0,0,0.65)]"
+                        sizes={`${Math.round(width * 1.2)}px`}
+                    />
+                )}
             </div>
         </motion.div>
     );
