@@ -103,3 +103,8 @@ body {
 .hero-enter {
   animation: hero-enter var(--hero-duration) cubic-bezier(0.42, 0, 0.58, 1) var(--hero-delay) both;
 }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}

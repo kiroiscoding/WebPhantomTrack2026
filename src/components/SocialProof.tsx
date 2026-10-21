@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import { Star, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { ReviewMorphGallery, type GalleryReview, type GallerySlide } from "@/components/ReviewMorphGallery";
 
 export const APP_STORE_REVIEWS_URL =
     "https://apps.apple.com/us/app/6758968140?see-all=reviews&platform=iphone";
@@ -36,6 +37,43 @@ const REVIEWS: AppStoreReview[] = [
         date: "Feb 26, 2026",
         rating: 5,
     },
+];
+
+const appStore = (r: AppStoreReview): GalleryReview => ({
+    title: r.title,
+    text: r.text,
+    author: r.author,
+    meta: r.date,
+    source: "app-store",
+});
+
+const quote = (text: string, author: string, role: string): GalleryReview => ({
+    text,
+    author,
+    meta: role,
+});
+
+const photo = (name: string, alt: string) => ({
+    src: `/gallery/${name}.jpg`,
+    thumb: `/gallery/thumb/${name}.jpg`,
+    alt,
+});
+
+// One review per photo. Outdoor shoot grades (vibrant / moody / golden hour)
+// alternate with the indoor facility shots; no black-and-white.
+const SLIDES: GallerySlide[] = [
+    { review: appStore(REVIEWS[0]), photo: photo("shoot-01", "Vibrant outdoor action shot") },
+    { review: quote("My performance has measurably improved since using this.", "Daiven T.", "Right Mid"), photo: photo("indoor-01", "Player training indoors") },
+    { review: quote("A total shift in perspective.", "Alex M.", "Pro Athlete"), photo: photo("shoot-03", "Golden hour outdoor shot") },
+    { review: appStore(REVIEWS[1]), photo: photo("indoor-03", "Player dribbling on the indoor turf") },
+    { review: quote("Game-changing data right at your fingertips.", "Timi A.", "Midfielder"), photo: photo("shoot-04", "Moody outdoor action shot") },
+    { review: quote("Clear data, zero noise. Exactly what players need.", "Ethan J.", "Academy Coach"), photo: photo("indoor-06", "Heading drill indoors") },
+    { review: appStore(REVIEWS[2]), photo: photo("shoot-05", "Vibrant outdoor action shot") },
+    { review: quote("My top speed and sprint count keep climbing since I started tracking.", "Eashan C.", "Striker"), photo: photo("indoor-02", "Player on the indoor pitch") },
+    { review: quote("Workload trends make recovery decisions way smarter.", "Omar H.", "Strength Coach"), photo: photo("shoot-08", "Golden hour action shot") },
+    { review: quote("Session comparisons week-to-week are so valuable.", "Oliver S.", "Holding Mid"), photo: photo("indoor-04", "Two players training indoors") },
+    { review: quote("Love how simple it is to review sessions.", "Will G.", "Defender"), photo: photo("shoot-06", "Moody outdoor action shot") },
+    { review: quote("Best investment I've made for my football development.", "Ryan A.", "Centre Mid"), photo: photo("indoor-05", "Squad lined up in front of the goal") },
 ];
 
 export function SocialProof() {
@@ -77,40 +115,8 @@ export function SocialProof() {
                     </div>
                 </div>
 
-                {/* App Store reviews */}
-                <ul className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                    {REVIEWS.map((review) => (
-                        <li
-                            key={review.author}
-                            className="bg-[#111111] border border-white/12 p-6 sm:p-8 rounded-[28px] sm:rounded-[32px] flex flex-col shadow-xl"
-                        >
-                            <div
-                                className="flex gap-1 mb-4"
-                                role="img"
-                                aria-label={`${review.rating} out of 5 stars`}
-                            >
-                                {[...Array(review.rating)].map((_, i) => (
-                                    <Star key={i} className="w-4 h-4 fill-primary text-primary" aria-hidden="true" />
-                                ))}
-                            </div>
-                            <h3 className="text-lg sm:text-xl font-bold text-white leading-tight mb-3">
-                                {review.title}
-                            </h3>
-                            <p className="text-sm sm:text-base text-white/70 leading-relaxed mb-6">
-                                {review.text}
-                            </p>
-                            <div className="mt-auto flex items-end justify-between gap-3 border-t border-white/10 pt-4">
-                                <div>
-                                    <div className="text-sm sm:text-base font-bold text-white">{review.author}</div>
-                                    <div className="text-xs text-white/50">{review.date}</div>
-                                </div>
-                                <div className="text-[11px] text-white/40 uppercase tracking-wider">
-                                    App Store review
-                                </div>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                {/* Photos and reviews, dissolving into each other */}
+                <ReviewMorphGallery slides={SLIDES} />
 
                 <div className="mt-10 text-center">
                     <a
