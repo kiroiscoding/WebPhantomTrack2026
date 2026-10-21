@@ -35,6 +35,7 @@ const SS = {
     aiCoach:   "/app/new-screenshots/ai-coach.png",
     compare:   "/app/new-screenshots/compare.png",
     friends:   "/app/new-screenshots/friends.png",
+    performance: "/app/new-screenshots/performance.png",
 };
 
 // ─── Phone Frame ──────────────────────────────────────────────────────────────
@@ -374,7 +375,7 @@ export default function AppPage() {
                             animate={{ opacity: 0.45, x: 0, rotate: -8, y: 48 }}
                             transition={{ duration: 1, ease: EASE, delay: 0.65 }}
                         >
-                            <PhoneFrame src={SS.stats} alt="App stats screen" width={200} height={430} />
+                            <PhoneFrame src={SS.performance} alt="App performance stats screen" width={200} height={430} />
                         </motion.div>
 
                         <motion.div
