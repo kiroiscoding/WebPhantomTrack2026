@@ -7,6 +7,9 @@ export type DevicePlatform = "ios" | "android";
 // Android phones and tablets see the Android app screenshots; everyone else
 // (iPhone, iPad, desktop) sees the iOS ones.
 function detectPlatform(): DevicePlatform {
+    // ?platform=android or ?platform=ios previews either set from any browser.
+    const forced = new URLSearchParams(window.location.search).get("platform");
+    if (forced === "android" || forced === "ios") return forced;
     const nav = navigator as Navigator & { userAgentData?: { platform?: string } };
     const ua = `${nav.userAgentData?.platform ?? ""} ${nav.userAgent}`;
     return /android/i.test(ua) ? "android" : "ios";
