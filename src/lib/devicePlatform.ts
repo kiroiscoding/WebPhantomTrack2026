@@ -32,7 +32,7 @@ const SCREENSHOT_DIRS: Record<DevicePlatform, string> = {
 
 /** A screenshot such as `home.png` inside its iPhone or Pixel device frame. */
 export function appDevice(platform: DevicePlatform, file: string): string {
-    return `/app/devices/${platform}/${file}`;
+    return `/app/devices/${platform}/${file.replace(/\.png$/, ".webp")}`;
 }
 
 /** Path to an app screenshot such as `home.png` for the given platform. */

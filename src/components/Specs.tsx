@@ -156,7 +156,8 @@ export function Specs() {
                         >
                             {platform ? (
                                 <Image
-                                    src={platform === "android" ? "/app/screenshots/newPhotosAPP-android.png" : "/app/screenshots/newPhotosAPP.png"}
+                                    src={platform === "android" ? "/app/screenshots/newPhotosAPP-android.webp" : "/app/screenshots/newPhotosAPP.webp"}
+                                    unoptimized
                                     alt="Phantom Track app — home dashboard with 3D heatmap and friends leaderboard"
                                     width={1012}
                                     height={1440}

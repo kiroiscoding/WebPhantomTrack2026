@@ -49,6 +49,7 @@ function PhoneFrame({
     height = 580,
     className = "",
     float = false,
+    tilt = 0,
 }: {
     src: string;
     alt: string;
@@ -57,12 +58,21 @@ function PhoneFrame({
     height?: number;
     className?: string;
     float?: boolean;
+    /** Resting turn in degrees; positive faces right. */
+    tilt?: number;
 }) {
     const platform = useDevicePlatform();
+    const ref = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+    // Turns a little further on the way in and settles as it scrolls through.
+    const scrollTilt = useTransform(scrollYProgress, [0, 0.5, 1], [tilt * 1.5, tilt, tilt * 0.7]);
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
     const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), { stiffness: 200, damping: 30 });
     const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { stiffness: 200, damping: 30 });
+
+    const tiltY = useTransform([scrollTilt, rotateY], ([a, b]: number[]) => a + b);
+    const tiltX = useTransform(rotateX, (m) => (tilt ? 4 : 0) + m);
 
     function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -76,8 +86,9 @@ function PhoneFrame({
 
     return (
         <motion.div
+            ref={ref}
             className={`relative flex-shrink-0 cursor-pointer ${className}`}
-            style={{ width, height, perspective: 800, rotateX, rotateY }}
+            style={{ width, height, perspective: 1100 }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             animate={float ? { y: [0, -14, 0] } : {}}
@@ -91,18 +102,36 @@ function PhoneFrame({
                     transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
                 />
             )}
-            {/* Screenshot in the iPhone (Simulator) or Pixel (emulator) device frame. */}
-            <div className="relative w-full h-full">
+            {/* Screenshot in the iPhone (Simulator) or Pixel (emulator) device frame,
+                angled in 3D with darkened copies behind it for the phone's thickness. */}
+            <motion.div
+                className="relative w-full h-full"
+                style={{ rotateX: tiltX, rotateY: tiltY, transformStyle: "preserve-3d" }}
+            >
                 {platform && (
-                    <Image
-                        src={appDevice(platform, src)}
-                        alt={alt}
-                        fill
-                        className="object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.65)]"
-                        sizes={`${Math.round(width * 1.2)}px`}
-                    />
+                    <>
+                        {Array.from({ length: 7 }, (_, i) => (
+                            <Image
+                                key={i}
+                                src={appDevice(platform, src)}
+                                alt=""
+                                aria-hidden
+                                fill
+                                unoptimized
+                                className="object-contain"
+                                style={{ transform: `translateZ(${-(i + 1) * 1.4}px)`, filter: "brightness(0.3)" }}
+                            />
+                        ))}
+                        <Image
+                            src={appDevice(platform, src)}
+                            alt={alt}
+                            fill
+                            unoptimized
+                            className="object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.65)]"
+                        />
+                    </>
                 )}
-            </div>
+            </motion.div>
         </motion.div>
     );
 }
@@ -207,7 +236,7 @@ function FeatureSection({
             <div className="mx-auto max-w-[1200px] relative z-10">
                 <div className={`flex flex-col ${flip ? "lg:flex-row-reverse" : "lg:flex-row"} items-center gap-16 lg:gap-24`}>
                     <SlideIn from={phoneFrom} className="flex-1 flex justify-center" delay={0}>
-                        <PhoneFrame src={phoneSrc} alt={phoneAlt} glow={c.glow} float />
+                        <PhoneFrame src={phoneSrc} alt={phoneAlt} glow={c.glow} float tilt={flip ? -16 : 16} />
                     </SlideIn>
                     <SlideIn from={textFrom} className="flex-1" delay={0.1}>
                         <div className="flex flex-col gap-6 max-w-lg">
@@ -383,7 +412,7 @@ export default function AppPage() {
                             animate={{ opacity: 0.45, x: 0, rotate: -8, y: 48 }}
                             transition={{ duration: 1, ease: EASE, delay: 0.65 }}
                         >
-                            <PhoneFrame src={SS.performance} alt="App performance stats screen" width={200} height={430} />
+                            <PhoneFrame src={SS.performance} alt="App performance stats screen" width={200} height={430} tilt={22} />
                         </motion.div>
 
                         <motion.div
@@ -400,7 +429,7 @@ export default function AppPage() {
                             animate={{ opacity: 0.45, x: 0, rotate: 8, y: 48 }}
                             transition={{ duration: 1, ease: EASE, delay: 0.65 }}
                         >
-                            <PhoneFrame src={SS.friends} alt="App friends screen" width={200} height={430} />
+                            <PhoneFrame src={SS.friends} alt="App friends screen" width={200} height={430} tilt={-22} />
                         </motion.div>
 
                         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none" />
@@ -492,7 +521,7 @@ export default function AppPage() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
                         >
-                            <PhoneFrame src={SS.compare} alt="Compare screen" width={200} height={430} />
+                            <PhoneFrame src={SS.compare} alt="Compare screen" width={200} height={430} tilt={20} />
                         </motion.div>
 
                         <motion.div
@@ -513,7 +542,7 @@ export default function AppPage() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
                         >
-                            <PhoneFrame src={SS.stats} alt="Stats and 3D heatmap screen" width={200} height={430} />
+                            <PhoneFrame src={SS.stats} alt="Stats and 3D heatmap screen" width={200} height={430} tilt={-20} />
                         </motion.div>
                     </div>
 

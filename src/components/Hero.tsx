@@ -153,9 +153,6 @@ export function Hero() {
                         <h1 className="text-base md:text-lg text-white font-bold leading-snug">
                             GPS performance tracker and vest for soccer players
                         </h1>
-                        <p className="mt-1.5 text-sm md:text-base text-white/50 font-medium leading-snug">
-                            $120 — vest + tracker, free iOS app
-                        </p>
                     </div>
 
                     <div style={heroEnter(20, 0.6, 0.8)} className="hero-enter">
