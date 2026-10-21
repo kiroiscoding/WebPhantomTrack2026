@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { StoreBadges } from "@/components/StoreBadges";
+import { useDevicePlatform } from "@/lib/devicePlatform";
 import { APP_STORE_REVIEWS_URL } from "@/components/SocialProof";
 import { Map, Download, ArrowRight, Brain, Users, Star } from "lucide-react";
 
@@ -16,6 +17,7 @@ const appHighlights = [
 ];
 
 export function Specs() {
+    const platform = useDevicePlatform();
     const sectionRef = useRef<HTMLDivElement>(null);
     const phonesRef = useRef<HTMLDivElement>(null);
 
@@ -152,14 +154,18 @@ export function Specs() {
                             viewport={{ once: true, margin: "-100px" }}
                             className="relative w-full max-w-[360px] md:max-w-[440px] lg:max-w-[500px]"
                         >
-                            <Image
-                                src="/app/screenshots/newPhotosAPP.png"
-                                alt="Phantom Track app — home dashboard with 3D heatmap and friends leaderboard"
-                                width={1012}
-                                height={1440}
-                                sizes="(max-width: 768px) 360px, (max-width: 1024px) 440px, 500px"
-                                className="w-full h-auto select-none drop-shadow-2xl"
-                            />
+                            {platform ? (
+                                <Image
+                                    src={platform === "android" ? "/app/screenshots/newPhotosAPP-android.png" : "/app/screenshots/newPhotosAPP.png"}
+                                    alt="Phantom Track app — home dashboard with 3D heatmap and friends leaderboard"
+                                    width={1012}
+                                    height={1440}
+                                    sizes="(max-width: 768px) 360px, (max-width: 1024px) 440px, 500px"
+                                    className="w-full h-auto select-none drop-shadow-2xl"
+                                />
+                            ) : (
+                                <div className="w-full aspect-[1012/1440]" />
+                            )}
                         </motion.div>
                     </div>
                 </div>

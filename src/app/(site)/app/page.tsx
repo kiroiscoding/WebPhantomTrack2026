@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { appScreenshot, useDevicePlatform } from "@/lib/devicePlatform";
 import {
     motion,
     useInView,
@@ -28,14 +29,15 @@ import { Footer } from "@/components/Footer";
 const APP_STORE_URL = "https://apps.apple.com/us/app/phantom-track/id6758968140";
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
+// Screenshot file names; PhoneFrame picks the iOS or Android set.
 const SS = {
-    home:      "/app/new-screenshots/home.png",
-    stats:     "/app/new-screenshots/stats.png",
-    sprintMap: "/app/new-screenshots/sprint-map.png",
-    aiCoach:   "/app/new-screenshots/ai-coach.png",
-    compare:   "/app/new-screenshots/compare.png",
-    friends:   "/app/new-screenshots/friends.png",
-    performance: "/app/new-screenshots/performance.png",
+    home:      "home.png",
+    stats:     "stats.png",
+    sprintMap: "sprint-map.png",
+    aiCoach:   "ai-coach.png",
+    compare:   "compare.png",
+    friends:   "friends.png",
+    performance: "performance.png",
 };
 
 // ─── Phone Frame ──────────────────────────────────────────────────────────────
@@ -56,6 +58,7 @@ function PhoneFrame({
     className?: string;
     float?: boolean;
 }) {
+    const platform = useDevicePlatform();
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
     const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), { stiffness: 200, damping: 30 });
@@ -90,7 +93,9 @@ function PhoneFrame({
             )}
             <div className="relative w-full h-full rounded-[44px] border-[2px] border-white/10 bg-[#0a0a0a] shadow-[0_30px_80px_rgba(0,0,0,0.7)] overflow-hidden">
                 <div className="relative w-full h-full">
-                    <Image src={src} alt={alt} fill className="object-cover object-top" sizes={`${width}px`} />
+                    {platform && (
+                        <Image src={appScreenshot(platform, src)} alt={alt} fill className="object-cover object-top" sizes={`${width}px`} />
+                    )}
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent" />
                 </div>
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-24 h-[4px] bg-white/20 rounded-full z-20" />
