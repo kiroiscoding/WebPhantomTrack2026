@@ -110,16 +110,24 @@ function PhoneFrame({
             >
                 {platform && (
                     <>
-                        {Array.from({ length: 7 }, (_, i) => (
-                            <Image
+                        {/* Solid metal edge: the phone's silhouette, filled, stepped back in depth. */}
+                        {Array.from({ length: 8 }, (_, i) => (
+                            <div
                                 key={i}
-                                src={appDevice(platform, src)}
-                                alt=""
                                 aria-hidden
-                                fill
-                                unoptimized
-                                className="object-contain"
-                                style={{ transform: `translateZ(${-(i + 1) * 1.4}px)`, filter: "brightness(0.3)" }}
+                                className="absolute inset-0"
+                                style={{
+                                    transform: `translateZ(${-(i + 1) * 1.3}px)`,
+                                    background: "linear-gradient(90deg, #2a2c31, #8d9099 48%, #3a3c42)",
+                                    maskImage: `url(${appDevice(platform, src)})`,
+                                    WebkitMaskImage: `url(${appDevice(platform, src)})`,
+                                    maskSize: "contain",
+                                    WebkitMaskSize: "contain",
+                                    maskRepeat: "no-repeat",
+                                    WebkitMaskRepeat: "no-repeat",
+                                    maskPosition: "center",
+                                    WebkitMaskPosition: "center",
+                                }}
                             />
                         ))}
                         <Image
@@ -409,7 +417,7 @@ export default function AppPage() {
                         <motion.div
                             className="hidden md:block"
                             initial={{ opacity: 0, x: -60, rotate: -8 }}
-                            animate={{ opacity: 0.45, x: 0, rotate: -8, y: 48 }}
+                            animate={{ opacity: 1, x: 0, rotate: -8, y: 48 }}
                             transition={{ duration: 1, ease: EASE, delay: 0.65 }}
                         >
                             <PhoneFrame src={SS.performance} alt="App performance stats screen" width={200} height={430} tilt={22} />
@@ -426,7 +434,7 @@ export default function AppPage() {
                         <motion.div
                             className="hidden md:block"
                             initial={{ opacity: 0, x: 60, rotate: 8 }}
-                            animate={{ opacity: 0.45, x: 0, rotate: 8, y: 48 }}
+                            animate={{ opacity: 1, x: 0, rotate: 8, y: 48 }}
                             transition={{ duration: 1, ease: EASE, delay: 0.65 }}
                         >
                             <PhoneFrame src={SS.friends} alt="App friends screen" width={200} height={430} tilt={-22} />
@@ -517,7 +525,7 @@ export default function AppPage() {
                         <motion.div
                             className="hidden sm:block"
                             initial={{ opacity: 0, x: -80, rotate: -6 }}
-                            whileInView={{ opacity: 0.4, x: 0, rotate: -6, y: 40 }}
+                            whileInView={{ opacity: 1, x: 0, rotate: -6, y: 40 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
                         >
@@ -538,7 +546,7 @@ export default function AppPage() {
                         <motion.div
                             className="hidden sm:block"
                             initial={{ opacity: 0, x: 80, rotate: 6 }}
-                            whileInView={{ opacity: 0.4, x: 0, rotate: 6, y: 40 }}
+                            whileInView={{ opacity: 1, x: 0, rotate: 6, y: 40 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
                         >
