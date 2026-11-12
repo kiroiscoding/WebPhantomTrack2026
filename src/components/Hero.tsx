@@ -5,6 +5,10 @@ import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Star, ArrowRight } from "lucide-react";
 
+// Same footage in two codecs, both hardware-decoded. Browsers only report HEVC
+// support when a hardware decoder exists; everyone else gets the H.264 file.
+// HEVC (~13MB) is visually identical to the H.264 fallback (~19MB).
+const HERO_BG_VIDEO_HEVC = "/videos/TestCanlanVid.hevc.mp4";
 const HERO_BG_VIDEO = "/videos/TestCanlanVid.mp4";
 const HERO_BG_POSTER = "/images/hero-bg.jpg";
 
@@ -23,8 +27,20 @@ const reviews = [
     },
 ];
 
+// Entrance animations run in CSS (see .hero-enter in globals.css) so they start
+// at first paint instead of waiting for hydration. Same offset/duration/delay/
+// easing as the framer-motion tweens they replace.
+function heroEnter(fromY: number, duration: number, delay: number): React.CSSProperties {
+    return {
+        "--hero-from-y": `${fromY}px`,
+        "--hero-duration": `${duration}s`,
+        "--hero-delay": `${delay}s`,
+    } as React.CSSProperties;
+}
+
 export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
     const [activeReview, setActiveReview] = useState(0);
     const [isMobileViewport, setIsMobileViewport] = useState(false);
     const [lockedMobileHeight, setLockedMobileHeight] = useState<number | null>(null);
@@ -41,6 +57,24 @@ export function Hero() {
             setActiveReview((prev) => (prev + 1) % reviews.length);
         }, 5000);
         return () => clearInterval(timer);
+    }, []);
+
+    // Stop decoding the 1080p background video while the hero is off-screen,
+    // so the rest of the page scrolls without competing for the GPU.
+    useEffect(() => {
+        const section = containerRef.current;
+        const video = videoRef.current;
+        if (!section || !video) return;
+
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                video.play().catch(() => {});
+            } else {
+                video.pause();
+            }
+        });
+        observer.observe(section);
+        return () => observer.disconnect();
     }, []);
 
     useEffect(() => {
@@ -77,12 +111,16 @@ export function Hero() {
                 height: lockedMobileHeight ? `${lockedMobileHeight}px` : "100svh",
             }}
         >
+            {/* Fetch the poster at top priority so the hero is never a black box */}
+            <link rel="preload" as="image" href={HERO_BG_POSTER} fetchPriority="high" />
+
             {/* Background Image with Parallax */}
             <motion.div
                 style={isMobileViewport ? undefined : { y: bgY }}
                 className="absolute inset-0 md:-top-[10%] md:-bottom-[10%]"
             >
                 <video
+                    ref={videoRef}
                     className="h-full w-full object-cover"
                     autoPlay
                     muted
@@ -91,6 +129,7 @@ export function Hero() {
                     preload="metadata"
                     poster={HERO_BG_POSTER}
                 >
+                    <source src={HERO_BG_VIDEO_HEVC} type='video/mp4; codecs="hvc1.1.6.L120.90"' />
                     <source src={HERO_BG_VIDEO} type="video/mp4" />
                 </video>
             </motion.div>
@@ -102,11 +141,9 @@ export function Hero() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-black/18 pointer-events-none" />
 
             {/* Shop CTA — top right, desktop only */}
-            <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1 }}
-                className="absolute top-8 right-10 z-20 hidden md:block"
+            <div
+                className="hero-enter absolute top-8 right-10 z-20 hidden md:block"
+                style={heroEnter(-10, 0.5, 1)}
             >
                 <Link
                     href="/products"
@@ -115,40 +152,34 @@ export function Hero() {
                     Shop Now
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
-            </motion.div>
+            </div>
 
             {/* Main content — bottom left editorial layout */}
             <motion.div
                 className="absolute bottom-0 left-0 right-0 z-10 px-5 md:px-10 pb-10 md:pb-14"
             >
                 {/* Headline — full width, large */}
-                <motion.h1
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                    className="text-[17vw] sm:text-[14vw] md:text-[12vw] lg:text-[11vw] font-black tracking-tighter text-white leading-[0.85] mb-6 md:mb-8"
+                <h1
+                    style={heroEnter(40, 0.8, 0.3)}
+                    className="hero-enter text-[17vw] sm:text-[14vw] md:text-[12vw] lg:text-[11vw] font-black tracking-tighter text-white leading-[0.85] mb-6 md:mb-8"
                 >
                     DATA<br />DRIVEN<span className="text-primary">.</span>
-                </motion.h1>
+                </h1>
 
                 {/* Bottom row: subtitle left, review right */}
                 <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
                     {/* Subtitle */}
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.6 }}
-                        className="text-sm md:text-base text-white/50 font-medium max-w-[260px] md:max-w-xs leading-snug"
+                    <p
+                        style={heroEnter(20, 0.6, 0.6)}
+                        className="hero-enter text-sm md:text-base text-white/50 font-medium max-w-[260px] md:max-w-xs leading-snug"
                     >
                         Elevate your training experience,<br />bringing data to life.
-                    </motion.p>
+                    </p>
 
                     {/* Review strip — bottom right */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
-                        className="flex flex-col items-start sm:items-end gap-2"
+                    <div
+                        style={heroEnter(20, 0.6, 0.8)}
+                        className="hero-enter flex flex-col items-start sm:items-end gap-2"
                     >
                         <div className="flex gap-1">
                             {[1, 2, 3, 4, 5].map((i) => (
@@ -185,7 +216,7 @@ export function Hero() {
                                 />
                             ))}
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </motion.div>
 

@@ -24,11 +24,25 @@ import {
 } from "@/lib/products";
 import { useCartStore } from "@/lib/cartStore";
 
+// Per-photo crop focus for the gallery (default is centered). Keys are image
+// URLs (or a stable substring of a Shopify CDN filename).
+const IMAGE_FOCUS: Record<string, string> = {
+  // Keep the ball at the top of the bicycle kick in frame.
+  BicyclePicture: "50% 20%",
+};
+
+function imageFocus(src: string | undefined): string | undefined {
+  if (!src) return undefined;
+  const key = Object.keys(IMAGE_FOCUS).find((k) => src.includes(k));
+  return key ? IMAGE_FOCUS[key] : undefined;
+}
+
 export default function ProductDetailClient({ product }: { product: Product }) {
   const [activeImage, setActiveImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState(
     product.sizes.includes("M") ? "M" : (product.sizes[0] ?? "M")
   );
+  const selectedSizeInfo = VEST_SIZE_CHART.find((row) => row.size === selectedSize);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
 
@@ -73,6 +87,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                     fill
                     sizes="(max-width: 1024px) 100vw, 58vw"
                     className="object-cover object-center"
+                    style={{ objectPosition: imageFocus(activeSrc) }}
                     priority
                   />
                 ) : (
@@ -114,17 +129,9 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                             fill
                             sizes="80px"
                             className="object-cover object-center"
+                            style={{ objectPosition: imageFocus(img) }}
                           />
                         </span>
-                        {label && (
-                          <span
-                            className={`max-w-[80px] text-center text-[10px] font-medium leading-tight ${
-                              activeImage === idx ? "text-white" : "text-white/45"
-                            }`}
-                          >
-                            {label}
-                          </span>
-                        )}
                       </button>
                     );
                   })}
@@ -175,11 +182,9 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                   </div>
                 )}
 
-                <div className="text-4xl font-mono mb-6 border-b border-white/10 pb-6">
+                <div className="text-4xl font-mono mb-8 border-b border-white/10 pb-6">
                   {comingSoon ? "Coming soon" : formatUsdFromCents(displayPriceCents)}
                 </div>
-
-                <p className="text-white/70 text-lg leading-relaxed mb-8">{product.description}</p>
 
                 {/* Size picker + guide */}
                 {hasSizes && !comingSoon && (
@@ -218,6 +223,12 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                       ))}
                     </div>
 
+                    {selectedSizeInfo && (
+                      <p className="text-sm font-semibold text-white/80">
+                        Chest band circumference: {selectedSizeInfo.bandCm} ({selectedSizeInfo.bandIn})
+                      </p>
+                    )}
+
                     <AnimatePresence initial={false}>
                       {sizeGuideOpen && (
                         <motion.div
@@ -228,15 +239,14 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                           className="overflow-hidden"
                         >
                           <div className="mt-2 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                            <p className="mb-3 text-xs text-white/45">
-                              Measure around the fullest part of your chest. Compression fit — size
-                              up if between sizes.
-                            </p>
                             <table className="w-full text-sm">
                               <thead>
                                 <tr className="text-left text-white/40 text-xs uppercase tracking-wider">
-                                  <th className="pb-2 font-semibold">Size</th>
-                                  <th className="pb-2 font-semibold">Chest</th>
+                                  <th className="pb-2 pr-2 font-semibold">Size</th>
+                                  <th className="pb-2 pr-2 font-semibold">Band</th>
+                                  <th className="pb-2 pr-2 font-semibold">Chest</th>
+                                  <th className="pb-2 pr-2 font-semibold">Height</th>
+                                  <th className="pb-2 font-semibold">Weight</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -247,8 +257,14 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                                       selectedSize === row.size ? "text-white" : "text-white/70"
                                     }`}
                                   >
-                                    <td className="py-2.5 font-bold">{row.size}</td>
-                                    <td className="py-2.5 font-mono">{row.chest}</td>
+                                    <td className="py-2.5 pr-2 font-bold">{row.size}</td>
+                                    <td className="py-2.5 pr-2 font-mono text-xs whitespace-nowrap">
+                                      {row.bandCm}
+                                      <span className="hidden sm:inline"> ({row.bandIn})</span>
+                                    </td>
+                                    <td className="py-2.5 pr-2 font-mono text-xs whitespace-nowrap">{row.chest}</td>
+                                    <td className="py-2.5 pr-2 text-xs whitespace-nowrap">{row.height}</td>
+                                    <td className="py-2.5 text-xs whitespace-nowrap">{row.weight}</td>
                                   </tr>
                                 ))}
                               </tbody>
@@ -319,14 +335,14 @@ export default function ProductDetailClient({ product }: { product: Product }) {
       </section>
 
       {/* Specs (only when the product has features/specs to show) */}
-      {(product.features.length > 0 || product.specs.length > 0) && (
+      {((product.inTheBox ?? product.features).length > 0 || product.specs.length > 0) && (
       <section className="px-6 lg:px-8 mb-32">
         <div className="mx-auto max-w-[1400px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-[#111111] border border-white/10 p-6 md:p-12 rounded-[28px] md:rounded-[40px]">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8">WHATS INSIDE.</h3>
               <div className="space-y-6">
-                {product.features.map((feature, i) => (
+                {(product.inTheBox ?? product.features).map((feature, i) => (
                   <div key={i} className="flex items-start gap-4">
                     <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center mt-1">
                       <Check className="w-3 h-3 text-primary" />

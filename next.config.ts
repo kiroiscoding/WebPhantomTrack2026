@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
     // Product photos served from Shopify's CDN.
     remotePatterns: [{ protocol: "https", hostname: "cdn.shopify.com", pathname: "/**" }],
   },
+  async redirects() {
+    return [
+      // Apparel was removed from the store; send old links to the shop.
+      { source: "/products/apparel", destination: "/products", permanent: false },
+    ];
+  },
   async headers() {
     return [
       {
@@ -22,7 +28,27 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // Static media in /public is otherwise served with max-age=0, forcing a
+        // revalidation round trip for every image/video on every visit.
+        source: "/:all*(\\.mp4|\\.webm|\\.jpg|\\.jpeg|\\.png|\\.webp|\\.avif|\\.svg|\\.woff2)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+        ],
+      },
+      {
+        source: "/fonts/:file*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
         source: "/.well-known/apple-app-site-association",
+        headers: [
+          { key: "Content-Type", value: "application/json" },
+        ],
+      },
+      {
+        source: "/.well-known/assetlinks.json",
         headers: [
           { key: "Content-Type", value: "application/json" },
         ],

@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.phantomtrack.app",
+      "sha256_cert_fingerprints": [
+        "21:2F:D6:05:1A:89:72:49:B3:9F:31:89:5A:18:CA:03:EC:87:8E:22:21:4E:DA:06:04:C3:30:5E:3F:EF:44:EC",
+        "CB:D7:76:B7:72:0E:EA:3F:D2:2C:EB:67:A6:B5:20:A4:00:6A:34:39:7A:06:B7:AE:D5:B8:FB:33:33:B3:5B:10"
+      ]
+    }
+  }
+]

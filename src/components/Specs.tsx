@@ -4,9 +4,9 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { StoreBadges } from "@/components/StoreBadges";
 import { Map, Download, ArrowRight, Brain, Users, Star } from "lucide-react";
 
-const APP_STORE_URL = "https://apps.apple.com/us/app/phantom-track/id6758968140";
 
 const appHighlights = [
     { title: "AI Coaching", description: "Personalized training insights", icon: Brain },
@@ -154,10 +154,10 @@ export function Specs() {
                             <Image
                                 src="/app/screenshots/newPhotosAPP.png"
                                 alt="Phantom Track app — performance dashboard and match analysis"
-                                width={1400}
-                                height={1800}
+                                width={1012}
+                                height={1440}
+                                sizes="(max-width: 768px) 360px, (max-width: 1024px) 440px, 500px"
                                 className="w-full h-auto select-none drop-shadow-2xl"
-                                priority
                             />
                         </motion.div>
                     </div>
@@ -194,16 +194,8 @@ export function Specs() {
                         {/* Divider */}
                         <div className="hidden sm:block w-px h-5 bg-white/10" />
 
-                        {/* CTA */}
-                        <a
-                            href={APP_STORE_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-white transition-colors"
-                        >
-                            Get the App
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                        </a>
+                        {/* Store badges */}
+                        <StoreBadges />
                     </div>
                 </motion.div>
             </div>

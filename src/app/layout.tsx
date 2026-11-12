@@ -154,11 +154,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Syne is self-hosted (see globals.css) — no render-blocking Google Fonts round trip */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap"
-          rel="stylesheet"
+          rel="preload"
+          href="/fonts/syne-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
         />
         <script
           type="application/ld+json"
