@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { PRODUCTS } from "@/lib/products";
+import { getCatalogList } from "@/lib/catalog";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://phantom-track.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/acceptable-use`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
   ];
 
-  const productRoutes: MetadataRoute.Sitemap = Object.values(PRODUCTS).map((product) => ({
+  const productRoutes: MetadataRoute.Sitemap = (await getCatalogList()).map((product) => ({
     url: `${SITE_URL}/products/${product.slug}`,
     lastModified: now,
     changeFrequency: "weekly",

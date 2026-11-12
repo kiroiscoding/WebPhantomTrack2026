@@ -27,7 +27,7 @@ export function CartDrawer() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          items: items.map((x) => ({ slug: x.slug, quantity: x.quantity, variant: x.variant })),
+          items: items.map((x) => ({ variantId: x.variantId, quantity: x.quantity })),
         }),
       });
       if (!res.ok) {
@@ -35,7 +35,11 @@ export function CartDrawer() {
         throw new Error(msg || "Checkout failed");
       }
       const data = (await res.json()) as { url?: string };
-      if (!data.url) throw new Error("Stripe session URL missing");
+      if (!data.url) throw new Error("Checkout URL missing");
+      // Shopify shows its own thank-you page after payment, so empty the
+      // site cart now that the order lives in Shopify's checkout.
+      clear();
+      closeCart();
       window.location.href = data.url;
     } catch (e) {
       setError(e instanceof Error ? e.message : "Checkout failed");

@@ -28,8 +28,6 @@ function TikTokIcon({ className }: { className?: string }) {
 
 const shopLinks = [
   { name: "Shop all", href: "/products" },
-  { name: "Tracker Combo", href: "/products/tracker-combo" },
-  { name: "Phantom Vest", href: "/products/phantom-vest" },
   { name: "The App", href: "/app" },
 ];
 
