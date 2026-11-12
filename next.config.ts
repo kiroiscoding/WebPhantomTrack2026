@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [75, 90, 100],
+    // Product photos served from Shopify's CDN.
+    remotePatterns: [{ protocol: "https", hostname: "cdn.shopify.com", pathname: "/**" }],
   },
   async headers() {
     return [

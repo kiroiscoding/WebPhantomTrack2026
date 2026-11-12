@@ -72,7 +72,7 @@ export function InAction() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <Link
-              href="/products/phantom-vest"
+              href="/products"
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold tracking-wide text-black transition-colors hover:bg-gray-200"
             >
               Shop the Vest

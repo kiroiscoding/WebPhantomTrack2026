@@ -92,7 +92,7 @@ export function GrandFinale() {
                                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                             </Link>
                             <Link
-                                href="/products/tracker-combo"
+                                href="/products"
                                 className="inline-flex items-center justify-center px-8 py-3.5 rounded-full font-bold text-base tracking-wide text-white border border-white/15 hover:bg-white/10 transition-colors"
                             >
                                 View the Tracker

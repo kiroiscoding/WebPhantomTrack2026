@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { getProduct, formatUsdFromCents } from "@/lib/products";
+import { formatUsdFromCents } from "@/lib/products";
+import { getCatalogProduct } from "@/lib/catalog";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://phantom-track.com";
 
@@ -11,7 +12,7 @@ export async function generateMetadata({
   params: Promise<LayoutParams>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await getCatalogProduct(slug);
 
   if (!product) {
     return {
@@ -50,7 +51,7 @@ export default async function ProductLayout({
   params: Promise<LayoutParams>;
 }) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await getCatalogProduct(slug);
 
   const productSchema = product
     ? {
