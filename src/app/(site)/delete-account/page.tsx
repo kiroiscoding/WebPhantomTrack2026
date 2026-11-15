@@ -76,16 +76,19 @@ export default function DeleteAccountPage() {
                 <li><strong className="text-white">Sessions</strong>: every synced match, including GPS tracks, heatmaps, sprints and stats.</li>
                 <li><strong className="text-white">Friends</strong>: your friend list, friend requests and invite links.</li>
                 <li><strong className="text-white">Notifications</strong>: the push notification tokens for your phones.</li>
-                <li><strong className="text-white">Shop orders</strong>: order and shipping records linked to your account in our database.</li>
               </ul>
             </Section>
 
-            {/* TODO-LEGAL-REVIEW: set how long deletion records are kept. */}
+            {/* TODO-LEGAL-REVIEW: set how long deletion records and unlinked orders are kept. */}
             <Section title="What is kept">
               <ul className="list-disc pl-5 space-y-2 text-white/70">
                 <li>
                   A deletion record (your account ID, email address and the date) so we can show the request was
                   carried out and prevent abuse.
+                </li>
+                <li>
+                  Shop orders from phantom-track.com: the order, payment and shipping details are kept for tax,
+                  refund and warranty records, but are no longer linked to an account.
                 </li>
                 <li>
                   Payment and shipping records held by our payment processor (Stripe) and shipping provider, which
