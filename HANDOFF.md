@@ -1,4 +1,4 @@
-# phantom-track.com handoff (last updated 2026-10-21)
+# phantom-track.com handoff (last updated 2026-11-15)
 
 Start here if you're an AI or a new developer picking up the site. Read `CLAUDE.md` first: it lists the owner's standing rules.
 
@@ -87,18 +87,19 @@ The homepage "Trusted by Ballers" section is `src/components/SocialProof.tsx`, b
 1. **Go live.**
    - Merge `site-cleanup` into `main`, but only on the owner's OK.
    - Before merging, check the Vercel preview, including phone widths around 375–430 px. The angled phones on `/app` haven't been checked at those widths yet.
-2. **Android launch copy.**
+2. **Account deletion page.** `/delete-account` (added 2026-11-15) is the URL Google Play asks for under Data safety → account deletion. It is on `site-cleanup` only, so it isn't live until the merge. Two drafts are marked `TODO-LEGAL-REVIEW`: the 30-day window for emailed requests and how long deletion records are kept. The page lists what the app's `delete_account` function removes; update it if that function changes.
+3. **Android launch copy.**
    - Google Play internal testing can start on 2026-10-22.
    - Once the app is public on Play, update the iOS-only wording:
      - `products/[slug]/page.tsx` ("Requires iPhone… Android app coming soon");
      - "free iOS app" in the `products/layout.tsx` and `app/layout.tsx` metadata;
      - "iOS app" in the privacy and terms text, and the iPhone-only settings line in Privacy.
    - The Google Play buttons on `/invite` and `/add` are already on `main`. They point at the Play listing, which only works once the app is published.
-3. **Frame licensing.**
+4. **Frame licensing.**
    - The iPhone frame is the Simulator's chrome.
    - For marketing, consider switching to Apple's official Product Bezels from developer.apple.com/design/resources.
    - Apply the same check to the Pixel skin.
-4. **iOS homepage mockup.**
+5. **iOS homepage mockup.**
    - The iOS mockup is still a 2D composite onto the older template. The Android one is a 3D studio render.
    - Restyle the iOS one if the owner wants them to match.
-5. **Gallery weight.** Consider smaller or WebP gallery photos if the homepage feels slow on mobile.
+6. **Gallery weight.** Consider smaller or WebP gallery photos if the homepage feels slow on mobile.

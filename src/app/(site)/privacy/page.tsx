@@ -93,7 +93,7 @@ export default function PrivacyPolicyPage() {
             <Section title="Your choices">
               <ul className="list-disc pl-5 space-y-2 text-white/70">
                 <li>Access/update your account information.</li>
-                <li>Request deletion of your account (subject to required record retention).</li>
+                <li>Delete your account in the app or by email. See <a className="text-primary underline" href="/delete-account">Delete your account</a> for the steps and what is kept.</li>
                 <li>Opt out of non-essential communications.</li>
               </ul>
             </Section>
