@@ -157,7 +157,7 @@ export function Hero() {
 
                     <div style={heroEnter(20, 0.6, 0.8)} className="hero-enter">
                         <Link
-                            href="/products/tracker-combo"
+                            href="/products"
                             className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-bold tracking-wide text-white transition-all hover:bg-purple-500 hover:shadow-[0_0_40px_rgba(168,85,247,0.5)]"
                         >
                             Get the Tracker Combo

@@ -2,10 +2,12 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { Product } from "@/lib/products";
+import { findVariant, type Product } from "@/lib/products";
 
 export type CartLine = {
-  id: string; // unique line id (product+variant)
+  id: string; // unique line id (= Shopify variant ID)
+  /** Shopify ProductVariant GID sent to checkout. */
+  variantId: string;
   slug: string;
   name: string;
   priceCents: number;
@@ -25,10 +27,6 @@ type CartState = {
   clear: () => void;
 };
 
-function lineId(slug: string, variant?: string) {
-  return `${slug}::${variant ?? ""}`;
-}
-
 export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
@@ -40,7 +38,9 @@ export const useCartStore = create<CartState>()(
       addItem: (product, opts) => {
         const quantity = Math.max(1, opts?.quantity ?? 1);
         const variant = opts?.variant?.trim() || undefined;
-        const id = lineId(product.slug, variant);
+        const shopifyVariant = findVariant(product, variant);
+        if (!shopifyVariant?.availableForSale) return;
+        const id = shopifyVariant.id;
 
         set((state) => {
           const existing = state.items.find((x) => x.id === id);
@@ -55,9 +55,10 @@ export const useCartStore = create<CartState>()(
               ...state.items,
               {
                 id,
+                variantId: shopifyVariant.id,
                 slug: product.slug,
                 name: product.name,
-                priceCents: product.priceCents,
+                priceCents: shopifyVariant.priceCents,
                 quantity,
                 variant,
               },
@@ -76,7 +77,8 @@ export const useCartStore = create<CartState>()(
       clear: () => set({ items: [] }),
     }),
     {
-      name: "phantomtrack_cart_v1",
+      // v2: lines carry Shopify variant IDs; older carts (Stripe era) are dropped.
+      name: "phantomtrack_cart_v2",
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({ items: state.items }),
     }

@@ -1,4 +1,4 @@
-# phantom-track.com handoff (last updated 2026-11-15)
+# phantom-track.com handoff (last updated 2026-11-16)
 
 Start here if you're an AI or a new developer picking up the site. Read `CLAUDE.md` first: it lists the owner's standing rules.
 
@@ -9,9 +9,8 @@ The site is Next.js 16 (Turbopack) with Tailwind v4 and framer-motion.
 **Branches**
 - **`main`**: production. Vercel deploys phantom-track.com from it.
 - **`site-cleanup`**: the working branch. Vercel gives it login-protected previews.
-  - It is ahead of `main` by the commits listed in `git log origin/main..site-cleanup`.
-  - It already contains everything on `main`.
-  - It is not live yet. **Merge it into `main` only when the owner says so.**
+  - **Went live 2026-11-16** (owner's OK): `site-cleanup` took in `main`'s Shopify headless checkout (`c14abac`) and `main` was fast-forwarded to it.
+  - Keep working here. **Merge into `main` only when the owner says so.**
 
 **What going live would publish**
 
@@ -29,6 +28,15 @@ Merging `site-cleanup` into `main` publishes:
 
 - Run `npm run dev` and open http://localhost:3000.
 - `?platform=ios` or `?platform=android` forces either screenshot set, for example `/app?platform=android`.
+
+## Shop (Shopify headless)
+
+Since 2026-11-12 the shop runs on Shopify's Storefront API instead of Stripe (`src/lib/shopify.ts`, `src/lib/catalog.ts`). Products, prices, photos and copy come from whatever is published to the Shopify **Headless** sales channel, and each product's URL is its Shopify handle: `/products/<handle>`.
+
+- When `site-cleanup` merged on 2026-11-16, the owner said **Shopify supersedes**: every conflict took the Shopify version. The only things re-applied on top were the approved copy fixes ("Shop", not "Armory"; no "touch" claim; "What's inside" vs "Features").
+- The old hard-coded slugs `tracker-combo` and `phantom-vest` no longer exist, so the homepage buttons (Hero, InAction) now go to `/products`. Point them at real product pages once those handles exist in Shopify. On 2026-11-16 the only live product was `test-product-shopify`.
+- **Building locally:** `.env.local` has no Shopify, Supabase or Stripe settings, so `npm run build` fails (the Stripe and Supabase clients are made at import time). Pass `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` and a dummy `STRIPE_SECRET_KEY` on the command line; without Shopify settings the shop is just empty. Vercel has the real values.
+- `npm run lint` has 2 errors (`account/page.tsx`, `VerifyConfirmedClient.tsx`, setState in an effect) that pre-date the merge.
 
 ## How the app screenshots work
 
@@ -84,14 +92,11 @@ The homepage "Trusted by Ballers" section is `src/components/SocialProof.tsx`, b
 
 ## Still to do
 
-1. **Go live.**
-   - Merge `site-cleanup` into `main`, but only on the owner's OK.
-   - Before merging, check the Vercel preview, including phone widths around 375–430 px. The angled phones on `/app` haven't been checked at those widths yet.
-2. **Account deletion page.** `/delete-account` (added 2026-11-15) is the URL Google Play asks for under Data safety → account deletion. It is on `site-cleanup` only, so it isn't live until the merge. Two drafts are marked `TODO-LEGAL-REVIEW`: the 30-day window for emailed requests and how long deletion records are kept. The page lists what the app's `delete_account` function removes; update it if that function changes.
+1. **Check the live site at phone widths.** The merge went live on 2026-11-16. The angled phones on `/app` still haven't been checked at around 375–430 px.
+2. **Account deletion page.** `/delete-account` (added 2026-11-15) is the URL Google Play asks for under Data safety → account deletion. Live since 2026-11-16. Two drafts are marked `TODO-LEGAL-REVIEW`: the 30-day window for emailed requests and how long deletion records are kept. The page lists what the app's `delete_account` function removes; update it if that function changes.
 3. **Android launch copy.**
    - Google Play internal testing can start on 2026-10-22.
    - Once the app is public on Play, update the iOS-only wording:
-     - `products/[slug]/page.tsx` ("Requires iPhone… Android app coming soon");
      - "free iOS app" in the `products/layout.tsx` and `app/layout.tsx` metadata;
      - "iOS app" in the privacy and terms text, and the iPhone-only settings line in Privacy.
    - The Google Play buttons on `/invite` and `/add` are already on `main`. They point at the Play listing, which only works once the app is published.

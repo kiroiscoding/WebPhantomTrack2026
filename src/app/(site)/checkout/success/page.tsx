@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { ClearCartOnSuccess } from "@/components/ClearCartOnSuccess";
-import { SyncOrderOnSuccess } from "@/components/SyncOrderOnSuccess";
 
 export const metadata: Metadata = {
   title: "Order Confirmed",
@@ -26,9 +24,6 @@ export default function CheckoutSuccessPage() {
           <p className="mt-6 text-white/70 text-lg md:text-xl max-w-2xl">
             Your order is confirmed. You’ll receive a receipt and shipping updates via email.
           </p>
-          <Suspense fallback={null}>
-            <SyncOrderOnSuccess />
-          </Suspense>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
             <Link

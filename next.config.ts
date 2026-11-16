@@ -5,14 +5,14 @@ const nextConfig: NextConfig = {
   // <Image unoptimized> opt out of this on a per-image basis.
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [75, 90],
+    qualities: [75, 90, 100],
+    // Product photos served from Shopify's CDN.
+    remotePatterns: [{ protocol: "https", hostname: "cdn.shopify.com", pathname: "/**" }],
   },
   async redirects() {
     return [
       // Apparel was removed from the store; send old links to the shop.
       { source: "/products/apparel", destination: "/products", permanent: false },
-      // The Acceptable Use page was removed; prohibited use lives in the Terms.
-      { source: "/acceptable-use", destination: "/terms", permanent: false },
     ];
   },
   async headers() {
